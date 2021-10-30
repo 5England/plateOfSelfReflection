@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "928590154784",
+    "project_id": "plateofselfreflection",
+    "storage_bucket": "plateofselfreflection.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928590154784:android:0a5a78b5cbce6680874045",
+        "android_client_info": {
+          "package_name": "com.devwan.plateofselfreflection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928590154784-nchsl5frm8c9n30sfel3d1nqkr3b97cf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devwan.plateofselfreflection",
+            "certificate_hash": "9629c5b738347e31dec89e4a90a6ce48d81a5917"
+          }
+        },
+        {
+          "client_id": "928590154784-d75fgql6oseredl0jtah4r8lp55778l6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDh5ZdyzfGeyWnehwoMvtDZZl6JJfAcGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928590154784-d75fgql6oseredl0jtah4r8lp55778l6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
