@@ -3,7 +3,7 @@
     <style name="Theme.PlateOfSelfReflection" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/brown3</item>
-        <item name="colorPrimaryVariant">@color/brown1</item>
+        <item name="colorPrimaryVariant">@color/brown3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -17,5 +17,15 @@
     <style name="Widget.BottomNavigationView"
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/spo_regular</item>
+    </style>
+
+    <style name="SignInTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/brown1</item>
+        <item name="colorPrimaryVariant">@color/brown1</item>
+        <item name="colorAccent">@color/brown1</item>
+        <item name="android:colorBackground">@color/brown1</item>
+
+        <!-- On API 21+ you can use android:statusBarColor -->
+        <item name="colorPrimaryDark">@color/brown3</item>
     </style>
 </resources>

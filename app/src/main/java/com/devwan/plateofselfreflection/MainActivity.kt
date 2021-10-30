@@ -1,20 +1,35 @@
 package com.devwan.plateofselfreflection
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnAuthServiceListener{
+
+    private val firebaseAuthentication = FirebaseAuthentication(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initNavigationBar()
+        if(isLoggedIn()) {
+            initNavigationBar()
+        }else{
+            firebaseAuthentication.signIn()
+        }
+    }
+
+    private fun isLoggedIn() : Boolean{
+        var isLoggedIn : Boolean = false
+        val uid : String? = getSharedPreferences("authSP", Context.MODE_PRIVATE).getString("uid", null)
+        uid?.let { isLoggedIn = true }
+        return isLoggedIn
     }
 
     private fun initNavigationBar() {
-        val bnv = findViewById<BottomNavigationView>(R.id.main_bnv)
+        val bnv = findViewById<BottomNavigationView>(R.id.bnv_main)
 
         bnv.run {
             setOnItemSelectedListener {
@@ -31,5 +46,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+    }
+
+    override fun onSignInComplete() {
+        initNavigationBar()
+    }
+
+    override fun signOut() {
+        firebaseAuthentication.signOut()
     }
 }

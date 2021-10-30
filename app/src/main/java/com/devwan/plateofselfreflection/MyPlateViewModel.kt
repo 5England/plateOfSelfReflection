@@ -8,7 +8,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 
 class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    val userRepo : FireStoreRepository = FireStoreRepository()
+    val userRepo : FirestoreRepository = FirestoreRepository()
     val userId : String? = savedStateHandle["uid"]
 
     private var _plate = MutableLiveData<List<DocumentSnapshot>>()

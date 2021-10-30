@@ -23,7 +23,7 @@ class MyPlateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView : View = inflater.inflate(R.layout.fragment_all_plate, container, false)
+        val rootView : View = inflater.inflate(R.layout.fragment_my_plate, container, false)
 
         return rootView
     }
