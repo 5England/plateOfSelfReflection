@@ -18,6 +18,10 @@
         android:id="@+id/main_bnv"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:menu="@menu/menu_icon"/>
+        android:background="@color/brown3"
+        app:menu="@menu/menu_icon"
+        app:itemTextColor="@drawable/menu_selector_color"
+        app:itemIconTint="@drawable/menu_selector_color"
+        />
 
 </LinearLayout>

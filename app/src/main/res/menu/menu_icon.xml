@@ -3,15 +3,17 @@
     <item
         android:id="@+id/icon_home"
         android:enabled="true"
+        android:icon="@drawable/menu_icon_home"
         android:title="HOME" />
     <item
         android:id="@+id/icon_feed"
         android:enabled="true"
-        android:title="모두의 반성"
-        />
+        android:icon="@drawable/menu_icon_all_plate"
+        android:title="모두의 반성" />
     <item
         android:id="@+id/icon_myFeed"
         android:enabled="true"
+        android:icon="@drawable/menu_icon_my_plate"
         android:title="나의 반성" />
 
 </menu>
