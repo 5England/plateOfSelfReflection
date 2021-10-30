@@ -10,16 +10,12 @@ import android.widget.Button
 
 class HomeFragment : Fragment() {
 
-    interface OnSignOutListener{
-        fun signOut()
-    }
-
-    lateinit var onSignOutListener : OnSignOutListener
+    lateinit var onAuthServiceListener : OnAuthServiceListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        onSignOutListener = context as OnSignOutListener
+        onAuthServiceListener = context as OnAuthServiceListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +31,7 @@ class HomeFragment : Fragment() {
 
         val signOutButton = rootView.findViewById<Button>(R.id.btn_signout)
         signOutButton.setOnClickListener{
-            onSignOutListener.signOut()
+            onAuthServiceListener.signOut()
         }
 
         return rootView

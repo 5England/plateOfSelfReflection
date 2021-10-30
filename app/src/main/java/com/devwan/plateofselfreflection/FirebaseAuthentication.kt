@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import android.app.Activity
 import android.content.Context
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
@@ -9,7 +10,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 
-class FirebaseAuthentication (val activity : AppCompatActivity){
+class FirebaseAuthentication (private val activity : AppCompatActivity){
 
     private val signInLauncher = activity.registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -43,8 +44,26 @@ class FirebaseAuthentication (val activity : AppCompatActivity){
                 putString("uid", user?.uid)
                 commit()
             }
+
+            val onAuthServiceListener : OnAuthServiceListener = activity as OnAuthServiceListener
+            onAuthServiceListener.onSignInComplete()
+
         } else {
             activity.finish()
         }
+    }
+
+    fun signOut() {
+        AuthUI.getInstance().signOut(activity).addOnCompleteListener {
+            Toast.makeText(activity, "Log-Out", Toast.LENGTH_SHORT)
+        }
+
+        val authSP = activity.getSharedPreferences("authSP", Context.MODE_PRIVATE)
+        authSP.edit().apply {
+            clear()
+            commit()
+        }
+
+        signIn()
     }
 }

@@ -6,7 +6,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), HomeFragment.OnSignOutListener {
+class MainActivity : AppCompatActivity(), OnAuthServiceListener{
+
+    private val firebaseAuthentication = FirebaseAuthentication(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,7 +17,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnSignOutListener {
         if(isLoggedIn()) {
             initNavigationBar()
         }else{
-            val firebaseAuthentication = FirebaseAuthentication(this)
             firebaseAuthentication.signIn()
         }
     }
@@ -24,10 +26,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnSignOutListener {
         val uid : String? = getSharedPreferences("authSP", Context.MODE_PRIVATE).getString("uid", null)
         uid?.let { isLoggedIn = true }
         return isLoggedIn
-    }
-
-    override fun signOut() {
-
     }
 
     private fun initNavigationBar() {
@@ -48,5 +46,13 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnSignOutListener {
 
     private fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+    }
+
+    override fun onSignInComplete() {
+        initNavigationBar()
+    }
+
+    override fun signOut() {
+        firebaseAuthentication.signOut()
     }
 }
