@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView : View = inflater.inflate(R.layout.fragment_all_plate, container, false)
+        val rootView : View = inflater.inflate(R.layout.fragment_home, container, false)
 
         val signOutButton = rootView.findViewById<Button>(R.id.btn_signout)
         signOutButton.setOnClickListener{

@@ -1,5 +1,6 @@
 package com.devwan.plateofselfreflection
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +11,19 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnSignOutListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initNavigationBar()
+        if(isLoggedIn()) {
+            initNavigationBar()
+        }else{
+            val firebaseAuthentication = FirebaseAuthentication(this)
+            firebaseAuthentication.signIn()
+        }
+    }
+
+    private fun isLoggedIn() : Boolean{
+        var isLoggedIn : Boolean = false
+        val uid : String? = getSharedPreferences("authSP", Context.MODE_PRIVATE).getString("uid", null)
+        uid?.let { isLoggedIn = true }
+        return isLoggedIn
     }
 
     override fun signOut() {
