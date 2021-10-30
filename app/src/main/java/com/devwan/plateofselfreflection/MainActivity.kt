@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeFragment.OnSignOutListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -13,8 +13,12 @@ class MainActivity : AppCompatActivity() {
         initNavigationBar()
     }
 
+    override fun signOut() {
+
+    }
+
     private fun initNavigationBar() {
-        val bnv = findViewById<BottomNavigationView>(R.id.main_bnv)
+        val bnv = findViewById<BottomNavigationView>(R.id.bnv_main)
 
         bnv.run {
             setOnItemSelectedListener {
