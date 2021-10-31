@@ -3,8 +3,11 @@ package com.devwan.plateofselfreflection
 import android.content.ContentValues
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.tasks.await
 
 class FirestoreRepository {
     val db = Firebase.firestore
@@ -32,5 +35,24 @@ class FirestoreRepository {
             .addOnFailureListener { e ->
                 Log.w(ContentValues.TAG, "Error adding document", e)
             }
+    }
+
+    suspend fun getPlateList():List<DocumentSnapshot>{
+        var snapshotList : MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
+
+        coroutineScope{
+            db.collection("plate")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            snapshotList.add(document)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                    }
+        }.await()
+
+        return snapshotList
     }
 }
