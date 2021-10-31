@@ -47,16 +47,29 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_getList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="get" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_allPlate"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/brown1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_allPlate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="11dp"
+        android:layout_margin="2dp"
+        android:text="피드를 밑으로 당겨 새로고침할 수 있어요" />
 
 
 </LinearLayout>

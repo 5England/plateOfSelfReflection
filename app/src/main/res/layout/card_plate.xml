@@ -49,36 +49,35 @@
                     android:id="@+id/text_mainText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="11dp"
                     android:maxLength="15"
                     android:singleLine="true"
-                    android:paddingBottom="2dp"
-                    android:fontFamily="@font/spo_light"
-                    android:textColor="#676767"
+                    android:fontFamily="@font/spo_regular"
+                    android:textColor="#838383"
                     android:text="내용" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="bottom"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/text_uploadTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        android:textSize="12dp"
-                        android:fontFamily="@font/spo_light"
-                        android:textColor="#A1A1A1"
+                        android:textSize="11dp"
+                        android:fontFamily="@font/spo_regular"
+                        android:textColor="#A8A8A8"
                         android:text="업로드 시간" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:fontFamily="@font/spo_light"
-                        android:textColor="#A1A1A1"
+                        android:textSize="11dp"
+                        android:fontFamily="@font/spo_regular"
+                        android:textColor="#A8A8A8"
                         android:text="통감해요 " />
 
                     <TextView

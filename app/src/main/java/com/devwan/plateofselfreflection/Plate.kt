@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import com.google.firebase.Timestamp
 import java.util.*
+import kotlin.time.days
 
 data class Plate(val nickName : String = "(익명)",
                  val title : String,
@@ -15,18 +16,23 @@ data class Plate(val nickName : String = "(익명)",
     companion object {
         fun getUploadTimeText(uploadDate : Date) : String {
             val nowDate = Timestamp.now().toDate()
-            val uploadYear = uploadDate.year
-            val uploadMonth = uploadDate.month
-            val uploadDay = uploadDate.day
 
-            return if(nowDate.year == uploadYear){
-                if(nowDate.month == uploadMonth && nowDate.day == uploadDay) {
+            return if(nowDate.year == uploadDate.year){
+                if(nowDate.month == uploadDate.month && nowDate.date == uploadDate.date) {
+                    if(nowDate.hours == uploadDate.hours){
+                        if(nowDate.minutes - uploadDate.minutes <= 1){
+                            "방금 전"
+                        }else{
+                            (nowDate.minutes - uploadDate.minutes).toString() + "분 전"
+                        }
+                    }else{
                     uploadDate.hours.toString() + ":" + uploadDate.minutes.toString()
+                    }
                 }else{
-                    uploadMonth.toString() + "/" + uploadDay.toString()
+                    (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
                 }
             }else{
-                uploadYear.toString() + "/" + uploadMonth.toString() + "/" + uploadDay.toString()
+                (uploadDate.year + 1).toString() + "/" + (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
             }
         }
     }

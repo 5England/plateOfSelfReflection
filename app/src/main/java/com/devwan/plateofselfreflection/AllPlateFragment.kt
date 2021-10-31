@@ -3,22 +3,25 @@ package com.devwan.plateofselfreflection
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
+import kotlinx.coroutines.coroutineScope
 
 class AllPlateFragment : Fragment(){
     private lateinit var recyclerView : RecyclerView
     private lateinit var mContext: Context
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     var isTimeListType = true
 
     override fun onAttach(context: Context) {
@@ -27,7 +30,7 @@ class AllPlateFragment : Fragment(){
     }
 
     private val allPlateViewModel : AllPlateViewModel by viewModels(
-        factoryProducer = { SavedStateViewModelFactory(activity?.application,this) }
+            factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +38,12 @@ class AllPlateFragment : Fragment(){
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val rootView : View = inflater.inflate(R.layout.fragment_all_plate, container, false)
         val btnCreateUploadActivity = rootView.findViewById<ImageButton>(R.id.btn_createUploadActivity)
         val btnSetListType = rootView.findViewById<ImageButton>(R.id.btn_setListType)
-        val btnGetList = rootView.findViewById<Button>(R.id.btn_getList)
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView_allPlate)
         recyclerView.apply {
@@ -49,13 +51,18 @@ class AllPlateFragment : Fragment(){
             this.adapter = com.devwan.plateofselfreflection.AllPlateAdapter(emptyList(), mContext)
         }
 
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayout);
+        swipeRefreshLayout.apply {
+            setOnRefreshListener {
+                allPlateViewModel.getPlateList()
+                swipeRefreshLayout.isRefreshing = false
+            }
+            setColorSchemeColors(resources.getColor(R.color.orange))
+        }
+
         btnCreateUploadActivity.setOnClickListener {
             val intent = Intent(mContext, UploadPlateActivity::class.java)
             startActivity(intent)
-        }
-
-        btnGetList.setOnClickListener {
-            allPlateViewModel.getPlateList()
         }
 
         btnSetListType.setOnClickListener {
@@ -83,7 +90,7 @@ class AllPlateFragment : Fragment(){
     }
 }
 
-class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var mContext : Context) :
+class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var mContext: Context) :
         RecyclerView.Adapter<AllPlateAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -115,7 +122,7 @@ class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var
 
     override fun getItemCount() = plateList.size
 
-    fun setData(newData: List<DocumentSnapshot>, newIsTimeListType : Boolean) {
+    fun setData(newData: List<DocumentSnapshot>, newIsTimeListType: Boolean) {
         if(newIsTimeListType){
             plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
         }else{
