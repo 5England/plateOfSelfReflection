@@ -2,10 +2,11 @@ package com.devwan.plateofselfreflection
 
 import com.google.firebase.Timestamp
 
-data class Plate(val uid : String,
+data class Plate(val nickName : String = "(익명)",
                  val title : String,
                  val mainText : String,
-                 val uploadTime : Timestamp,
+                 val feedBack : String = "",
+                 val uploadTimestamp : Timestamp,
                  val isOvercome : Boolean = false,
                  val like : Long = 0,
-                 val userLikeUid : Map<String, Boolean> = mapOf<String, Boolean>()){}
+                 val LikeUidMap : Map<String, Boolean> = mapOf<String, Boolean>()){}
