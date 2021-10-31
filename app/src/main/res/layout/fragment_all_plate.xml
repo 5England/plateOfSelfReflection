@@ -29,7 +29,7 @@
             android:textSize="24dp"/>
 
         <ImageButton
-            android:id="@+id/btn_getList"
+            android:id="@+id/btn_setListType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="7dp"
@@ -38,7 +38,7 @@
             android:src="@drawable/allplatefragment_icon_gettimelist" />
 
         <ImageButton
-            android:id="@+id/btn_create_upload_activity"
+            android:id="@+id/btn_createUploadActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="7dp"
@@ -46,6 +46,17 @@
             android:src="@drawable/allplatefragment_icon_writeplate" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_getList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="get" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_allPlate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
