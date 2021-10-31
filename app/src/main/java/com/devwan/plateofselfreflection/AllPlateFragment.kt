@@ -16,15 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 
-class AllPlateFragment : Fragment(), AllPlateAdapter.OnGetListType {
-
+class AllPlateFragment : Fragment(){
     private lateinit var recyclerView : RecyclerView
     private lateinit var mContext: Context
     var isTimeListType = true
-
-    override fun isTimeTypeList(): Boolean {
-        return isTimeListType
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,7 +32,6 @@ class AllPlateFragment : Fragment(), AllPlateAdapter.OnGetListType {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -45,11 +39,11 @@ class AllPlateFragment : Fragment(), AllPlateAdapter.OnGetListType {
         savedInstanceState: Bundle?
     ): View? {
         val rootView : View = inflater.inflate(R.layout.fragment_all_plate, container, false)
-        val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView_allPlate)
         val btnCreateUploadActivity = rootView.findViewById<ImageButton>(R.id.btn_createUploadActivity)
         val btnSetListType = rootView.findViewById<ImageButton>(R.id.btn_setListType)
         val btnGetList = rootView.findViewById<Button>(R.id.btn_getList)
 
+        recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView_allPlate)
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(activity?.application)
             this.adapter = com.devwan.plateofselfreflection.AllPlateAdapter(emptyList(), mContext)
@@ -60,20 +54,22 @@ class AllPlateFragment : Fragment(), AllPlateAdapter.OnGetListType {
             startActivity(intent)
         }
 
+        btnGetList.setOnClickListener {
+            allPlateViewModel.getPlateList()
+        }
+
         btnSetListType.setOnClickListener {
             if(isTimeListType) {
                 btnSetListType.setImageResource(R.drawable.allplatefragment_icon_getlikelist)
                 Toast.makeText(mContext, "통감 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
                 isTimeListType = false
+                allPlateViewModel.getPlateList()
             }else{
                 btnSetListType.setImageResource(R.drawable.allplatefragment_icon_gettimelist)
                 Toast.makeText(mContext, "최근 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
                 isTimeListType = true
+                allPlateViewModel.getPlateList()
             }
-        }
-
-        btnGetList.setOnClickListener {
-            //allPlateViewModel.getList()
         }
 
         return rootView
@@ -82,7 +78,7 @@ class AllPlateFragment : Fragment(), AllPlateAdapter.OnGetListType {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         allPlateViewModel.plate.observe(viewLifecycleOwner){
-            (recyclerView.adapter as AllPlateAdapter).setData(it)
+            (recyclerView.adapter as AllPlateAdapter).setData(it, isTimeListType)
         }
     }
 }
@@ -119,14 +115,11 @@ class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var
 
     override fun getItemCount() = plateList.size
 
-    interface OnGetListType{ fun isTimeTypeList() : Boolean }
-    private val onGetListType : OnGetListType = mContext as OnGetListType
-
-    fun setData(newData: List<DocumentSnapshot>) {
-        if(onGetListType.isTimeTypeList()){
-            plateList = getTimeTypeList(newData)
+    fun setData(newData: List<DocumentSnapshot>, newIsTimeListType : Boolean) {
+        if(newIsTimeListType){
+            plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
         }else{
-            plateList = getLikeTypeList(newData)
+            plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }.sortedByDescending { it["like"] as Long }
         }
 
         notifyDataSetChanged()
@@ -146,13 +139,5 @@ class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var
         if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
 
         //layout 클릭 시 PlateActivity 생성, 인텐트로 데이터 전송
-    }
-
-    private fun getTimeTypeList(newData: List<DocumentSnapshot>) : List<DocumentSnapshot>{
-        return newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
-    }
-
-    private fun getLikeTypeList(newData: List<DocumentSnapshot>) : List<DocumentSnapshot>{
-        return newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }.sortedByDescending { it["like"] as Long }
     }
 }

@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:maxLength="15"
+                    android:singleLine="true"
                     android:paddingBottom="2dp"
                     android:fontFamily="@font/spo_light"
                     android:textColor="#676767"
@@ -78,7 +79,7 @@
                         android:textSize="12dp"
                         android:fontFamily="@font/spo_light"
                         android:textColor="#A1A1A1"
-                        android:text="통감해요" />
+                        android:text="통감해요 " />
 
                     <TextView
                         android:id="@+id/text_like"
@@ -88,7 +89,7 @@
                         android:fontFamily="@font/spo_medium"
                         android:textColor="@color/orange"
                         android:paddingRight="4dp"
-                        android:text=" 0" />
+                        android:text="0" />
 
                 </LinearLayout>
 
