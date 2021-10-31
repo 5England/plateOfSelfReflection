@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="@color/brown1"
+    tools:context=".UploadPlateActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_finish_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brown1"
+            app:srcCompat="@drawable/uploadactivity_icon_backbutton" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/spo_medium"
+            android:textSize="19dp"
+            android:textColor="@color/black"
+            android:text="반성문 작성" />
+
+        <TextView
+            android:id="@+id/btn_upload_plate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/spo_regular"
+            android:textSize="18dp"
+            android:textColor="@color/orange"
+            android:text="완료" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.6dp"
+        android:background="#9C9C9C" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#C6C6C6"
+                android:ems="10"
+                android:hint="제목"
+                android:fontFamily="@font/spo_medium"
+                android:inputType="textPersonName"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="20dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/edit_main_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="80dp"
+                android:background="@null"
+                android:fontFamily="@font/spo_regular"
+                android:ems="10"
+                android:hint="나의 반성 내용을 입력하세요."
+                android:inputType="textMultiLine"
+                android:scrollHorizontally="false"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="[반성 한 접시] 는 반성을 공유하며 성장하는 목적으로 운영되는 서비스입니다. \n\n- 타인을 비방하는 행위 \n- 해당 서비스와 무관한 게시글을 작성하는 행위 \n- 도배 등의 비매너 행위 \n\n등의 행위는 탈퇴 및 제재 대상이 될 수 있습니다."
+                android:fontFamily="@font/spo_regular"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
