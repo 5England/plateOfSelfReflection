@@ -13,12 +13,12 @@ class AllPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     val plate : LiveData<List<DocumentSnapshot>> = _plate
 
     init {
-        getPlateList()
+        getAllPlateList()
     }
 
-    fun getPlateList(){
+    fun getAllPlateList(){
         viewModelScope.launch {
-            _plate.value = firestoreRepo.getPlateList()
+            _plate.value = firestoreRepo.getAllPlateList()
         }
     }
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 
 class FirestoreRepository {
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
 
     fun uploadPlate(newPlate : Plate){
         val uid = Firebase.auth.uid
@@ -37,7 +37,7 @@ class FirestoreRepository {
             }
     }
 
-    suspend fun getPlateList():List<DocumentSnapshot>{
+    suspend fun getAllPlateList():List<DocumentSnapshot>{
         var snapshotList : MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
 
         coroutineScope{

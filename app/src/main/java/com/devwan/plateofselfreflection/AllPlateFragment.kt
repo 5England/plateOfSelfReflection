@@ -54,7 +54,7 @@ class AllPlateFragment : Fragment(){
         swipeRefreshLayout = rootView.findViewById(R.id.swipeLayout);
         swipeRefreshLayout.apply {
             setOnRefreshListener {
-                allPlateViewModel.getPlateList()
+                allPlateViewModel.getAllPlateList()
                 swipeRefreshLayout.isRefreshing = false
             }
             setColorSchemeColors(resources.getColor(R.color.orange))
@@ -69,14 +69,12 @@ class AllPlateFragment : Fragment(){
             if(isTimeListType) {
                 btnSetListType.setImageResource(R.drawable.allplatefragment_icon_getlikelist)
                 Toast.makeText(mContext, "통감 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
-                isTimeListType = false
-                allPlateViewModel.getPlateList()
             }else{
                 btnSetListType.setImageResource(R.drawable.allplatefragment_icon_gettimelist)
                 Toast.makeText(mContext, "최근 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
-                isTimeListType = true
-                allPlateViewModel.getPlateList()
             }
+            isTimeListType = !isTimeListType
+            allPlateViewModel.getAllPlateList()
         }
 
         return rootView
@@ -123,10 +121,10 @@ class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var
     override fun getItemCount() = plateList.size
 
     fun setData(newData: List<DocumentSnapshot>, newIsTimeListType: Boolean) {
-        if(newIsTimeListType){
-            plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
+        plateList = if(newIsTimeListType){
+            newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
         }else{
-            plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }.sortedByDescending { it["like"] as Long }
+            newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }.sortedByDescending { it["like"] as Long }
         }
 
         notifyDataSetChanged()
