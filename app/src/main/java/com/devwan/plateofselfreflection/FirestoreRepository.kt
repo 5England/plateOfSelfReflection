@@ -79,4 +79,11 @@ class FirestoreRepository {
                 .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!") }
                 .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
     }
+
+    fun uploadFeedback(snapshotId : String, feedbackText : String){
+        db.collection("plate").document(snapshotId)
+            .update("feedback", feedbackText)
+            .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!") }
+            .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
+    }
 }

@@ -3,6 +3,7 @@ package com.devwan.plateofselfreflection
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -133,13 +135,15 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
             }else{
                 onClickCheckIsOvercome.invoke(plateDocumentSnapshot)
                 dlg.apply {
-                    setTitle("극복했어요")
-                    setMessage("반성 극복에 대한 경험과 팁을 작성해 공유할 수 있어요.")
-                    setPositiveButton("아니요", DialogInterface.OnClickListener { dialog, which ->
+                    setTitle("극복 후기 작성")
+                    setMessage("반성 극복에 대한 후기를 작성해 사람들에게 도움을 줄 수 있어요.")
+                    setPositiveButton("괜찮아요", DialogInterface.OnClickListener { dialog, which ->
                         Toast.makeText(mContext, "나중에 다시 작성하실 수 있어요.", Toast.LENGTH_SHORT).show()
                     })
-                    setNegativeButton("작성할게요", DialogInterface.OnClickListener { dialog, which ->
-                        //액티비티 띄우기
+                    setNegativeButton("작성", DialogInterface.OnClickListener { dialog, which ->
+                        val intent = Intent(mContext, UploadFeedbackActivity::class.java)
+                        intent.putExtra("snapshotId", plateDocumentSnapshot.id)
+                        mContext.startActivity(intent)
                     })
                     show()
                 }

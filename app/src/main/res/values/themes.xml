@@ -30,7 +30,7 @@
     </style>
 
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:background">#2C2220</item>
+        <item name="android:background">#271D1A</item>
         <item name="android:textColor">@color/orange</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:colorAccent">@color/white</item>
