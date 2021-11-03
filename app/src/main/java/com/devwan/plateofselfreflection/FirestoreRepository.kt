@@ -58,7 +58,6 @@ class FirestoreRepository {
     }
 
     fun listenMyPlateList(liveDataPlateList : MutableLiveData<List<DocumentSnapshot>>) {
-
         val uid = Firebase.auth.uid
 
         db.collection("plate")

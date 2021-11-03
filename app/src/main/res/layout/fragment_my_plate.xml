@@ -38,4 +38,9 @@
         android:padding="15dp"
         android:textSize="12dp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_myPlate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
