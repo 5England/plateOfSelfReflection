@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateOfSelfReflection">
         <activity android:name=".UploadFeedbackActivity"></activity>
+        <activity android:name=".UpdatePlateActivity"></activity>
         <activity android:name=".UploadPlateActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
