@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -54,5 +55,20 @@ class FirestoreRepository {
         }.await()
 
         return snapshotList
+    }
+
+    fun listenMyPlateList(liveDataPlateList : MutableLiveData<List<DocumentSnapshot>>) {
+        val uid = Firebase.auth.uid
+
+        db.collection("plate")
+                .whereEqualTo("uid", uid)
+                .addSnapshotListener { snapshot, e ->
+                    if (e != null) {
+                        return@addSnapshotListener
+                    }
+                    if (snapshot != null) {
+                        liveDataPlateList.value = snapshot.documents
+                    }
+                }
     }
 }
