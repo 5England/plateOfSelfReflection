@@ -26,6 +26,13 @@
         <item name="android:colorBackground">@color/brown1</item>
 
         <!-- On API 21+ you can use android:statusBarColor -->
-        <item name="colorPrimaryDark">@color/brown3</item>
+        <item name="colorPrimaryDark">#170F0C</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">#2C2220</item>
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorAccent">@color/white</item>
     </style>
 </resources>

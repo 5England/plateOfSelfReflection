@@ -17,4 +17,8 @@ class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     init {
         userRepo.listenMyPlateList(_plate)
     }
+
+    fun checkIsOvercome(plate : DocumentSnapshot){
+        userRepo.checkIsOvercome(plate)
+    }
 }

@@ -3,7 +3,6 @@ package com.devwan.plateofselfreflection
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
-import kotlinx.coroutines.coroutineScope
 
 class AllPlateFragment : Fragment(){
     private lateinit var recyclerView : RecyclerView
@@ -142,6 +140,7 @@ class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var
         viewHolder.like?.text = like
         viewHolder.uploadTime?.text = uploadTime
         if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
+        else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
 
         //layout 클릭 시 PlateActivity 생성, 인텐트로 데이터 전송
     }

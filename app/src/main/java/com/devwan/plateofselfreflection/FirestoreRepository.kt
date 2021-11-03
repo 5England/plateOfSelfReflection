@@ -71,4 +71,12 @@ class FirestoreRepository {
                     }
                 }
     }
+
+    fun checkIsOvercome(plate : DocumentSnapshot)
+    {
+        db.collection("plate").document(plate.id)
+                .update("isOvercome", !(plate["isOvercome"] as Boolean))
+                .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!") }
+                .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
+    }
 }
