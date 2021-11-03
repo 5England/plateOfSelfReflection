@@ -21,4 +21,8 @@ class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     fun checkIsOvercome(plate : DocumentSnapshot){
         userRepo.checkIsOvercome(plate)
     }
+
+    fun deletePlate(plate : DocumentSnapshot){
+        userRepo.deletePlate(plate)
+    }
 }
