@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="나의 반성에 대해 체크하세요"
+        android:text="- 극복한 반성의 체크 버튼을 누르세요\n- 삭제할 반성을 꾹 눌러보세요"
         android:fontFamily="@font/spo_medium"
         android:textColor="#8C8C8C"
         android:inputType="textMultiLine"

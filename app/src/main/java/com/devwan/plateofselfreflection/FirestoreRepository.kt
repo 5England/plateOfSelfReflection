@@ -86,4 +86,12 @@ class FirestoreRepository {
             .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!") }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
     }
+
+    fun deletePlate(plate : DocumentSnapshot)
+    {
+        db.collection("plate").document(plate.id)
+            .delete()
+            .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
+    }
 }
