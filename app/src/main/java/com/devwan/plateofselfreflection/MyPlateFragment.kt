@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
@@ -48,9 +49,12 @@ class MyPlateFragment : Fragment() {
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(activity?.application)
             this.adapter = MyPlateAdapter(mContext, emptyList(),
-                    onClickCheckIsOvercome = {
-                        viewModel.checkIsOvercome(it)
-                    })
+                onClickIsOvercome = {
+                    viewModel.checkIsOvercome(it)
+                },
+                onClickDelete = {
+                    viewModel.deletePlate(it)
+                })
         }
 
         return rootView
@@ -65,7 +69,8 @@ class MyPlateFragment : Fragment() {
 }
 
 class MyPlateAdapter(private val mContext: Context, private var plateList: List<DocumentSnapshot>,
-                     private val onClickCheckIsOvercome : (plate : DocumentSnapshot) -> Unit) :
+                     private val onClickIsOvercome : (plate : DocumentSnapshot) -> Unit,
+                     private val onClickDelete : (plate : DocumentSnapshot) -> Unit) :
         RecyclerView.Adapter<MyPlateAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -74,6 +79,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         var mainText: TextView? = null
         var uploadTime: TextView? = null
         var like: TextView? = null
+        var cardView : LinearLayout? = null
 
         init {
             isOvercome = view.findViewById(R.id.img_isOvercome)
@@ -81,6 +87,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
             mainText = view.findViewById(R.id.text_mainText)
             uploadTime = view.findViewById(R.id.text_uploadTime)
             like = view.findViewById(R.id.text_like)
+            cardView = view.findViewById(R.id.layout_cardView)
         }
     }
 
@@ -121,19 +128,18 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
 
         viewHolder.isOvercome?.setOnClickListener{
             val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
-
             if(plateDocumentSnapshot["isOvercome"] as Boolean){
                 dlg.apply {
                     setTitle("반성이 부족하셨나요?")
                     setMessage("원하면 반성을 취소할 수 있어요.                 ")
                     setPositiveButton("아니요", DialogInterface.OnClickListener { dialog, which -> })
                     setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
-                        onClickCheckIsOvercome.invoke(plateDocumentSnapshot)
+                        onClickIsOvercome.invoke(plateDocumentSnapshot)
                     })
                     show()
                 }
             }else{
-                onClickCheckIsOvercome.invoke(plateDocumentSnapshot)
+                onClickIsOvercome.invoke(plateDocumentSnapshot)
                 dlg.apply {
                     setTitle("극복 후기 작성")
                     setMessage("반성 극복에 대한 후기를 작성해 사람들에게 도움을 줄 수 있어요.")
@@ -148,6 +154,22 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
                     show()
                 }
             }
+        }
+
+        viewHolder.cardView?.setOnLongClickListener {
+            val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
+            dlg.apply {
+                setTitle("해당 반성을 삭제하시겠어요?")
+                setMessage("삭제 시 복구할 수 없어요.                         ")
+                setPositiveButton("아니요", DialogInterface.OnClickListener { dialog, which ->
+
+                })
+                setNegativeButton("삭제", DialogInterface.OnClickListener { dialog, which ->
+                    onClickDelete.invoke(plateDocumentSnapshot)
+                })
+                show()
+            }
+            true
         }
     }
 }
