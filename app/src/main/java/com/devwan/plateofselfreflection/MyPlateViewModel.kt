@@ -15,6 +15,6 @@ class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     val plate : LiveData<List<DocumentSnapshot>> = _plate
 
     init {
-        //listen
+        userRepo.listenMyPlateList(_plate)
     }
 }
