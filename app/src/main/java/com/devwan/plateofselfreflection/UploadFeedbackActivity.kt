@@ -6,29 +6,34 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import com.devwan.plateofselfreflection.databinding.ActivityUploadFeedbackBinding
 
 class UploadFeedbackActivity : AppCompatActivity() {
+
+    private lateinit var binding:ActivityUploadFeedbackBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upload_feedback)
+        binding = ActivityUploadFeedbackBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val editFeedbackText = findViewById<EditText>(R.id.edit_feedback_text)
-        val btnUploadFeedback = findViewById<TextView>(R.id.btn_upload_feedback)
-        val btnFinishActivity = findViewById<ImageButton>(R.id.btn_finish_feedback_activity)
+        initBtnUploadFeedbackClickListener()
 
-        btnFinishActivity.setOnClickListener {
+        binding.btnFinishActivity.setOnClickListener {
             Toast.makeText(this, "나중에 다시 작성할 수 있어요", Toast.LENGTH_SHORT).show()
             finish()
         }
+    }
 
-        btnUploadFeedback.setOnClickListener {
-            if( editFeedbackText.text.isNotBlank()) {
+    private fun initBtnUploadFeedbackClickListener(){
+        binding.btnUploadFeedback.setOnClickListener {
+            if( binding.btnUploadFeedback.text.isNotBlank()) {
                 lateinit var snapshotId : String
                 intent.getStringExtra("snapshotId")?.let {
                     snapshotId = it
                 }
                 val fireStoreRepo : FirestoreRepository = FirestoreRepository()
-                fireStoreRepo.uploadFeedback(snapshotId, editFeedbackText.text.toString())
+                fireStoreRepo.uploadFeedback(snapshotId, binding.editTextFeedback.text.toString())
                 finish()
             }else{
                 Toast.makeText(this, "후기를 작성해주세요", Toast.LENGTH_SHORT).show()

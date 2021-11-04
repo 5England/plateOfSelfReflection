@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devwan.plateofselfreflection.databinding.FragmentMyPlateBinding
 
 class MyPlateFragment : Fragment() {
 
     private lateinit var mContext : Context
-    private lateinit var recyclerView : RecyclerView
+    private var _binding : FragmentMyPlateBinding? = null
+    private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -25,20 +27,28 @@ class MyPlateFragment : Fragment() {
         factoryProducer = { SavedStateViewModelFactory(activity?.application,this) }
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView : View = inflater.inflate(R.layout.fragment_my_plate, container, false)
+        _binding = FragmentMyPlateBinding.inflate(inflater, container, false)
 
-        recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView_myPlate)
-        recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(activity?.application)
-            this.adapter = MyPlateAdapter(mContext, emptyList(),
+        initRecyclerView()
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.plate.observe(viewLifecycleOwner){
+            (binding.recyclerViewMyPlate.adapter as MyPlateAdapter).setData(it)
+        }
+    }
+
+    private fun initRecyclerView(){
+        binding.recyclerViewMyPlate.apply {
+            layoutManager = LinearLayoutManager(activity?.application)
+            adapter = MyPlateAdapter(mContext, emptyList(),
                 onClickIsOvercome = {
                     viewModel.checkIsOvercome(it)
                 },
@@ -46,15 +56,11 @@ class MyPlateFragment : Fragment() {
                     viewModel.deletePlate(it)
                 })
         }
-
-        return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.plate.observe(viewLifecycleOwner){
-            (recyclerView.adapter as MyPlateAdapter).setData(it)
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

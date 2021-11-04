@@ -7,33 +7,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.devwan.plateofselfreflection.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    lateinit var onAuthServiceListener : OnAuthServiceListener
+    private lateinit var onAuthServiceListener : OnAuthServiceListener
+    private var _binding : FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         onAuthServiceListener = context as OnAuthServiceListener
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView : View = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val signOutButton = rootView.findViewById<Button>(R.id.btn_signout)
-        signOutButton.setOnClickListener{
+        binding.btnSignout.setOnClickListener{
             onAuthServiceListener.signOut()
         }
 
-        return rootView
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

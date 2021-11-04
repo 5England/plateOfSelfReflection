@@ -38,14 +38,14 @@
                 android:paddingBottom="8dp">
 
                 <ImageButton
-                    android:id="@+id/btn_finish_activity"
+                    android:id="@+id/btnFinishActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/brown1"
                     app:srcCompat="@drawable/uploadactivity_icon_backbutton" />
 
                 <TextView
-                    android:id="@+id/plate_nickname"
+                    android:id="@+id/textView_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -68,7 +68,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/plate_uploadTime"
+                    android:id="@+id/textView_uploadTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -92,7 +92,7 @@
                 android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/plate_title"
+                    android:id="@+id/textView_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -102,12 +102,11 @@
                     android:textSize="22dp" />
 
                 <TextView
-                    android:id="@+id/plate_mainText"
+                    android:id="@+id/textView_mainText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
+                    android:layout_marginBottom="30dp"
                     android:fontFamily="@font/spo_regular"
-                    android:singleLine="true"
                     android:text="내용"
                     android:textColor="@color/black"
                     android:textSize="14dp" />
@@ -119,15 +118,15 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/plate_isOvercome"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
+                        android:id="@+id/imageView_isOvercome"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_marginRight="2dp"
                         android:paddingLeft="-7dp"
                         android:src="@drawable/cardplate_icon_isovercome_false" />
 
                     <TextView
-                        android:id="@+id/plate_isOvercomeMessage"
+                        android:id="@+id/textView_isOvercomeMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -139,12 +138,12 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/plate_feedback"
-                    android:layout_width="match_parent"
+                    android:id="@+id/textView_feedBack"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/spo_regular"
-                    android:singleLine="true"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="14dp" />
 
@@ -156,7 +155,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/plate_like"
+                        android:id="@+id/textView_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13dp"

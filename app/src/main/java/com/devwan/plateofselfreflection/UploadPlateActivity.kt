@@ -4,28 +4,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import com.devwan.plateofselfreflection.databinding.ActivityUploadPlateBinding
 import java.sql.Timestamp
 
 class UploadPlateActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityUploadPlateBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upload_plate)
+        binding = ActivityUploadPlateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val editTitle = findViewById<EditText>(R.id.edit_title)
-        val editMainText = findViewById<EditText>(R.id.edit_main_text)
-        val btnUploadPlate = findViewById<TextView>(R.id.btn_upload_plate)
-        val btnFinishActivity = findViewById<ImageButton>(R.id.btn_finish_activity)
+        initBtnUploadPlateClickListener()
 
-        btnFinishActivity.setOnClickListener {
+        binding.btnFinishActivity.setOnClickListener {
             finish()
         }
+    }
 
-        btnUploadPlate.setOnClickListener {
-            if( editTitle.text.isNotBlank() && editMainText.text.isNotBlank()) {
+    private fun initBtnUploadPlateClickListener(){
+        binding.btnUploadPlate.setOnClickListener {
+            if( binding.editTextTitle.text.isNotBlank() && binding.editTextMainText.text.isNotBlank()) {
 
                 val newPlate = Plate(
-                    title = editTitle.text.toString(),
-                    mainText = editMainText.text.toString(),
+                    title = binding.editTextTitle.text.toString(),
+                    mainText = binding.editTextMainText.text.toString(),
                     uploadTimestamp = com.google.firebase.Timestamp.now()
                 )
 
@@ -39,4 +43,5 @@ class UploadPlateActivity : AppCompatActivity() {
             }
         }
     }
+
 }

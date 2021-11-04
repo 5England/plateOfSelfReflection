@@ -6,32 +6,38 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.devwan.plateofselfreflection.databinding.ActivityUploadPlateBinding
 
 class UpdatePlateActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityUploadPlateBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_upload_plate)
+        binding = ActivityUploadPlateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val editTitle = findViewById<EditText>(R.id.edit_title)
-        val editMainText = findViewById<EditText>(R.id.edit_main_text)
-        val btnUpdatePlate = findViewById<TextView>(R.id.btn_upload_plate)
-        val btnFinishActivity = findViewById<ImageButton>(R.id.btn_finish_activity)
-        val textUploadType = findViewById<TextView>(R.id.textView_uploadType)
+        initView()
+        initBtnUploadPlateClickListener()
 
-        textUploadType.text = "반성문 수정"
-        editTitle.setText(intent.getStringExtra("snapshotTitle").toString())
-        editMainText.setText(intent.getStringExtra("snapshotMainText").toString())
-
-        btnFinishActivity.setOnClickListener {
+        binding.btnFinishActivity.setOnClickListener {
             finish()
         }
+    }
 
-        btnUpdatePlate.setOnClickListener {
-            if( editTitle.text.isNotBlank() && editMainText.text.isNotBlank()) {
+    private fun initView(){
+        binding.textViewUploadType.text = "반성문 수정"
+        binding.editTextTitle.setText(intent.getStringExtra("snapshotTitle").toString())
+        binding.editTextMainText.setText(intent.getStringExtra("snapshotMainText").toString())
+    }
+
+    private fun initBtnUploadPlateClickListener(){
+        binding.btnUploadPlate.setOnClickListener {
+            if( binding.editTextTitle.text.isNotBlank() && binding.editTextMainText.text.isNotBlank()) {
                 val fireStoreRepo : FirestoreRepository = FirestoreRepository()
                 fireStoreRepo.uploadPlate(intent.getStringExtra("snapshotId").toString(),
-                    editTitle.text.toString(),
-                    editMainText.text.toString()
+                    binding.editTextTitle.text.toString(),
+                    binding.editTextMainText.text.toString()
                 )
                 finish()
             }else{

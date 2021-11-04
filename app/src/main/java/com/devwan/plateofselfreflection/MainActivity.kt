@@ -1,18 +1,21 @@
 package com.devwan.plateofselfreflection
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.devwan.plateofselfreflection.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
+    private lateinit var binding : ActivityMainBinding
     private val firebaseAuthentication = FirebaseAuthentication(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if(isLoggedIn()) {
             initNavigationBar()
@@ -23,15 +26,16 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
     private fun isLoggedIn() : Boolean{
         var isLoggedIn : Boolean = false
-        val uid : String? = getSharedPreferences("authSP", Context.MODE_PRIVATE).getString("uid", null)
+        val uid : String? = getSharedPreferences("authSP", Context.MODE_PRIVATE).getString(
+            "uid",
+            null
+        )
         uid?.let { isLoggedIn = true }
         return isLoggedIn
     }
 
     private fun initNavigationBar() {
-        val bnv = findViewById<BottomNavigationView>(R.id.bnv_main)
-
-        bnv.run {
+        binding.bottomNavigationView.run {
             setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.icon_home -> changeFragment(HomeFragment())

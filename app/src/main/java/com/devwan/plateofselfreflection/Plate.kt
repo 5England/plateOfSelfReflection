@@ -4,7 +4,6 @@ import android.content.Intent
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
-import kotlin.time.days
 
 data class Plate(val nickName : String = "(익명)",
                  val title : String,

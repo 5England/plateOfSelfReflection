@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_finish_feedback_activity"
+            android:id="@+id/btn_finishActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/brown1"
@@ -33,7 +33,7 @@
             android:text="후기 작성" />
 
         <TextView
-            android:id="@+id/btn_upload_feedback"
+            android:id="@+id/btn_uploadFeedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -60,7 +60,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edit_feedback_text"
+                android:id="@+id/editText_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

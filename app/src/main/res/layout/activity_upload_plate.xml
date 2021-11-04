@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_finish_activity"
+            android:id="@+id/btn_finishActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/brown1"
@@ -34,7 +34,7 @@
             android:text="반성문 작성" />
 
         <TextView
-            android:id="@+id/btn_upload_plate"
+            android:id="@+id/btn_uploadPlate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -61,7 +61,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edit_title"
+                android:id="@+id/editText_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -79,7 +79,7 @@
                 android:textSize="20dp" />
 
             <EditText
-                android:id="@+id/edit_main_text"
+                android:id="@+id/editText_mainText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

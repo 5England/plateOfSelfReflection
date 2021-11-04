@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.devwan.plateofselfreflection.databinding.FragmentAllPlateBinding
 
 class AllPlateFragment : Fragment(){
-    private lateinit var recyclerView : RecyclerView
+
+    private var _binding : FragmentAllPlateBinding? = null
+    private val binding get() = _binding!!
     private lateinit var mContext: Context
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     var isTimeListType = true
 
     override fun onAttach(context: Context) {
@@ -29,57 +29,61 @@ class AllPlateFragment : Fragment(){
             factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView : View = inflater.inflate(R.layout.fragment_all_plate, container, false)
-        val btnCreateUploadActivity = rootView.findViewById<ImageButton>(R.id.btn_createUploadActivity)
-        val btnSetListType = rootView.findViewById<ImageButton>(R.id.btn_setListType)
+        _binding = FragmentAllPlateBinding.inflate(inflater, container, false)
 
-        recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView_allPlate)
-        recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(activity?.application)
-            this.adapter = com.devwan.plateofselfreflection.AllPlateAdapter(mContext, emptyList())
+        initSwipeLayout()
+        initBtnSetListTypeClickListener()
+
+        binding.recyclerViewAllPlate.apply {
+            layoutManager = LinearLayoutManager(activity?.application)
+            adapter = com.devwan.plateofselfreflection.AllPlateAdapter(mContext, emptyList())
         }
 
-        swipeRefreshLayout = rootView.findViewById(R.id.swipeLayout);
-        swipeRefreshLayout.apply {
-            setOnRefreshListener {
-                allPlateViewModel.getAllPlateList()
-                swipeRefreshLayout.isRefreshing = false
-            }
-            setColorSchemeColors(resources.getColor(R.color.orange))
-        }
-
-        btnCreateUploadActivity.setOnClickListener {
+        binding.btnCreateUploadActivity.setOnClickListener {
             val intent = Intent(mContext, UploadPlateActivity::class.java)
             startActivity(intent)
         }
 
-        btnSetListType.setOnClickListener {
-            if(isTimeListType) {
-                btnSetListType.setImageResource(R.drawable.allplatefragment_icon_getlikelist)
-                Toast.makeText(mContext, "통감 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
-            }else{
-                btnSetListType.setImageResource(R.drawable.allplatefragment_icon_gettimelist)
-                Toast.makeText(mContext, "최근 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
-            }
-            isTimeListType = !isTimeListType
-            allPlateViewModel.getAllPlateList()
-        }
-
-        return rootView
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         allPlateViewModel.plate.observe(viewLifecycleOwner){
-            (recyclerView.adapter as AllPlateAdapter).setData(it, isTimeListType)
+            (binding.recyclerViewAllPlate.adapter as AllPlateAdapter).setData(it, isTimeListType)
         }
+    }
+
+    private fun initSwipeLayout(){
+        binding.swipeLayout.apply {
+            setOnRefreshListener {
+                allPlateViewModel.getAllPlateList()
+                binding.swipeLayout.isRefreshing = false
+            }
+            setColorSchemeColors(resources.getColor(R.color.orange))
+        }
+    }
+
+    private fun initBtnSetListTypeClickListener(){
+        binding.btnSetListType.setOnClickListener {
+            if(isTimeListType) {
+                binding.btnSetListType.setImageResource(R.drawable.allplatefragment_icon_getlikelist)
+                Toast.makeText(mContext, "통감 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
+            }else{
+                binding.btnSetListType.setImageResource(R.drawable.allplatefragment_icon_gettimelist)
+                Toast.makeText(mContext, "최근 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
+            }
+            isTimeListType = !isTimeListType
+            allPlateViewModel.getAllPlateList()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
