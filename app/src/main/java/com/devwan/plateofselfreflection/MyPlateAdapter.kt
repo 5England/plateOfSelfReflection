@@ -33,7 +33,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
             title = view.findViewById(R.id.text_title)
             mainText = view.findViewById(R.id.text_mainText)
             uploadTime = view.findViewById(R.id.text_uploadTime)
-            like = view.findViewById(R.id.text_like)
+            like = view.findViewById(R.id.plate_like)
             cardView = view.findViewById(R.id.layout_cardView)
         }
     }
@@ -120,6 +120,11 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
                 show()
             }
             true
+        }
+
+        viewHolder.cardView?.setOnClickListener{
+            val intent = Intent(mContext, PlateActivity::class.java)
+            mContext.startActivity(Plate.getIntentForPlateActivity(intent, plateDocumentSnapshot))
         }
     }
 }

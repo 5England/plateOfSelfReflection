@@ -1,10 +1,12 @@
 package com.devwan.plateofselfreflection
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
@@ -19,13 +21,15 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
         var mainText: TextView? = null
         var uploadTime: TextView? = null
         var like: TextView? = null
+        var cardView : LinearLayout? = null
 
         init {
             isOvercome = view.findViewById(R.id.img_isOvercome)
             title = view.findViewById(R.id.text_title)
             mainText = view.findViewById(R.id.text_mainText)
             uploadTime = view.findViewById(R.id.text_uploadTime)
-            like = view.findViewById(R.id.text_like)
+            like = view.findViewById(R.id.plate_like)
+            cardView = view.findViewById(R.id.layout_cardView)
         }
     }
 
@@ -66,6 +70,9 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
         if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
         else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
 
-        //layout 클릭 시 PlateActivity 생성, 인텐트로 데이터 전송
+        viewHolder.cardView?.setOnClickListener{
+            val intent = Intent(mContext, PlateActivity::class.java)
+            mContext.startActivity(Plate.getIntentForPlateActivity(intent, plateDocumentSnapshot))
+        }
     }
 }

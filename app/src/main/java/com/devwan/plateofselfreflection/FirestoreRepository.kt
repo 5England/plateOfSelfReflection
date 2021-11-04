@@ -12,10 +12,13 @@ import kotlinx.coroutines.tasks.await
 
 class FirestoreRepository {
     private val db = Firebase.firestore
+    private val uid = Firebase.auth.uid.toString()
+
+    fun getUid() : String{
+        return uid
+    }
 
     fun uploadPlate(newPlate : Plate){
-        val uid = Firebase.auth.uid
-
         val newData = hashMapOf(
             "uid" to uid,
             "nickName" to newPlate.nickName,
@@ -58,8 +61,6 @@ class FirestoreRepository {
     }
 
     fun listenMyPlateList(liveDataPlateList : MutableLiveData<List<DocumentSnapshot>>) {
-        val uid = Firebase.auth.uid
-
         db.collection("plate")
                 .whereEqualTo("uid", uid)
                 .addSnapshotListener { snapshot, e ->

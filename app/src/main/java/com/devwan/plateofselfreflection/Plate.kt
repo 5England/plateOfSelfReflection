@@ -38,10 +38,27 @@ data class Plate(val nickName : String = "(익명)",
             }
         }
 
-//        fun getIntentForPlateActivity(intent : Intent, snapshot : DocumentSnapshot) : Intent {
-//
-//        }
-    }
+        fun getIntentForPlateActivity(intent : Intent, snapshot : DocumentSnapshot) : Intent {
+            intent.putExtra("nickName", snapshot["nickName"].toString())
+            intent.putExtra("uploadTime", getUploadTimeText((snapshot["uploadTime"] as Timestamp).toDate()))
+            intent.putExtra("title", snapshot["title"].toString())
+            intent.putExtra("mainText", snapshot["mainText"].toString())
+            intent.putExtra("isOvercome", snapshot["isOvercome"] as Boolean)
+            intent.putExtra("feedBack", snapshot["feedBack"].toString())
+            intent.putExtra("like", snapshot["like"] as Long)
 
-    //documentSnapshot을 넣으면 intent를 반환해주는 함수를 하나 만들자.
+            val firestoreRepo : FirestoreRepository = FirestoreRepository()
+            val uid : String = firestoreRepo.getUid()
+            val likeUidMap : Map<String, Boolean> = snapshot["likeUidMap"] as Map<String, Boolean>
+            var isLiked : Boolean = if(likeUidMap.containsKey(uid)){
+                likeUidMap[uid] as Boolean
+            }else{
+                false
+            }
+
+            intent.putExtra("isLiked", isLiked)
+
+            return intent
+        }
+    }
 }

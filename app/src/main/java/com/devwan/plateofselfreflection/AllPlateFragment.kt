@@ -44,7 +44,7 @@ class AllPlateFragment : Fragment(){
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView_allPlate)
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(activity?.application)
-            this.adapter = com.devwan.plateofselfreflection.AllPlateAdapter(emptyList(), mContext)
+            this.adapter = com.devwan.plateofselfreflection.AllPlateAdapter(mContext, emptyList())
         }
 
         swipeRefreshLayout = rootView.findViewById(R.id.swipeLayout);
