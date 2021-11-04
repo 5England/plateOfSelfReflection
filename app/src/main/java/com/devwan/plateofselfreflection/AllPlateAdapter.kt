@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 
-class AllPlateAdapter(private var plateList: List<DocumentSnapshot>, private var mContext: Context) :
+class AllPlateAdapter(private var mContext: Context, private var plateList: List<DocumentSnapshot>) :
     RecyclerView.Adapter<AllPlateAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -71,8 +71,6 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
         else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
 
-        //layout 클릭 시 PlateActivity 생성, 인텐트로 데이터 전송
-
         viewHolder.isOvercome?.setOnClickListener{
             val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
             if(plateDocumentSnapshot["isOvercome"] as Boolean){
