@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateOfSelfReflection">
-        <activity android:name=".UploadFeedbackActivity"></activity>
-        <activity android:name=".UpdatePlateActivity"></activity>
+        <activity android:name=".PlateActivity"></activity>
+        <activity android:name=".UploadFeedbackActivity" />
+        <activity android:name=".UpdatePlateActivity" />
         <activity android:name=".UploadPlateActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

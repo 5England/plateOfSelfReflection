@@ -1,6 +1,8 @@
 package com.devwan.plateofselfreflection
 
+import android.content.Intent
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
 import kotlin.time.days
 
@@ -35,5 +37,11 @@ data class Plate(val nickName : String = "(익명)",
                 (uploadDate.year + 1).toString() + "/" + (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
             }
         }
+
+//        fun getIntentForPlateActivity(intent : Intent, snapshot : DocumentSnapshot) : Intent {
+//
+//        }
     }
+
+    //documentSnapshot을 넣으면 intent를 반환해주는 함수를 하나 만들자.
 }

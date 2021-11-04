@@ -14,7 +14,7 @@
         android:background="@color/brown1"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:paddingTop="14dp"
+        android:paddingTop="15dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingBottom="10dp">
@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:text="모두의 반성"
             android:fontFamily="@font/spo_bold"
+            android:paddingLeft="5dp"
             android:textColor="@color/brown3"
             android:textSize="24dp"/>
 
@@ -42,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="7dp"
+            android:paddingRight="2dp"
             android:background="@color/brown1"
             android:src="@drawable/allplatefragment_icon_writeplate" />
 

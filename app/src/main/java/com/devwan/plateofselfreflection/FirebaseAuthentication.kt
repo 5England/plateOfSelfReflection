@@ -28,7 +28,7 @@ class FirebaseAuthentication (private val activity : AppCompatActivity){
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .setLogo(R.drawable.auth_logo)
+            .setLogo(R.drawable.authlogo_icon)
             .setTheme(R.style.SignInTheme)
             .build()
         signInLauncher.launch(signInIntent)
