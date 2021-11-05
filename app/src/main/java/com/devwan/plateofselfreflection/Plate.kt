@@ -49,16 +49,17 @@ data class Plate(val nickName : String = "(익명)",
                 putExtra("snapshotId", snapshot.id)
             }
 
-            val firestoreRepo : FirestoreRepository = FirestoreRepository()
-            val uid : String = firestoreRepo.getUid()
-            val likeUidMap : Map<String, Boolean> = snapshot["likeUidMap"] as Map<String, Boolean>
-            var isLiked : Boolean = if(likeUidMap.containsKey(uid)){
-                likeUidMap[uid] as Boolean
-            }else{
-                false
+            intent.apply {
+                val firestoreRepo : FirestoreRepository = FirestoreRepository()
+                val uid : String = firestoreRepo.getUid()
+                val likeUidMap : Map<String, Boolean> = snapshot["likeUidMap"] as Map<String, Boolean>
+                var isLiked : Boolean = if(likeUidMap.containsKey(uid)){
+                    likeUidMap[uid] as Boolean
+                }else{
+                    false
+                }
+                putExtra("isLiked", isLiked)
             }
-
-            intent.putExtra("isLiked", isLiked)
 
             return intent
         }

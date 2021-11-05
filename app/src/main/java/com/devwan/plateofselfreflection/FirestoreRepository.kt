@@ -142,7 +142,20 @@ class FirestoreRepository {
             likeUidMap.put(uid, true)
             likeUidMap.toMap()
             plateDocument.update("like", (like + 1.toLong()))
-            plateDocument.update("likeUid", likeUidMap)
+            plateDocument.update("likeUidMap", likeUidMap)
         }
+    }
+
+    suspend fun getLike(snapshotId : String) : Long{
+        var like : Long = 0
+
+        coroutineScope {
+            db.collection("plate").document(snapshotId)
+                .get().addOnSuccessListener {
+                    like = it["like"] as Long
+                }
+        }.await()
+
+        return like
     }
 }
