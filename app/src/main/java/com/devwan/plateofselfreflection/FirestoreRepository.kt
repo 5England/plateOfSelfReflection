@@ -3,6 +3,7 @@ package com.devwan.plateofselfreflection
 import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -106,5 +107,60 @@ class FirestoreRepository {
         document.update("mainText", newMainText)
             .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
+    }
+
+    suspend fun likePlate(snapshotId : String){
+        val plateDocument = db.collection("plate").document(snapshotId)
+        lateinit var likeUidMap: MutableMap<String, Boolean>
+        var like : Long = 0
+
+        coroutineScope {
+            plateDocument.get()
+                .addOnSuccessListener {
+                    likeUidMap = it["likeUidMap"] as MutableMap<String, Boolean>
+                    like = it["like"] as Long
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
+        }.await()
+
+        if(likeUidMap.containsKey(uid)) {
+            likeUidMap[uid]?.let {
+                if(it){
+                    likeUidMap.set(uid, false)
+                    likeUidMap.toMap()
+                    plateDocument.update("like", (like - 1.toLong()))
+                    plateDocument.update("likeUidMap", likeUidMap)
+                }else{
+                    likeUidMap.set(uid, true)
+                    likeUidMap.toMap()
+                    plateDocument.update("like", (like + 1.toLong()))
+                    plateDocument.update("likeUidMap", likeUidMap)
+                }
+            }
+        }else{
+            likeUidMap.put(uid, true)
+            likeUidMap.toMap()
+            plateDocument.update("like", (like + 1.toLong()))
+            plateDocument.update("likeUidMap", likeUidMap)
+        }
+    }
+
+    suspend fun getPlate(snapshotId : String) : DocumentSnapshot?{
+        var plateSnapshot : DocumentSnapshot? = null
+
+        coroutineScope {
+            db.collection("plate").document(snapshotId)
+                .get()
+                .addOnSuccessListener {
+                    plateSnapshot = it
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
+        }.await()
+
+        return plateSnapshot
     }
 }
