@@ -27,7 +27,14 @@ data class Plate(val nickName : String = "익명",
                             (nowDate.minutes - uploadDate.minutes).toString() + "분 전"
                         }
                     }else{
-                    uploadDate.hours.toString() + ":" + uploadDate.minutes.toString()
+                        var result : String = uploadDate.hours.toString() + ":"
+                        if(uploadDate.hours < 10){
+                            result += "0"
+                            result += uploadDate.minutes.toString()
+                        }else{
+                            result += uploadDate.minutes.toString()
+                        }
+                        result
                     }
                 }else{
                     (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
