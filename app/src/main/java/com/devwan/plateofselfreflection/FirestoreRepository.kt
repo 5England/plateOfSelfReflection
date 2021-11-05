@@ -3,6 +3,7 @@ package com.devwan.plateofselfreflection
 import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -151,11 +152,19 @@ class FirestoreRepository {
 
         coroutineScope {
             db.collection("plate").document(snapshotId)
-                .get().addOnSuccessListener {
+                .get()
+                .addOnSuccessListener {
                     like = it["like"] as Long
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
                 }
         }.await()
 
         return like
+    }
+
+    suspend fun getPlate(snapshotId : String) : DocumentSnapshot{
+
     }
 }
