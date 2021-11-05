@@ -8,60 +8,68 @@ import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.coroutines.*
 
 class PlateActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityPlateBinding
-    val firestoreRepo : FirestoreRepository = FirestoreRepository()
+    private val firestoreRepo : FirestoreRepository = FirestoreRepository()
     private var isLiked : Boolean = false
-
+    private var like : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlateBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         val snapshotId : String = intent.getStringExtra("snapshotId") as String
-        isLiked = intent.getBooleanExtra("isLiked", false)
 
-        initView(snapshotId)
+        refreshPlate(snapshotId)
         initBtnLikeClickListener(snapshotId)
 
         binding.btnFinishActivity.setOnClickListener {
             finish()
         }
-
-        //isLiked(Boolean) + like(Long) 을 가지고 와야함
-        //1. 해당 뷰에 들어왔을 때
-        //2. 좋아요를 눌렀을 때
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
-        intent.putExtra("newLike", "z")
+        intent.putExtra("newLike", binding.textViewLike.text.toString())
     }
 
-    private fun initView(snapshotId : String){
+    private fun refreshPlate(snapshotId : String){
+
         binding.apply {
-            textViewNickname.text = intent.getStringExtra("nickName")
-            textViewUploadTime.text = intent.getStringExtra("uploadTime")
-            textViewTitle.text = intent.getStringExtra("title")
-            textViewMainText.text = intent.getStringExtra("mainText")
 
             GlobalScope.launch(Dispatchers.Main) {
-                textViewLike.text = firestoreRepo.getLike(snapshotId).toString()
-            }
 
-            if(intent.getBooleanExtra("isOvercome", false)){
-                imageViewIsOvercome.setImageResource(R.drawable.cardplate_icon_isovercome_true)
-                textViewIsOvercomeMessage.text = "개선이 된 반성이에요."
-                textViewFeedBack.text = intent.getStringExtra("feedBack")
-            }
+                val plate: DocumentSnapshot? = firestoreRepo.getPlate(snapshotId)
+                plate?.apply {
 
-            if(isLiked){
-                btnLike.setImageResource(R.drawable.plateactivity_icon_liked)
+                    textViewNickname.text = plate["nickName"] as String
+                    textViewUploadTime.text = Plate.getUploadTimeText((plate["uploadTime"] as Timestamp).toDate())
+                    textViewTitle.text = plate["title"] as String
+                    textViewMainText.text = plate["mainText"] as String
+                    like = plate["like"] as Long
+                    textViewLike.text = like.toString()
+                    if (plate["isOvercome"] as Boolean) {
+                        imageViewIsOvercome.setImageResource(R.drawable.cardplate_icon_isovercome_true)
+                        textViewIsOvercomeMessage.text = "개선이 된 반성이에요."
+                        textViewFeedBack.text = plate["feedBack"] as String
+                    }
+                    val likeUidMap : Map<String, Boolean> = plate["likeUidMap"] as Map<String, Boolean>
+                    isLiked = if(likeUidMap.containsKey(firestoreRepo.getUid())){
+                        likeUidMap[firestoreRepo.getUid()] as Boolean
+                    }else{
+                        false
+                    }
+                    if(isLiked){
+                        btnLike.setImageResource(R.drawable.plateactivity_icon_liked)
+                    }
+                }
+                setContentView(binding.root)
             }
         }
     }
@@ -69,14 +77,15 @@ class PlateActivity : AppCompatActivity() {
     private fun initBtnLikeClickListener(snapshotId : String){
         binding.apply {
             btnLike.setOnClickListener {
-                GlobalScope.launch(Dispatchers.Main) {
+                GlobalScope.launch(Dispatchers.IO) {
                     firestoreRepo.likePlate(snapshotId)
-                    textViewLike.text = firestoreRepo.getLike(snapshotId).toString()
                 }
                 if(isLiked){
                     btnLike.setImageResource(R.drawable.plateactivity_icon_notliked)
+                    textViewLike.text = (--like).toString()
                 }else{
                     btnLike.setImageResource(R.drawable.plateactivity_icon_liked)
+                    textViewLike.text = (++like).toString()
                 }
                 isLiked = !isLiked
             }

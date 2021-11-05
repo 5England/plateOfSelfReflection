@@ -72,7 +72,7 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
 
         viewHolder.cardView?.setOnClickListener{
             val intent = Intent(mContext, PlateActivity::class.java)
-            mContext.startActivity(Plate.getIntentForPlateActivity(intent, plateDocumentSnapshot))
+            mContext.startActivity(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
         }
     }
 }

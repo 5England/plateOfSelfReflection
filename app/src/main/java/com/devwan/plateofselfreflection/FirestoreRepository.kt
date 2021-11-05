@@ -147,24 +147,20 @@ class FirestoreRepository {
         }
     }
 
-    suspend fun getLike(snapshotId : String) : Long{
-        var like : Long = 0
+    suspend fun getPlate(snapshotId : String) : DocumentSnapshot?{
+        var plateSnapshot : DocumentSnapshot? = null
 
         coroutineScope {
             db.collection("plate").document(snapshotId)
                 .get()
                 .addOnSuccessListener {
-                    like = it["like"] as Long
+                    plateSnapshot = it
                 }
                 .addOnFailureListener { exception ->
                     Log.w(ContentValues.TAG, "Error getting documents: ", exception)
                 }
         }.await()
 
-        return like
-    }
-
-    suspend fun getPlate(snapshotId : String) : DocumentSnapshot{
-
+        return plateSnapshot
     }
 }
