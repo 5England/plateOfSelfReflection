@@ -3,6 +3,7 @@ package com.devwan.plateofselfreflection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
+import kotlinx.coroutines.*
 
 class PlateActivity : AppCompatActivity() {
 
@@ -17,6 +18,10 @@ class PlateActivity : AppCompatActivity() {
         isLiked = intent.getBooleanExtra("isLiked", true)
         initView()
         initBtnLikeClickListener()
+
+        binding.btnFinishActivity.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initView(){
@@ -37,7 +42,14 @@ class PlateActivity : AppCompatActivity() {
 
     private fun initBtnLikeClickListener(){
         binding.btnLike.setOnClickListener {
+            val firestoreRepo : FirestoreRepository = FirestoreRepository()
+            val snapshotId : String = intent.getStringExtra("snapshotId")!!
             val currentLike = binding.textViewLike.text.toString().toInt()
+
+            GlobalScope.launch {
+                firestoreRepo.likePlate(snapshotId)
+            }
+
             if(isLiked){
                 binding.btnLike.setImageResource(R.drawable.plateactivity_icon_notliked)
                 binding.textViewLike.text = (currentLike - 1).toString()

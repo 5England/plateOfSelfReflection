@@ -107,4 +107,42 @@ class FirestoreRepository {
             .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
     }
+
+    suspend fun likePlate(snapshotId : String){
+        val plateDocument = db.collection("plate").document(snapshotId)
+        lateinit var likeUidMap: MutableMap<String, Boolean>
+        var like : Long = 0
+
+        coroutineScope {
+            plateDocument.get()
+                .addOnSuccessListener {
+                    likeUidMap = it["likeUidMap"] as MutableMap<String, Boolean>
+                    like = it["like"] as Long
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
+        }.await()
+
+        if(likeUidMap.containsKey(uid)) {
+            likeUidMap[uid]?.let {
+                if(it){
+                    likeUidMap.set(uid, false)
+                    likeUidMap.toMap()
+                    plateDocument.update("like", (like - 1.toLong()))
+                    plateDocument.update("likeUidMap", likeUidMap)
+                }else{
+                    likeUidMap.set(uid, true)
+                    likeUidMap.toMap()
+                    plateDocument.update("like", (like + 1.toLong()))
+                    plateDocument.update("likeUidMap", likeUidMap)
+                }
+            }
+        }else{
+            likeUidMap.put(uid, true)
+            likeUidMap.toMap()
+            plateDocument.update("like", (like + 1.toLong()))
+            plateDocument.update("likeUid", likeUidMap)
+        }
+    }
 }

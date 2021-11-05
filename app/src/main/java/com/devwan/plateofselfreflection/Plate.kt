@@ -38,13 +38,16 @@ data class Plate(val nickName : String = "(익명)",
         }
 
         fun getIntentForPlateActivity(intent : Intent, snapshot : DocumentSnapshot) : Intent {
-            intent.putExtra("nickName", snapshot["nickName"].toString())
-            intent.putExtra("uploadTime", getUploadTimeText((snapshot["uploadTime"] as Timestamp).toDate()))
-            intent.putExtra("title", snapshot["title"].toString())
-            intent.putExtra("mainText", snapshot["mainText"].toString())
-            intent.putExtra("isOvercome", snapshot["isOvercome"] as Boolean)
-            intent.putExtra("feedBack", snapshot["feedBack"].toString())
-            intent.putExtra("like", snapshot["like"] as Long)
+            intent.apply {
+                putExtra("nickName", snapshot["nickName"].toString())
+                putExtra("uploadTime", getUploadTimeText((snapshot["uploadTime"] as Timestamp).toDate()))
+                putExtra("title", snapshot["title"].toString())
+                putExtra("mainText", snapshot["mainText"].toString())
+                putExtra("isOvercome", snapshot["isOvercome"] as Boolean)
+                putExtra("feedBack", snapshot["feedBack"].toString())
+                putExtra("like", snapshot["like"] as Long)
+                putExtra("snapshotId", snapshot.id)
+            }
 
             val firestoreRepo : FirestoreRepository = FirestoreRepository()
             val uid : String = firestoreRepo.getUid()
