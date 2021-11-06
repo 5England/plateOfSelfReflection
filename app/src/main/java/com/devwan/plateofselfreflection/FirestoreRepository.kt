@@ -10,6 +10,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 class FirestoreRepository {
     private val db = Firebase.firestore
@@ -29,7 +30,8 @@ class FirestoreRepository {
             "feedBack" to newPlate.feedBack,
             "uploadTime" to newPlate.uploadTimestamp,
             "like" to newPlate.like,
-            "likeUidMap" to newPlate.LikeUidMap
+            "likeUidMap" to newPlate.LikeUidMap,
+            "commentList" to newPlate.commentList
         )
 
         db.collection("plate")
@@ -162,5 +164,24 @@ class FirestoreRepository {
         }.await()
 
         return plateSnapshot
+    }
+
+    suspend fun uploadComment(snapshotId : String, comment : String) {
+        val plateDocument = db.collection("plate").document(snapshotId)
+        lateinit var commentList: MutableList<String>
+
+        coroutineScope {
+            plateDocument.get()
+                .addOnSuccessListener {
+                    commentList = it["commentList"] as MutableList<String>
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
+        }.await()
+
+        commentList.add(comment)
+        commentList.toList()
+        plateDocument.update("commentList", commentList)
     }
 }
