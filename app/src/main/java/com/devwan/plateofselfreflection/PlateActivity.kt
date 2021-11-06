@@ -1,40 +1,37 @@
 package com.devwan.plateofselfreflection
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.coroutines.*
 
+
 class PlateActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityPlateBinding
-    private val firestoreRepo : FirestoreRepository = FirestoreRepository()
-    private var isLiked : Boolean = false
-    private var like : Long = 0
+    private lateinit var binding: ActivityPlateBinding
+    private val firestoreRepo: FirestoreRepository = FirestoreRepository()
+    private var isLiked: Boolean = false
+    private var like: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlateBinding.inflate(layoutInflater)
 
-        val snapshotId : String = intent.getStringExtra("snapshotId") as String
+        val snapshotId: String = intent.getStringExtra("snapshotId") as String
 
         refreshPlate(snapshotId)
         initBtnLikeClickListener(snapshotId)
+        initBtnUploadCommentClickListener(snapshotId)
 
         binding.btnFinishActivity.setOnClickListener {
             finish()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        intent.putExtra("newLike", binding.textViewLike.text.toString())
-    }
-
-    private fun refreshPlate(snapshotId : String){
+    private fun refreshPlate(snapshotId: String) {
 
         binding.apply {
 
@@ -44,7 +41,8 @@ class PlateActivity : AppCompatActivity() {
                 plate?.apply {
 
                     textViewNickname.text = plate["nickName"] as String
-                    textViewUploadTime.text = Plate.getUploadTimeText((plate["uploadTime"] as Timestamp).toDate())
+                    textViewUploadTime.text =
+                        Plate.getUploadTimeText((plate["uploadTime"] as Timestamp).toDate())
                     textViewTitle.text = plate["title"] as String
                     textViewMainText.text = plate["mainText"] as String
                     like = plate["like"] as Long
@@ -54,14 +52,15 @@ class PlateActivity : AppCompatActivity() {
                         textViewIsOvercomeMessage.text = "개선한 반성이에요."
                         textViewFeedBack.text = plate["feedBack"] as String
                     }
-                    val likeUidMap : Map<String, Boolean> = plate["likeUidMap"] as Map<String, Boolean>
-                    isLiked = if(likeUidMap.containsKey(firestoreRepo.getUid())){
+                    val likeUidMap: Map<String, Boolean> =
+                        plate["likeUidMap"] as Map<String, Boolean>
+                    isLiked = if (likeUidMap.containsKey(firestoreRepo.getUid())) {
                         likeUidMap[firestoreRepo.getUid()] as Boolean
-                    }else{
+                    } else {
                         false
                     }
-                    if(isLiked){
-                        btnLike.setImageResource(R.drawable.plateactivity_icon_liked)
+                    if (isLiked) {
+                        btnLike.setImageResource(R.drawable.plateactivity_icon_liked_true)
                     }
                 }
                 setContentView(binding.root)
@@ -69,22 +68,39 @@ class PlateActivity : AppCompatActivity() {
         }
     }
 
-    private fun initBtnLikeClickListener(snapshotId : String){
+    private fun initBtnLikeClickListener(snapshotId: String) {
         binding.apply {
             btnLike.setOnClickListener {
                 GlobalScope.launch(Dispatchers.IO) {
                     firestoreRepo.likePlate(snapshotId)
                 }
-                if(isLiked){
-                    btnLike.setImageResource(R.drawable.plateactivity_icon_notliked)
+                if (isLiked) {
+                    btnLike.setImageResource(R.drawable.plateactivity_icon_liked_false)
                     textViewLike.text = (--like).toString()
-                }else{
-                    btnLike.setImageResource(R.drawable.plateactivity_icon_liked)
+                } else {
+                    btnLike.setImageResource(R.drawable.plateactivity_icon_liked_true)
                     textViewLike.text = (++like).toString()
                 }
                 isLiked = !isLiked
             }
         }
     }
-}
 
+    private fun initBtnUploadCommentClickListener(snapshotId: String) {
+        binding.apply {
+            btnUploadComment.setOnClickListener {
+                if (editTextComment.text.isNotBlank()) {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        firestoreRepo.uploadComment(snapshotId, editTextComment.text.toString())
+                        editTextComment.text.clear()
+//                        firestoreRepo.getCommentList(snapshotId)
+//                        listViewComment에 새로운 리스트 입력됐다고 notify
+                    }
+
+                } else {
+                    Toast.makeText(baseContext, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+}

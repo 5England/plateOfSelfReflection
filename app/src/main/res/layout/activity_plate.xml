@@ -132,7 +132,7 @@
                             android:layout_width="27dp"
                             android:layout_height="27dp"
                             android:paddingLeft="-3dp"
-                            android:src="@drawable/cardplate_icon_isovercome_false" />
+                            android:src="@drawable/asd" />
 
                         <TextView
                             android:id="@+id/textView_isOvercomeMessage"
@@ -201,7 +201,7 @@
                         android:layout_marginLeft="5dp"
                         android:background="@color/white"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/plateactivity_icon_notliked" />
+                        app:srcCompat="@drawable/plateactivity_icon_liked_false" />
                 </LinearLayout>
 
                 <View
