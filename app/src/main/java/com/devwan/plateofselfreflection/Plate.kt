@@ -28,7 +28,7 @@ data class Plate(val nickName : String = "익명",
                         }
                     }else{
                         var result : String = uploadDate.hours.toString() + ":"
-                        if(uploadDate.hours < 10){
+                        if(uploadDate.minutes < 10){
                             result += "0"
                             result += uploadDate.minutes.toString()
                         }else{

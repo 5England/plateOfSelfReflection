@@ -9,9 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="brown1">#FFF7F3F2</color>
-    <color name="brown2">#FFDCB79A</color>
+    <color name="brown2">#DCB79A</color>
     <color name="brown3">#FF6E493F</color>
     <color name="brown4">#503C36</color>
     <color name="orange">#FFE87833</color>
-
 </resources>

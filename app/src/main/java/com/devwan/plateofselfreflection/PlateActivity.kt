@@ -1,12 +1,7 @@
 package com.devwan.plateofselfreflection
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.SavedStateViewModelFactory
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
