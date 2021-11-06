@@ -51,7 +51,7 @@ class PlateActivity : AppCompatActivity() {
                     textViewLike.text = like.toString()
                     if (plate["isOvercome"] as Boolean) {
                         imageViewIsOvercome.setImageResource(R.drawable.cardplate_icon_isovercome_true)
-                        textViewIsOvercomeMessage.text = "개선이 된 반성이에요."
+                        textViewIsOvercomeMessage.text = "개선한 반성이에요."
                         textViewFeedBack.text = plate["feedBack"] as String
                     }
                     val likeUidMap : Map<String, Boolean> = plate["likeUidMap"] as Map<String, Boolean>

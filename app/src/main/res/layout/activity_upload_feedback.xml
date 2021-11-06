@@ -69,11 +69,12 @@
                 android:layout_marginTop="30dp"
                 android:background="@null"
                 android:fontFamily="@font/spo_regular"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:ems="10"
                 android:hint="극복에 대한 후기를 남겨주세요."
                 android:inputType="textMultiLine"
                 android:scrollHorizontally="false"
-                android:textSize="18dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="match_parent"

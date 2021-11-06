@@ -4,29 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/brown1"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".PlateActivity">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="9dp"
-        app:cardUseCompatPadding="true">
+        android:layout_weight="1"
+        android:background="@drawable/plateactivity_shape_background">
 
-        <ScrollView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            app:cardCornerRadius="6dp"
+            app:cardElevation="9dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:id="@+id/layout_cardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="35dp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,8 +91,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_marginTop="15dp"
+                    android:orientation="vertical"
                     android:padding="15dp">
 
                     <TextView
@@ -113,48 +114,48 @@
 
                 </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:orientation="vertical"
-                android:padding="15dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="15dp">
 
-                    <ImageView
-                        android:id="@+id/imageView_isOvercome"
-                        android:layout_width="27dp"
-                        android:layout_height="27dp"
-                        android:paddingLeft="-3dp"
-                        android:src="@drawable/cardplate_icon_isovercome_false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView_isOvercome"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:paddingLeft="-3dp"
+                            android:src="@drawable/cardplate_icon_isovercome_false" />
+
+                        <TextView
+                            android:id="@+id/textView_isOvercomeMessage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:hint="아직 개선하지 못했어요"
+                            android:paddingTop="1dp"
+                            android:textColor="@color/orange"
+                            android:textSize="17dp" />
+
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView_isOvercomeMessage"
+                        android:id="@+id/textView_feedBack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="1dp"
-                        android:fontFamily="@font/spo_medium"
-                        android:hint="아직 개선하지 못했어요"
-                        android:textColor="@color/orange"
-                        android:textSize="17dp" />
+                        android:fontFamily="@font/spo_regular"
+                        android:hint="댓글을 통해 도움을 줄 수 있어요."
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView_feedBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/spo_regular"
-                    android:hint="비슷한 경험이 있다면 큰 도움을 줄 수 있어요."
-                    android:textColor="@color/black"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
 
                 <View
                     android:layout_width="wrap_content"
@@ -164,8 +165,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="15dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -208,17 +209,69 @@
                     android:layout_height="0.6dp"
                     android:background="#E6E6E6" />
 
-<!--                에딧텍스트와 업로드 버튼-->
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="0.6dp"
-                    android:background="#E6E6E6" />
-
-<!--                댓글창 리싸이클러뷰-->
-
+                <ListView
+                    android:id="@+id/listView_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
-        </ScrollView>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ECECEC"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        app:cardCornerRadius="11dp"
+        app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:background="#F3F3F3"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint=" 댓글 작성하기"
+            android:layout_weight="1"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:inputType="textMultiLine"
+            android:scrollHorizontally="false"
+            android:fontFamily="@font/spo_regular"
+            android:padding="10dp"
+            android:textSize="15dp" />
+
+
+
+        <ImageButton
+            android:id="@+id/btn_uploadComment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="#F3F3F3"
+            app:srcCompat="@drawable/plateactivity_icon_uploadcomment" />
+    </LinearLayout>
     </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
 </LinearLayout>
