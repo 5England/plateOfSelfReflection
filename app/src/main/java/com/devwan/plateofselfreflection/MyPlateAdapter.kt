@@ -69,7 +69,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         viewHolder.like?.text = like
         viewHolder.uploadTime?.text = uploadTime
         if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
-        else viewHolder.isOvercome?.setImageResource(R.drawable.asd)
+        else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
 
         viewHolder.isOvercome?.setOnClickListener{
             val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)

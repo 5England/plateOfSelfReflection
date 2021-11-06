@@ -68,7 +68,7 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
         viewHolder.like?.text = like
         viewHolder.uploadTime?.text = uploadTime
         if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
-        else viewHolder.isOvercome?.setImageResource(R.drawable.asd)
+        else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
 
         viewHolder.cardView?.setOnClickListener{
             val intent = Intent(mContext, PlateActivity::class.java)
