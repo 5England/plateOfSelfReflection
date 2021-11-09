@@ -195,8 +195,8 @@ class FirestoreRepository {
                 .addOnSuccessListener {
                     snapshot = if(it["nickName"] == null){
                         val newData = hashMapOf( "nickName" to "익명"
-                            ,"overcome" to 0
-                            ,"all" to 0)
+                            ,"overcomePlateNum" to 0
+                            ,"allPlateNum" to 0)
                         docRef.set(newData)
                         "익명"
                     }else{
@@ -212,4 +212,25 @@ class FirestoreRepository {
         val docRef = db.collection("profile").document(uid)
         docRef.update("nickName", newNickName)
     }
+
+    fun listenMyPlateState(_nickName : MutableLiveData<String>,
+                           _overcomeNum : MutableLiveData<Long>, _plateNum : MutableLiveData<Long>){
+        db.collection("profile").document(uid)
+            .addSnapshotListener { snapshot, e ->
+            if (snapshot != null && snapshot.exists()) {
+                _nickName.value = snapshot["nickName"] as String
+                _overcomeNum.value = snapshot["overcomePlateNum"] as Long
+                _plateNum.value = snapshot["allPlateNum"] as Long
+            }
+        }
+
+    }
 }
+
+
+
+
+
+
+
+

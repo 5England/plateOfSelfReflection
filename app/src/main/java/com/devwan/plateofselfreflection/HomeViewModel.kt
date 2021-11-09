@@ -11,14 +11,14 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private var _nickName = MutableLiveData<String>()
     val nickName : LiveData<String> = _nickName
-    private var _overcomePlate = MutableLiveData<Long>()
-    val overcomePlate : LiveData<Long> = _overcomePlate
-    private var _notOvercomePlate = MutableLiveData<Long>()
-    val notOvercomePlate : LiveData<Long> = _notOvercomePlate
+    private var _overcomeNum = MutableLiveData<Long>()
+    val overcomeNum : LiveData<Long> = _overcomeNum
+    private var _plateNum = MutableLiveData<Long>()
+    val plateNum : LiveData<Long> = _plateNum
 
     init {
         getMyNickName()
-//        userRepo.listenMyPlateState(_overcomePlate, _notOvercomePlate)
+        firestoreRepo.listenMyPlateState(_nickName, _overcomeNum, _plateNum)
     }
 
     fun getMyNickName(){

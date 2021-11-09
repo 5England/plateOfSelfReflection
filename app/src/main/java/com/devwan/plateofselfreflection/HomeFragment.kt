@@ -44,12 +44,14 @@ class HomeFragment : Fragment() {
         viewModel.nickName.observe(viewLifecycleOwner){
             binding.nickName.text = it
         }
-//        viewModel.nickName.observe(viewLifecycleOwner){
-//            binding.plateNum.text = it.toString()
-//        }
-//        viewModel.nickName.observe(viewLifecycleOwner){
-//            binding.overcomeNum.text = it.toString()
-//        }
+        viewModel.plateNum.observe(viewLifecycleOwner){
+            binding.plateNum.text = it.toString()
+//            setProgressBar()
+        }
+        viewModel.overcomeNum.observe(viewLifecycleOwner){
+            binding.overcomeNum.text = it.toString()
+        //            setProgressBar()
+        }
     }
 
     override fun onDestroyView() {
