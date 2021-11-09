@@ -17,14 +17,11 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     val plateNum : LiveData<Long> = _plateNum
 
     init {
-        getMyNickName()
-        firestoreRepo.listenMyPlateState(_nickName, _overcomeNum, _plateNum)
-    }
-
-    fun getMyNickName(){
         viewModelScope.launch {
             _nickName.value = firestoreRepo.getMyNickName()
+            firestoreRepo.getMyPlateState(_nickName, _overcomeNum, _plateNum)
         }
+        //getMotiList
     }
 
     fun setMyNickName(newNickName : String){

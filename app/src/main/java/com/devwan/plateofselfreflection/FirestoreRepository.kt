@@ -16,11 +16,11 @@ class FirestoreRepository {
     private val db = Firebase.firestore
     private val uid = Firebase.auth.uid.toString()
 
-    fun getUid() : String{
+    fun getUid(): String {
         return uid
     }
 
-    fun uploadPlate(newPlate : Plate){
+    fun uploadPlate(newPlate: Plate) {
         val newData = hashMapOf(
             "uid" to uid,
             "nickName" to newPlate.nickName,
@@ -37,84 +37,118 @@ class FirestoreRepository {
         db.collection("plate")
             .add(newData)
             .addOnSuccessListener { documentReference ->
-                Log.d(ContentValues.TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+                Log.d(
+                    ContentValues.TAG,
+                    "DocumentSnapshot written with ID: ${documentReference.id}"
+                )
+                plusAllPlateNum()
             }
             .addOnFailureListener { e ->
                 Log.w(ContentValues.TAG, "Error adding document", e)
             }
     }
 
-    suspend fun getAllPlateList():List<DocumentSnapshot>{
-        var snapshotList : MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
+    suspend fun getAllPlateList(): List<DocumentSnapshot> {
+        var snapshotList: MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
 
-        coroutineScope{
+        coroutineScope {
             db.collection("plate")
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            snapshotList.add(document)
-                        }
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        snapshotList.add(document)
                     }
-                    .addOnFailureListener { exception ->
-                        Log.w(ContentValues.TAG, "Error getting documents: ", exception)
-                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
         }.await()
 
         return snapshotList
     }
 
-    fun listenMyPlateList(liveDataPlateList : MutableLiveData<List<DocumentSnapshot>>) {
+    fun listenMyPlateList(liveDataPlateList: MutableLiveData<List<DocumentSnapshot>>) {
         db.collection("plate")
-                .whereEqualTo("uid", uid)
-                .addSnapshotListener { snapshot, e ->
-                    if (e != null) {
-                        return@addSnapshotListener
-                    }
-                    if (snapshot != null) {
-                        liveDataPlateList.value = snapshot.documents
-                    }
+            .whereEqualTo("uid", uid)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    return@addSnapshotListener
                 }
+                if (snapshot != null) {
+                    liveDataPlateList.value = snapshot.documents
+                }
+            }
     }
 
-    fun checkIsOvercome(plate : DocumentSnapshot)
-    {
+    fun checkIsOvercome(plate: DocumentSnapshot) {
+        val isOvercome = plate["isOvercome"] as Boolean
+
         db.collection("plate").document(plate.id)
-                .update("isOvercome", !(plate["isOvercome"] as Boolean))
-                .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
-    }
-
-    fun uploadFeedback(snapshotId : String, feedbackText : String){
-        db.collection("plate").document(snapshotId)
-            .update("feedBack", feedbackText)
-            .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!") }
+            .update("isOvercome", !(plate["isOvercome"] as Boolean))
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!")
+                if (isOvercome) {
+                    minusOvercomePlateNum()
+                } else {
+                    plusOvercomePlateNum()
+                }
+            }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
     }
 
-    fun deletePlate(plate : DocumentSnapshot)
-    {
+    fun uploadFeedback(snapshotId: String, feedbackText: String) {
+        db.collection("plate").document(snapshotId)
+            .update("feedBack", feedbackText)
+            .addOnSuccessListener {
+                Log.d(
+                    ContentValues.TAG,
+                    "DocumentSnapshot successfully updated!"
+                )
+            }
+            .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
+    }
+
+    fun deletePlate(plate: DocumentSnapshot) {
+        val isOvercome = plate["isOvercome"] as Boolean
+
         db.collection("plate").document(plate.id)
             .delete()
-            .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!")
+                minusAllPlateNum()
+                if (isOvercome) {
+                    minusOvercomePlateNum()
+                }
+            }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
     }
 
-    fun uploadPlate(snapshotId : String, newTitle : String, newMainText : String){
+    fun updatePlate(snapshotId: String, newTitle: String, newMainText: String) {
         val document = db.collection("plate").document(snapshotId)
 
         document.update("title", newTitle)
-            .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnSuccessListener {
+                Log.d(
+                    ContentValues.TAG,
+                    "DocumentSnapshot successfully deleted!"
+                )
+            }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
 
         document.update("mainText", newMainText)
-            .addOnSuccessListener { Log.d(ContentValues.TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnSuccessListener {
+                Log.d(
+                    ContentValues.TAG,
+                    "DocumentSnapshot successfully deleted!"
+                )
+            }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
     }
 
-    suspend fun likePlate(snapshotId : String){
+    suspend fun likePlate(snapshotId: String) {
         val plateDocument = db.collection("plate").document(snapshotId)
         lateinit var likeUidMap: MutableMap<String, Boolean>
-        var like : Long = 0
+        var like: Long = 0
 
         coroutineScope {
             plateDocument.get()
@@ -127,21 +161,21 @@ class FirestoreRepository {
                 }
         }.await()
 
-        if(likeUidMap.containsKey(uid)) {
+        if (likeUidMap.containsKey(uid)) {
             likeUidMap[uid]?.let {
-                if(it){
+                if (it) {
                     likeUidMap.set(uid, false)
                     likeUidMap.toMap()
                     plateDocument.update("like", (like - 1.toLong()))
                     plateDocument.update("likeUidMap", likeUidMap)
-                }else{
+                } else {
                     likeUidMap.set(uid, true)
                     likeUidMap.toMap()
                     plateDocument.update("like", (like + 1.toLong()))
                     plateDocument.update("likeUidMap", likeUidMap)
                 }
             }
-        }else{
+        } else {
             likeUidMap.put(uid, true)
             likeUidMap.toMap()
             plateDocument.update("like", (like + 1.toLong()))
@@ -149,8 +183,8 @@ class FirestoreRepository {
         }
     }
 
-    suspend fun getPlate(snapshotId : String) : DocumentSnapshot?{
-        var plateSnapshot : DocumentSnapshot? = null
+    suspend fun getPlate(snapshotId: String): DocumentSnapshot? {
+        var plateSnapshot: DocumentSnapshot? = null
 
         coroutineScope {
             db.collection("plate").document(snapshotId)
@@ -166,7 +200,7 @@ class FirestoreRepository {
         return plateSnapshot
     }
 
-    suspend fun uploadComment(snapshotId : String, comment : String) {
+    suspend fun uploadComment(snapshotId: String, comment: String) {
         val plateDocument = db.collection("plate").document(snapshotId)
         lateinit var commentList: MutableList<String>
 
@@ -185,45 +219,78 @@ class FirestoreRepository {
         plateDocument.update("commentList", commentList)
     }
 
-    suspend fun getMyNickName() : String {
-
+    suspend fun getMyNickName() : String{
         val docRef = db.collection("profile").document(uid)
-        var snapshot : String = ""
+        var result : String = ""
+
         coroutineScope {
             docRef
                 .get()
                 .addOnSuccessListener {
-                    snapshot = if(it["nickName"] == null){
-                        val newData = hashMapOf( "nickName" to "익명"
-                            ,"overcomePlateNum" to 0
-                            ,"allPlateNum" to 0)
+                    result = if (it["nickName"] == null) {
+                        val newData = hashMapOf(
+                            "nickName" to "익명", "overcomePlateNum" to 0, "allPlateNum" to 0
+                        )
                         docRef.set(newData)
                         "익명"
-                    }else{
+                    } else {
                         it["nickName"] as String
                     }
                 }
         }.await()
 
-        return snapshot
+        return result
     }
 
-    fun setMyNickName(newNickName : String){
+    fun setMyNickName(newNickName: String) {
         val docRef = db.collection("profile").document(uid)
         docRef.update("nickName", newNickName)
     }
 
-    fun listenMyPlateState(_nickName : MutableLiveData<String>,
-                           _overcomeNum : MutableLiveData<Long>, _plateNum : MutableLiveData<Long>){
+    fun getMyPlateState(
+        _nickName: MutableLiveData<String>,
+        _overcomePlateNum: MutableLiveData<Long>, _allPlateNum: MutableLiveData<Long>
+    ) {
         db.collection("profile").document(uid)
-            .addSnapshotListener { snapshot, e ->
-            if (snapshot != null && snapshot.exists()) {
-                _nickName.value = snapshot["nickName"] as String
-                _overcomeNum.value = snapshot["overcomePlateNum"] as Long
-                _plateNum.value = snapshot["allPlateNum"] as Long
+            .get().addOnSuccessListener {
+                _nickName.value = it["nickName"].toString()
+                _overcomePlateNum.value = it["overcomePlateNum"] as Long
+                _allPlateNum.value = it["allPlateNum"] as Long
             }
+    }
+
+    private fun plusAllPlateNum(){
+        val docRef = db.collection("profile").document(uid)
+            docRef.get().addOnSuccessListener {
+                val newAllPlateNum : Long = it["allPlateNum"] as Long + 1
+                docRef.update("allPlateNum", newAllPlateNum)
+            }
+    }
+
+    private fun minusAllPlateNum(){
+        val docRef = db.collection("profile").document(uid)
+        docRef.get().addOnSuccessListener {
+            val newAllPlateNum : Long = it["allPlateNum"] as Long - 1
+            docRef.update("allPlateNum", newAllPlateNum)
         }
 
+        //삭제 시 overcome 고려 ㅇㅇ
+    }
+
+    private fun plusOvercomePlateNum(){
+        val docRef = db.collection("profile").document(uid)
+        docRef.get().addOnSuccessListener {
+            val newAllPlateNum : Long = it["overcomePlateNum"] as Long + 1
+            docRef.update("overcomePlateNum", newAllPlateNum)
+        }
+    }
+
+    private fun minusOvercomePlateNum(){
+        val docRef = db.collection("profile").document(uid)
+        docRef.get().addOnSuccessListener {
+            val newAllPlateNum : Long = it["overcomePlateNum"] as Long - 1
+            docRef.update("overcomePlateNum", newAllPlateNum)
+        }
     }
 }
 

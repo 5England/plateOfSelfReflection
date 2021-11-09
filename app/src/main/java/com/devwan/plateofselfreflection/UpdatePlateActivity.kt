@@ -35,7 +35,7 @@ class UpdatePlateActivity : AppCompatActivity() {
         binding.btnUploadPlate.setOnClickListener {
             if( binding.editTextTitle.text.isNotBlank() && binding.editTextMainText.text.isNotBlank()) {
                 val fireStoreRepo : FirestoreRepository = FirestoreRepository()
-                fireStoreRepo.uploadPlate(intent.getStringExtra("snapshotId").toString(),
+                fireStoreRepo.updatePlate(intent.getStringExtra("snapshotId").toString(),
                     binding.editTextTitle.text.toString(),
                     binding.editTextMainText.text.toString()
                 )
