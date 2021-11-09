@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.SavedStateViewModelFactory
 import com.devwan.plateofselfreflection.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -20,6 +22,10 @@ class HomeFragment : Fragment() {
         onAuthServiceListener = context as OnAuthServiceListener
     }
 
+    private val viewModel : HomeViewModel by viewModels(
+        factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +37,19 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.nickName.observe(viewLifecycleOwner){
+            binding.nickName.text = it
+        }
+        viewModel.nickName.observe(viewLifecycleOwner){
+            binding.plateNum.text = it.toString()
+        }
+        viewModel.nickName.observe(viewLifecycleOwner){
+            binding.overcomeNum.text = it.toString()
+        }
     }
 
     override fun onDestroyView() {
