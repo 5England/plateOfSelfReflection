@@ -184,4 +184,32 @@ class FirestoreRepository {
         commentList.toList()
         plateDocument.update("commentList", commentList)
     }
+
+    suspend fun getMyNickName() : String {
+
+        val docRef = db.collection("profile").document(uid)
+        var snapshot : String = ""
+        coroutineScope {
+            docRef
+                .get()
+                .addOnSuccessListener {
+                    snapshot = if(it["nickName"] == null){
+                        val newData = hashMapOf( "nickName" to "익명"
+                            ,"overcome" to 0
+                            ,"all" to 0)
+                        docRef.set(newData)
+                        "익명"
+                    }else{
+                        it["nickName"] as String
+                    }
+                }
+        }.await()
+
+        return snapshot
+    }
+
+    fun setMyNickName(newNickName : String){
+        val docRef = db.collection("profile").document(uid)
+        docRef.update("nickName", newNickName)
+    }
 }

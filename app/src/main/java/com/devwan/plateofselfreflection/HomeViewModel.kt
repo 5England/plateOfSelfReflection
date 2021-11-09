@@ -17,7 +17,17 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     val notOvercomePlate : LiveData<Long> = _notOvercomePlate
 
     init {
-//        userRepo.listenMyNickName(_nickName)
+        getMyNickName()
 //        userRepo.listenMyPlateState(_overcomePlate, _notOvercomePlate)
+    }
+
+    fun getMyNickName(){
+        viewModelScope.launch {
+            _nickName.value = firestoreRepo.getMyNickName()
+        }
+    }
+
+    fun setMyNickName(newNickName : String){
+        firestoreRepo.setMyNickName(newNickName)
     }
 }
