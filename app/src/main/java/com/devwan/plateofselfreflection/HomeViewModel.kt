@@ -18,7 +18,6 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _nickName.value = firestoreRepo.getMyNickName()
             firestoreRepo.getMyPlateState(_nickName, _overcomeNum, _plateNum)
         }
         //getMotiList

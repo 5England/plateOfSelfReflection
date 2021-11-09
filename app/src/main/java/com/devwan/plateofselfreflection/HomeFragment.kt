@@ -46,17 +46,29 @@ class HomeFragment : Fragment() {
         }
         viewModel.plateNum.observe(viewLifecycleOwner){
             binding.plateNum.text = it.toString()
-//            setProgressBar()
+            setProgressBar(viewModel.plateNum.value, viewModel.overcomeNum.value)
         }
         viewModel.overcomeNum.observe(viewLifecycleOwner){
             binding.overcomeNum.text = it.toString()
-        //            setProgressBar()
+            setProgressBar(viewModel.plateNum.value, viewModel.overcomeNum.value)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun setProgressBar(plateNum : Long?, overcomeNum : Long?){
+        plateNum?.let {
+            if(plateNum.toInt() == 0){
+                binding.cpbCirclebar.progress = 0
+            }else{
+                overcomeNum?.let {
+                    binding.cpbCirclebar.progress = ( overcomeNum.toDouble() / plateNum.toInt() * 100 ).toInt()
+                }
+            }
+        }
     }
 }
 

@@ -219,15 +219,15 @@ class FirestoreRepository {
         plateDocument.update("commentList", commentList)
     }
 
-    suspend fun getMyNickName() : String{
+    suspend fun getMyPlateState(_nickName: MutableLiveData<String>,
+                                _overcomePlateNum: MutableLiveData<Long>, _allPlateNum: MutableLiveData<Long>){
         val docRef = db.collection("profile").document(uid)
-        var result : String = ""
 
         coroutineScope {
             docRef
                 .get()
                 .addOnSuccessListener {
-                    result = if (it["nickName"] == null) {
+                    _nickName.value = if (it["nickName"] == null) {
                         val newData = hashMapOf(
                             "nickName" to "익명", "overcomePlateNum" to 0, "allPlateNum" to 0
                         )
@@ -239,24 +239,16 @@ class FirestoreRepository {
                 }
         }.await()
 
-        return result
+        db.collection("profile").document(uid)
+            .get().addOnSuccessListener {
+                _overcomePlateNum.value = it["overcomePlateNum"] as Long
+                _allPlateNum.value = it["allPlateNum"] as Long
+            }
     }
 
     fun setMyNickName(newNickName: String) {
         val docRef = db.collection("profile").document(uid)
         docRef.update("nickName", newNickName)
-    }
-
-    fun getMyPlateState(
-        _nickName: MutableLiveData<String>,
-        _overcomePlateNum: MutableLiveData<Long>, _allPlateNum: MutableLiveData<Long>
-    ) {
-        db.collection("profile").document(uid)
-            .get().addOnSuccessListener {
-                _nickName.value = it["nickName"].toString()
-                _overcomePlateNum.value = it["overcomePlateNum"] as Long
-                _allPlateNum.value = it["allPlateNum"] as Long
-            }
     }
 
     private fun plusAllPlateNum(){
@@ -273,8 +265,6 @@ class FirestoreRepository {
             val newAllPlateNum : Long = it["allPlateNum"] as Long - 1
             docRef.update("allPlateNum", newAllPlateNum)
         }
-
-        //삭제 시 overcome 고려 ㅇㅇ
     }
 
     private fun plusOvercomePlateNum(){
