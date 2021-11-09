@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.btnSignout.setOnClickListener{
+        binding.btnSignOut.setOnClickListener{
             onAuthServiceListener.signOut()
         }
 
@@ -38,3 +38,5 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+
+//https://lcw126.tistory.com/284
