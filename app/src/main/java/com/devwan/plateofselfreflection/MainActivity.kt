@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devwan.plateofselfreflection.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
@@ -17,21 +18,11 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(isLoggedIn()) {
-            initNavigationBar()
-        }else{
+        if (FirebaseAuth.getInstance().currentUser == null) {
             firebaseAuthentication.signIn()
+        }else{
+            initNavigationBar()
         }
-    }
-
-    private fun isLoggedIn() : Boolean{
-        var isLoggedIn : Boolean = false
-        val uid : String? = getSharedPreferences("authSP", Context.MODE_PRIVATE).getString(
-            "uid",
-            null
-        )
-        uid?.let { isLoggedIn = true }
-        return isLoggedIn
     }
 
     private fun initNavigationBar() {

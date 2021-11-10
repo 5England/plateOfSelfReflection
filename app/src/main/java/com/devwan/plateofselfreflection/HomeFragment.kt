@@ -41,16 +41,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.nickName.observe(viewLifecycleOwner){
-            binding.nickName.text = it
-        }
-        viewModel.plateNum.observe(viewLifecycleOwner){
-            binding.plateNum.text = it.toString()
-            setProgressBar(viewModel.plateNum.value, viewModel.overcomeNum.value)
-        }
-        viewModel.overcomeNum.observe(viewLifecycleOwner){
-            binding.overcomeNum.text = it.toString()
-            setProgressBar(viewModel.plateNum.value, viewModel.overcomeNum.value)
+        viewModel.stateSnapshot.observe(viewLifecycleOwner){
+            binding.nickName.text = it["nickName"] as String
+            binding.plateNum.text = it["allPlateNum"].toString()
+            binding.overcomeNum.text = it["overcomePlateNum"].toString()
+            setProgressBar(it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
         }
     }
 
@@ -59,7 +54,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun setProgressBar(plateNum : Long?, overcomeNum : Long?){
+    private fun setProgressBar(plateNum : Long?, overcomeNum : Long?){
         plateNum?.let {
             if(plateNum.toInt() == 0){
                 binding.cpbCirclebar.progress = 0
@@ -71,5 +66,3 @@ class HomeFragment : Fragment() {
         }
     }
 }
-
-//https://lcw126.tistory.com/284

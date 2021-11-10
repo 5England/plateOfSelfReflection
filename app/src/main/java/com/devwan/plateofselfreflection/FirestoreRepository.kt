@@ -219,30 +219,25 @@ class FirestoreRepository {
         plateDocument.update("commentList", commentList)
     }
 
-    suspend fun getMyPlateState(_nickName: MutableLiveData<String>,
-                                _overcomePlateNum: MutableLiveData<Long>, _allPlateNum: MutableLiveData<Long>){
+    suspend fun getMyPlateStateSnapshot(_stateSnapshot: MutableLiveData<DocumentSnapshot>){
         val docRef = db.collection("profile").document(uid)
 
         coroutineScope {
             docRef
                 .get()
                 .addOnSuccessListener {
-                    _nickName.value = if (it["nickName"] == null) {
+                    if (it["nickName"] == null) {
                         val newData = hashMapOf(
                             "nickName" to "익명", "overcomePlateNum" to 0, "allPlateNum" to 0
                         )
                         docRef.set(newData)
-                        "익명"
-                    } else {
-                        it["nickName"] as String
                     }
                 }
         }.await()
 
         db.collection("profile").document(uid)
             .get().addOnSuccessListener {
-                _overcomePlateNum.value = it["overcomePlateNum"] as Long
-                _allPlateNum.value = it["allPlateNum"] as Long
+                _stateSnapshot.value = it
             }
     }
 
