@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import com.devwan.plateofselfreflection.databinding.ActivityUploadPlateBinding
+import kotlinx.coroutines.*
 import java.sql.Timestamp
 
 class UploadPlateActivity : AppCompatActivity() {
@@ -34,9 +35,11 @@ class UploadPlateActivity : AppCompatActivity() {
                 )
 
                 val fireStoreRepo : FirestoreRepository = FirestoreRepository()
-                fireStoreRepo.uploadPlate(newPlate)
-
-                finish()
+                GlobalScope.launch(Dispatchers.Main) {
+                    fireStoreRepo.uploadPlate(newPlate)
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
 
             }else{
                 Toast.makeText(this, "제목, 내용을 모두 입력해주세요", Toast.LENGTH_SHORT).show()

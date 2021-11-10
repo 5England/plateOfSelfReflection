@@ -22,32 +22,35 @@ class FirestoreRepository {
         return uid
     }
 
-    fun uploadPlate(newPlate: Plate) {
-        val newData = hashMapOf(
-            "uid" to uid,
-            "nickName" to newPlate.nickName,
-            "title" to newPlate.title,
-            "mainText" to newPlate.mainText,
-            "isOvercome" to newPlate.isOvercome,
-            "feedBack" to newPlate.feedBack,
-            "uploadTime" to newPlate.uploadTimestamp,
-            "like" to newPlate.like,
-            "likeUidMap" to newPlate.LikeUidMap,
-            "commentList" to newPlate.commentList
-        )
+    suspend fun uploadPlate(newPlate: Plate) {
 
-        db.collection("plate")
-            .add(newData)
-            .addOnSuccessListener { documentReference ->
-                Log.d(
-                    ContentValues.TAG,
-                    "DocumentSnapshot written with ID: ${documentReference.id}"
-                )
-                plusAllPlateNum()
-            }
-            .addOnFailureListener { e ->
-                Log.w(ContentValues.TAG, "Error adding document", e)
-            }
+        coroutineScope {
+        db.collection("profile").document(uid).get().addOnSuccessListener {
+            val nickName = it["nickName"].toString()
+
+            val newData = hashMapOf(
+                "uid" to uid,
+                "nickName" to nickName,
+                "title" to newPlate.title,
+                "mainText" to newPlate.mainText,
+                "isOvercome" to newPlate.isOvercome,
+                "feedBack" to newPlate.feedBack,
+                "uploadTime" to newPlate.uploadTimestamp,
+                "like" to newPlate.like,
+                "likeUidMap" to newPlate.LikeUidMap,
+                "commentList" to newPlate.commentList
+            )
+
+            db.collection("plate")
+                .add(newData)
+                .addOnSuccessListener { documentReference ->
+                    plusAllPlateNum()
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error adding document", e)
+                }
+        }.await()
+        }
     }
 
     suspend fun getAllPlateList(): List<DocumentSnapshot> {
@@ -88,14 +91,15 @@ class FirestoreRepository {
         db.collection("plate").document(plate.id)
             .update("isOvercome", !(plate["isOvercome"] as Boolean))
             .addOnSuccessListener {
-                Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!")
                 if (isOvercome) {
                     minusOvercomePlateNum()
                 } else {
                     plusOvercomePlateNum()
                 }
             }
-            .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error updating document", e) }
+            .addOnFailureListener { e ->
+                Log.w(ContentValues.TAG, "Error updating document", e)
+            }
     }
 
     fun uploadFeedback(snapshotId: String, feedbackText: String) {
@@ -131,8 +135,7 @@ class FirestoreRepository {
         document.update("title", newTitle)
             .addOnSuccessListener {
                 Log.d(
-                    ContentValues.TAG,
-                    "DocumentSnapshot successfully deleted!"
+                    ContentValues.TAG, "DocumentSnapshot successfully deleted!"
                 )
             }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
@@ -140,8 +143,7 @@ class FirestoreRepository {
         document.update("mainText", newMainText)
             .addOnSuccessListener {
                 Log.d(
-                    ContentValues.TAG,
-                    "DocumentSnapshot successfully deleted!"
+                    ContentValues.TAG, "DocumentSnapshot successfully deleted!"
                 )
             }
             .addOnFailureListener { e -> Log.w(ContentValues.TAG, "Error deleting document", e) }
@@ -204,21 +206,21 @@ class FirestoreRepository {
 
     suspend fun uploadComment(snapshotId: String, comment: String) {
         val plateDocument = db.collection("plate").document(snapshotId)
-        lateinit var commentList: MutableList<String>
 
         coroutineScope {
             plateDocument.get()
                 .addOnSuccessListener {
-                    commentList = it["commentList"] as MutableList<String>
+                    var commentList: MutableList<String> = it["commentList"] as MutableList<String>
+                    commentList.apply {
+                        add(comment)
+                        commentList.toList()
+                        plateDocument.update("commentList", this)
+                    }
                 }
                 .addOnFailureListener { exception ->
                     Log.w(ContentValues.TAG, "Error getting documents: ", exception)
                 }
         }.await()
-
-        commentList.add(comment)
-        commentList.toList()
-        plateDocument.update("commentList", commentList)
     }
 
     suspend fun getMyPlateStateSnapshot(_stateSnapshot: MutableLiveData<DocumentSnapshot>){

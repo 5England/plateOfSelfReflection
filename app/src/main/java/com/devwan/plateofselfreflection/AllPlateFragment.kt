@@ -1,5 +1,6 @@
 package com.devwan.plateofselfreflection
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
@@ -15,10 +18,11 @@ import com.devwan.plateofselfreflection.databinding.FragmentAllPlateBinding
 
 class AllPlateFragment : Fragment(){
 
+    private lateinit var mContext: Context
+    private lateinit var getResult: ActivityResultLauncher<Intent>
     private var _binding : FragmentAllPlateBinding? = null
     private val binding get() = _binding!!
-    private lateinit var mContext: Context
-    var isTimeListType = true
+    private var isTimeListType = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,7 +49,13 @@ class AllPlateFragment : Fragment(){
 
         binding.btnCreateUploadActivity.setOnClickListener {
             val intent = Intent(mContext, UploadPlateActivity::class.java)
-            startActivity(intent)
+            getResult.launch(intent)
+        }
+
+        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == Activity.RESULT_OK){
+                allPlateViewModel.getAllPlateList()
+            }
         }
 
         return binding.root

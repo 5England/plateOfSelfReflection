@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/brown1"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -18,7 +19,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/brown3"
+        android:background="@drawable/mainactivity_shape_bnvbackground"
         app:itemIconTint="@drawable/menu_selector_color"
         app:itemTextColor="@drawable/menu_selector_color"
         app:menu="@menu/menu_icon" />

@@ -120,13 +120,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="3dp"
         android:fontFamily="@font/spo_bold"
-        android:textSize="16dp"
+        android:textSize="17dp"
         android:elevation="10dp"
         android:layout_gravity="left"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/brown4"
         android:text="나의 반성 현황"/>
 
@@ -223,8 +223,8 @@
             app:style="solid_line"
             app:progress_stroke_width="15dp"
             app:progress_stroke_cap="round"
-            app:progress_start_color="#FFBB00"
-            app:progress_end_color="#ABF200"
+            app:progress_start_color="#eea849"
+            app:progress_end_color="#f46b45"
             android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -236,13 +236,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="3dp"
         android:fontFamily="@font/spo_bold"
-        android:textSize="16dp"
+        android:textSize="17dp"
         android:elevation="10dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/brown4"
         android:text="근사한, 동기부여 메세지"/>
 
@@ -250,9 +250,9 @@
         android:id="@+id/motivationLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
+        android:layout_marginRight="40dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/homefragment_shape_moti"
+        android:background="@drawable/homefragment_shape_curplatelayout"
         android:elevation="15dp"
         android:layout_weight="1"
         android:orientation="vertical">
