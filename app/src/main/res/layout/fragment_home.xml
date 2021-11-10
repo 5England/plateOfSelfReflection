@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingLeft="15dp">
+                android:paddingLeft="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                         android:fontFamily="@font/spo_medium"
                         android:text="안녕하세요, "
                         android:textColor="@color/brown4"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/nickName"
@@ -61,7 +61,7 @@
                         android:fontFamily="@font/spo_medium"
                         android:text=""
                         android:textColor="@color/brown4"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                         android:fontFamily="@font/spo_medium"
                         android:text="님!"
                         android:textColor="@color/brown4"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:fontFamily="@font/spo_regular"
                     android:text="당신의 발전을 기다리고 있었어요."
                     android:textColor="#858585"
-                    android:textSize="15dp" />
+                    android:textSize="14dp" />
             </LinearLayout>
         </LinearLayout>
 
