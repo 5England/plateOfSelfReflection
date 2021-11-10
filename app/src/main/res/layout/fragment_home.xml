@@ -171,8 +171,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="35dp"
                     android:fontFamily="@font/spo_medium"
-                    android:textColor="@color/brown3"
-                    android:text="0"/>
+                    android:textColor="@color/brown3" />
 
             </LinearLayout>
 
@@ -205,8 +204,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="35dp"
                     android:fontFamily="@font/spo_medium"
-                    android:textColor="@color/brown3"
-                    android:text="0"/>
+                    android:textColor="@color/brown3" />
 
             </LinearLayout>
         </LinearLayout>
@@ -223,7 +221,7 @@
             android:layout_margin="30dp"
             app:progress_text_size="25dp"
             app:style="solid_line"
-            app:progress_stroke_width="10dp"
+            app:progress_stroke_width="15dp"
             app:progress_stroke_cap="round"
             app:progress_start_color="#FFBB00"
             app:progress_end_color="#ABF200"
@@ -268,30 +266,30 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView_firstMoti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:fontFamily="@font/spo_regular"
-                android:textColor="@color/black"
-                android:text="겸손해라. 나의 부족함을"/>
+                android:fontFamily="@font/spo_light"
+                android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/textView_secondMoti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/spo_regular"
-                android:textColor="@color/black"
-                android:text="쿨하게 인정하고, 개선해라."/>
+                android:fontFamily="@font/spo_light"
+                android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/textView_nickNameMoti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/spo_regular"
-                android:textColor="#A8A8A8"
-                android:text="완킴"/>
+                android:textColor="#A8A8A8" />
 
         </LinearLayout>
 
