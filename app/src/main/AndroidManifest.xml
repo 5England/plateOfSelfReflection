@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateOfSelfReflection">
-        <activity android:name=".PlateActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".UpdateNickNameActivity"></activity>
+        <activity
+            android:name=".PlateActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".UploadFeedbackActivity" />
         <activity android:name=".UpdatePlateActivity" />
         <activity android:name=".UploadPlateActivity" />

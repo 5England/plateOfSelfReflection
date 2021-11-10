@@ -13,10 +13,14 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
     val stateSnapshot : LiveData<DocumentSnapshot> = _stateSnapshot
 
     init {
+        getMyPlateStateSnapshot()
+        //getMotiList
+    }
+
+    fun getMyPlateStateSnapshot(){
         viewModelScope.launch {
             firestoreRepo.getMyPlateStateSnapshot(_stateSnapshot)
         }
-        //getMotiList
     }
 
     fun setMyNickName(newNickName : String){
