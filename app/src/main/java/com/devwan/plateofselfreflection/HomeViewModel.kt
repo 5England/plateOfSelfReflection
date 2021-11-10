@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
 
 class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
@@ -14,16 +15,11 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     init {
         getMyPlateStateSnapshot()
-        //getMotiList
     }
 
     fun getMyPlateStateSnapshot(){
         viewModelScope.launch {
             firestoreRepo.getMyPlateStateSnapshot(_stateSnapshot)
         }
-    }
-
-    fun setMyNickName(newNickName : String){
-        firestoreRepo.setMyNickName(newNickName)
     }
 }

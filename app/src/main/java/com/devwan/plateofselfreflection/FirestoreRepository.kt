@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.coroutineScope
@@ -244,6 +246,23 @@ class FirestoreRepository {
     fun setMyNickName(newNickName: String) {
         val docRef = db.collection("profile").document(uid)
         docRef.update("nickName", newNickName)
+    }
+
+    suspend fun getMotiListSnapshot() : QuerySnapshot?{
+        var querySnapshot : QuerySnapshot? = null
+
+            coroutineScope {
+                db.collection("moti")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        querySnapshot = documents
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                    }
+            }.await()
+
+        return querySnapshot
     }
 
     private fun plusAllPlateNum(){
