@@ -1,5 +1,6 @@
 package com.devwan.plateofselfreflection
 
+import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 
-class AllPlateAdapter(private var mContext: Context, private var plateList: List<DocumentSnapshot>) :
+class AllPlateAdapter(private var mContext: Context, private var plateList: List<DocumentSnapshot>, private val getResult : ActivityResultLauncher<Intent>) :
     RecyclerView.Adapter<AllPlateAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -72,7 +75,7 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
 
         viewHolder.cardView?.setOnClickListener{
             val intent = Intent(mContext, PlateActivity::class.java)
-            mContext.startActivity(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
+            getResult.launch(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
         }
     }
 }

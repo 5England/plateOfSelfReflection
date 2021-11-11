@@ -25,6 +25,7 @@ class PlateActivity : AppCompatActivity() {
         binding = ActivityPlateBinding.inflate(layoutInflater)
 
         val snapshotId: String = intent.getStringExtra("snapshotId") as String
+        setResult(RESULT_OK, intent)
 
         refreshPlate(snapshotId)
         initBtnLikeClickListener(snapshotId)

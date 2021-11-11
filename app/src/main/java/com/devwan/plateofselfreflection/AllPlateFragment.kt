@@ -42,20 +42,20 @@ class AllPlateFragment : Fragment(){
         initSwipeLayout()
         initBtnSetListTypeClickListener()
 
+        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == Activity.RESULT_OK){
+                allPlateViewModel.getAllPlateList()
+            }
+        }
+
         binding.recyclerViewAllPlate.apply {
             layoutManager = LinearLayoutManager(activity?.application)
-            adapter = com.devwan.plateofselfreflection.AllPlateAdapter(mContext, emptyList())
+            adapter = AllPlateAdapter(mContext, emptyList(), getResult)
         }
 
         binding.btnCreateUploadActivity.setOnClickListener {
             val intent = Intent(mContext, UploadPlateActivity::class.java)
             getResult.launch(intent)
-        }
-
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == Activity.RESULT_OK){
-                allPlateViewModel.getAllPlateList()
-            }
         }
 
         return binding.root
