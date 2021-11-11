@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
     }
 
     override fun onSignInComplete() {
+        setContentView(binding.root)
         initNavigationBar()
     }
 

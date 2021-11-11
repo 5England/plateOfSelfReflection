@@ -9,6 +9,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,7 +27,7 @@ class FirebaseAuthentication (private val activity : AppCompatActivity){
         // Choose authentication providers
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
+            AuthUI.IdpConfig.GoogleBuilder().build(),
         )
         // Create and launch sign-in intent
         val signInIntent = AuthUI.getInstance()
@@ -49,6 +51,7 @@ class FirebaseAuthentication (private val activity : AppCompatActivity){
     }
 
     fun signOut() {
+        Firebase.auth.signOut()
         signIn()
     }
 }

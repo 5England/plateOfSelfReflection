@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         onAuthServiceListener = context as OnAuthServiceListener
     }
 
-    private val viewModel : HomeViewModel by viewModels(
+    private val homeViewModel : HomeViewModel by viewModels(
         factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
     )
 
@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
 
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == Activity.RESULT_OK){
-                viewModel.getMyPlateStateSnapshot()
+                homeViewModel.getMyPlateStateSnapshot()
             }
         }
 
@@ -84,13 +84,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.stateSnapshot.observe(viewLifecycleOwner){
+        homeViewModel.stateSnapshot.observe(viewLifecycleOwner){
             binding.apply {
                 nickName.text = it["nickName"].toString()
                 plateNum.text = it["allPlateNum"].toString()
                 overcomeNum.text = it["overcomePlateNum"].toString()
+                setProgressBar(it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
+                layoutHomeFragment.visibility = View.VISIBLE
             }
-            setProgressBar(it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
         }
     }
 
