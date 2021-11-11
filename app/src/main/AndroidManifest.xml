@@ -9,19 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateOfSelfReflection">
-        <activity android:name=".UpdateNickNameActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ReviewActivity"></activity>
+        <activity
+            android:name=".UpdateNickNameActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PlateActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UploadFeedbackActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UpdatePlateActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UploadPlateActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".UploadFeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdatePlateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UploadPlateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginTop="30dp"
             android:orientation="vertical">
 
             <EditText
@@ -70,7 +71,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:elevation="5dp"
                 android:background="@drawable/updatenicknameactivity_shape_updatebtnbackground"

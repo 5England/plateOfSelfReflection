@@ -231,13 +231,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/white"
+        android:background="@drawable/plateactivity_shape_editcommentbackground"
         android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#ECECEC"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

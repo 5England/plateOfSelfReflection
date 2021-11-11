@@ -64,6 +64,11 @@ class HomeFragment : Fragment() {
                 }
                 setMoti()
             }
+
+            btnNewMessage.setOnClickListener {
+                val intent = Intent(mContext, ReviewActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
