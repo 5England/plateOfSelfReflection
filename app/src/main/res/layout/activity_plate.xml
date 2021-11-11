@@ -50,18 +50,19 @@
                         android:id="@+id/textView_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spo_medium"
+                        android:fontFamily="@font/spo_regular"
                         android:paddingTop="1dp"
                         android:text="익명"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
                     <TextView
+                        android:id="@+id/textView_dish"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="1dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/spo_medium"
+                        android:fontFamily="@font/spo_regular"
                         android:paddingTop="1dp"
                         android:text="님의 반성 한 접시"
                         android:textColor="@color/black"

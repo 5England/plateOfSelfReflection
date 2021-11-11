@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/spo_medium"
+            android:fontFamily="@font/spo_regular"
             android:textSize="19dp"
             android:textColor="@color/black"
             android:text="App 피드백 남기기" />
@@ -61,7 +61,7 @@
                 android:textSize="23dp"
                 android:fontFamily="@font/spo_thin"
                 android:textColor="@color/black"
-                android:text="당신의 "/>
+                android:text="나만의 "/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="23dp"
-                android:fontFamily="@font/spo_light"
+                android:fontFamily="@font/spo_thin"
                 android:textColor="@color/black"
                 android:text="를"/>
         </LinearLayout>
@@ -99,7 +99,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginLeft="20dp"
             android:textSize="23dp"
-            android:fontFamily="@font/spo_light"
+            android:fontFamily="@font/spo_thin"
             android:textColor="@color/black"
             android:text="전달해주세요"/>
 

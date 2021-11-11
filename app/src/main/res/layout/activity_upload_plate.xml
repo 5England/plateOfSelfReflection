@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:layout_marginTop="9dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/spo_medium"
+            android:fontFamily="@font/spo_regular"
             android:textSize="19dp"
             android:textColor="@color/black"
             android:text="반성문 작성" />

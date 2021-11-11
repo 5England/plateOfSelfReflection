@@ -46,6 +46,10 @@ class PlateActivity : AppCompatActivity() {
                 plate?.apply {
 
                     textViewNickname.text = plate["nickName"] as String
+                    if(textViewNickname.text.toString().length >= 4){
+                        textViewNickname.textSize = 16.0f
+                        textViewDish.textSize = 16.0f
+                    }
                     textViewUploadTime.text =
                         Plate.getUploadTimeText((plate["uploadTime"] as Timestamp).toDate())
                     textViewTitle.text = plate["title"] as String

@@ -18,7 +18,7 @@
             android:id="@+id/btn_finishActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/brown1"
             app:srcCompat="@drawable/uploadactivity_icon_backbutton" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:layout_marginTop="9dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/spo_medium"
+            android:fontFamily="@font/spo_regular"
             android:textSize="19dp"
             android:textColor="@color/black"
             android:text="후기 작성" />
