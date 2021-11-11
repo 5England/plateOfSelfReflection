@@ -21,17 +21,17 @@
     </style>
 
     <style name="SignInTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/brown1</item>
+        <item name="colorPrimary">@color/brown3</item>
         <item name="colorPrimaryVariant">@color/brown1</item>
-        <item name="colorAccent">@color/brown1</item>
+        <item name="colorAccent">@color/brown3</item>
 
-        <item name="android:colorBackground">@color/brown1</item>
+        <item name="android:background">@color/brown1</item>
         <item name="android:layout_gravity">bottom</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:layout_marginTop">19dp</item>
+        <item name="android:layout_marginTop">15dp</item>
 
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
 
         <!-- On API 21+ you can use android:statusBarColor -->
         <item name="colorPrimaryDark">#170F0C</item>
