@@ -52,7 +52,7 @@
                 android:background="@drawable/updatenicknameactivity_shape_editbackground"
                 android:hint="닉네임"
                 android:fontFamily="@font/spo_regular"
-                android:textCursorDrawable="@drawable/color_cursor"
+                android:textCursorDrawable="@drawable/cursor_orange"
                 android:inputType="textPersonName"
                 android:textSize="16dp" />
 

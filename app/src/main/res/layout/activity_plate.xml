@@ -258,7 +258,7 @@
             android:background="@null"
             android:hint=" 댓글 작성하기"
             android:layout_weight="1"
-            android:textCursorDrawable="@drawable/color_cursor"
+            android:textCursorDrawable="@drawable/cursor_orange"
             android:inputType="textMultiLine"
             android:scrollHorizontally="false"
             android:fontFamily="@font/spo_regular"
