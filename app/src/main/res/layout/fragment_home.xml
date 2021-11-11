@@ -126,7 +126,7 @@
         android:textSize="17dp"
         android:elevation="10dp"
         android:layout_gravity="left"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:textColor="@color/brown4"
         android:text="나의 반성 현황"/>
 
@@ -134,7 +134,8 @@
         android:id="@+id/percentBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:elevation="15dp"
         android:background="@drawable/homefragment_shape_curplatelayout"
         android:gravity="center_vertical"
@@ -143,7 +144,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -160,7 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:fontFamily="@font/spo_regular"
                     android:textColor="#A3A3A3"
                     android:text="현재 반성"/>
@@ -193,7 +193,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="13dp"
                     android:fontFamily="@font/spo_regular"
                     android:textColor="#A3A3A3"
                     android:text="현재 개선"/>
@@ -221,7 +221,7 @@
             android:layout_margin="30dp"
             app:progress_text_size="25dp"
             app:style="solid_line"
-            app:progress_stroke_width="15dp"
+            app:progress_stroke_width="10dp"
             app:progress_stroke_cap="round"
             app:progress_start_color="#eea849"
             app:progress_end_color="#f46b45"
@@ -242,7 +242,7 @@
         android:textSize="17dp"
         android:elevation="10dp"
         android:layout_gravity="left"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:textColor="@color/brown4"
         android:text="근사한, 동기부여 메세지"/>
 
@@ -250,7 +250,8 @@
         android:id="@+id/motivationLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/homefragment_shape_curplatelayout"
         android:elevation="15dp"

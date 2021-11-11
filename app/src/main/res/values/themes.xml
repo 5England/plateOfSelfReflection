@@ -38,9 +38,8 @@
     </style>
 
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:background">#271D1A</item>
-        <item name="android:textColor">@color/orange</item>
+        <item name="android:background">#434343</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:colorAccent">@color/white</item>
     </style>
 </resources>
