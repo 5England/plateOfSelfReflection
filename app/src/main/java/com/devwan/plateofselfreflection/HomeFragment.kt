@@ -90,7 +90,6 @@ class HomeFragment : Fragment() {
                 plateNum.text = it["allPlateNum"].toString()
                 overcomeNum.text = it["overcomePlateNum"].toString()
                 setProgressBar(it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
-                layoutHomeFragment.visibility = View.VISIBLE
             }
         }
     }
