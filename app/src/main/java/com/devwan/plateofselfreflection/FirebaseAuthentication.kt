@@ -19,8 +19,8 @@ class FirebaseAuthentication (private val activity : AppCompatActivity){
     fun signIn(){
         // Choose authentication providers
         val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build(),
+            AuthUI.IdpConfig.AnonymousBuilder().build()
         )
         // Create and launch sign-in intent
         val signInIntent = AuthUI.getInstance()
@@ -28,6 +28,8 @@ class FirebaseAuthentication (private val activity : AppCompatActivity){
             .setAvailableProviders(providers)
             .setLogo(R.drawable.icon_authlogo)
             .setTheme(R.style.SignInTheme)
+            .setIsSmartLockEnabled(false)
+            .setLockOrientation(true)
             .build()
         signInLauncher.launch(signInIntent)
     }
