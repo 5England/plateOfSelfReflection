@@ -11,6 +11,7 @@ import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devwan.plateofselfreflection.databinding.FragmentMyPlateBinding
+import com.dinuscxj.progressbar.CircleProgressBar
 
 class MyPlateFragment : Fragment() {
 
@@ -23,7 +24,7 @@ class MyPlateFragment : Fragment() {
         mContext = context
     }
 
-    private val viewModel : MyPlateViewModel by viewModels(
+    private val myPlateViewModel : MyPlateViewModel by viewModels(
         factoryProducer = { SavedStateViewModelFactory(activity?.application,this) }
     )
 
@@ -40,19 +41,27 @@ class MyPlateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.plate.observe(viewLifecycleOwner){
+        myPlateViewModel.plate.observe(viewLifecycleOwner){
             (binding.recyclerViewMyPlate.adapter as MyPlateAdapter).setData(it)
+            myPlateViewModel.getMyPlateStateSnapshot()
+        }
+        myPlateViewModel.myStateSnapshot.observe(viewLifecycleOwner){
+            binding.apply {
+                textViewMyAllPlateNum.text = it["allPlateNum"].toString()
+                textViewMyOvercomePlateNum.text = it["overcomePlateNum"].toString()
+            }
         }
     }
+
     private fun initRecyclerView(){
         binding.recyclerViewMyPlate.apply {
             layoutManager = LinearLayoutManager(activity?.application)
             adapter = MyPlateAdapter(mContext, emptyList(),
                 onClickIsOvercome = {
-                    viewModel.checkIsOvercome(it)
+                    myPlateViewModel.checkIsOvercome(it)
                 },
                 onClickDelete = {
-                    viewModel.deletePlate(it)
+                    myPlateViewModel.deletePlate(it)
                 })
         }
     }

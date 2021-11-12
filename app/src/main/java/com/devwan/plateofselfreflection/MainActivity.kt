@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
                     R.id.icon_home -> changeFragmentWithAnim(HomeFragment())
                     R.id.icon_feed -> changeFragmentWithAnim(AllPlateFragment())
                     R.id.icon_myFeed -> changeFragmentWithAnim(MyPlateFragment())
+                    R.id.icon_info -> changeFragmentWithAnim(InfoFragment())
                 }
                 true
             }

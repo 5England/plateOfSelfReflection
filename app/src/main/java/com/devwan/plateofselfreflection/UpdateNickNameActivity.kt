@@ -39,7 +39,6 @@ class UpdateNickNameActivity : AppCompatActivity() {
         val newNickName : String = binding.editTextNickName.text.toString().replace(" ", "")
         val firebaseRepo : FirebaseRepo = FirebaseRepo()
         firebaseRepo.setMyNickName(newNickName)
-        setResult(RESULT_OK, intent)
         finish()
     }
 }

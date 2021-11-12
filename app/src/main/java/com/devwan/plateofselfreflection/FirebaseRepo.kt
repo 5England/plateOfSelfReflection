@@ -15,6 +15,7 @@ import java.util.*
 class FirebaseRepo {
     private val db = Firebase.firestore
     private val uid = Firebase.auth.uid.toString()
+    private val allNumId = "SgvaHO9PQAHZB8KbCuWt"
 
     fun getUid(): String {
         return uid
@@ -220,7 +221,7 @@ class FirebaseRepo {
         }.await()
     }
 
-    suspend fun getMyPlateStateSnapshot(_stateSnapshot: MutableLiveData<DocumentSnapshot>) {
+    suspend fun getMyPlateStateSnapshot(_myStateSnapshot: MutableLiveData<DocumentSnapshot>) {
         val docRef = db.collection("profile").document(uid)
 
         coroutineScope {
@@ -238,7 +239,14 @@ class FirebaseRepo {
 
         db.collection("profile").document(uid)
             .get().addOnSuccessListener {
-                _stateSnapshot.value = it
+                _myStateSnapshot.value = it
+            }
+    }
+
+    fun getAllPlateStateSnapshot(_allStateSnapshot: MutableLiveData<DocumentSnapshot>){
+        db.collection("profile").document(allNumId)
+            .get().addOnSuccessListener {
+                _allStateSnapshot.value = it
             }
     }
 
@@ -265,34 +273,58 @@ class FirebaseRepo {
     }
 
     private fun plusAllPlateNum() {
-        val docRef = db.collection("profile").document(uid)
-        docRef.get().addOnSuccessListener {
+        val myDocRef = db.collection("profile").document(uid)
+        myDocRef.get().addOnSuccessListener {
             val newAllPlateNum: Long = it["allPlateNum"] as Long + 1
-            docRef.update("allPlateNum", newAllPlateNum)
+            myDocRef.update("allPlateNum", newAllPlateNum)
+        }
+
+        val allDocRef = db.collection("profile").document(allNumId)
+        allDocRef.get().addOnSuccessListener {
+            val newAllPlateNum: Long = it["allPlateNum"] as Long + 1
+            allDocRef.update("allPlateNum", newAllPlateNum)
         }
     }
 
     private fun minusAllPlateNum() {
-        val docRef = db.collection("profile").document(uid)
-        docRef.get().addOnSuccessListener {
+        val myDocRef = db.collection("profile").document(uid)
+        myDocRef.get().addOnSuccessListener {
             val newAllPlateNum: Long = it["allPlateNum"] as Long - 1
-            docRef.update("allPlateNum", newAllPlateNum)
+            myDocRef.update("allPlateNum", newAllPlateNum)
+        }
+
+        val allDocRef = db.collection("profile").document(allNumId)
+        allDocRef.get().addOnSuccessListener {
+            val newAllPlateNum: Long = it["allPlateNum"] as Long - 1
+            allDocRef.update("allPlateNum", newAllPlateNum)
         }
     }
 
     private fun plusOvercomePlateNum() {
-        val docRef = db.collection("profile").document(uid)
-        docRef.get().addOnSuccessListener {
+        val myDocRef = db.collection("profile").document(uid)
+        myDocRef.get().addOnSuccessListener {
             val newAllPlateNum: Long = it["overcomePlateNum"] as Long + 1
-            docRef.update("overcomePlateNum", newAllPlateNum)
+            myDocRef.update("overcomePlateNum", newAllPlateNum)
+        }
+
+        val allDocRef = db.collection("profile").document(allNumId)
+        allDocRef.get().addOnSuccessListener {
+            val newAllPlateNum: Long = it["overcomePlateNum"] as Long + 1
+            allDocRef.update("overcomePlateNum", newAllPlateNum)
         }
     }
 
     private fun minusOvercomePlateNum() {
-        val docRef = db.collection("profile").document(uid)
-        docRef.get().addOnSuccessListener {
+        val myDocRef = db.collection("profile").document(uid)
+        myDocRef.get().addOnSuccessListener {
             val newAllPlateNum: Long = it["overcomePlateNum"] as Long - 1
-            docRef.update("overcomePlateNum", newAllPlateNum)
+            myDocRef.update("overcomePlateNum", newAllPlateNum)
+        }
+
+        val allDocRef = db.collection("profile").document(allNumId)
+        allDocRef.get().addOnSuccessListener {
+            val newAllPlateNum: Long = it["overcomePlateNum"] as Long - 1
+            allDocRef.update("overcomePlateNum", newAllPlateNum)
         }
     }
 }

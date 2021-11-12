@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_plateactivity_background"
+    android:orientation="vertical"
+    tools:context=".InfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/brown1"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Info"
+            android:fontFamily="@font/spo_bold"
+            android:textColor="@color/brown3"
+            android:paddingLeft="5dp"
+            android:textSize="24dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_createUpdateNickNameActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spo_regular"
+        android:padding="10dp"
+        android:text="닉네임 변경"
+        android:textColor="@color/brown4"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3" />
+
+    <TextView
+        android:id="@+id/btn_signOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spo_regular"
+        android:padding="10dp"
+        android:text="로그아웃"
+        android:textColor="@color/brown4"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3" />
+
+    <TextView
+        android:id="@+id/btn_newMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:fontFamily="@font/spo_regular"
+        android:padding="10dp"
+        android:text="나의 메세지 전달"
+        android:textColor="@color/brown4"
+        android:textSize="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3" />
+
+</LinearLayout>
