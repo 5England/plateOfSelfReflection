@@ -59,11 +59,6 @@ class AllPlateFragment : Fragment(){
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun getActivityResultLauncher() : ActivityResultLauncher<Intent>{
         return registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == Activity.RESULT_OK){

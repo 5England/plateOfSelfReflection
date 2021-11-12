@@ -44,12 +44,6 @@ class MyPlateFragment : Fragment() {
             (binding.recyclerViewMyPlate.adapter as MyPlateAdapter).setData(it)
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun initRecyclerView(){
         binding.recyclerViewMyPlate.apply {
             layoutManager = LinearLayoutManager(activity?.application)
