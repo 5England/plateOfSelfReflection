@@ -19,9 +19,9 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/mainactivity_shape_bnvbackground"
-        app:itemIconTint="@drawable/menu_selector_color"
-        app:itemTextColor="@drawable/menu_selector_color"
+        android:background="@drawable/shape_mainactivity_bnvbackground"
+        app:itemIconTint="@drawable/selector_menu_color"
+        app:itemTextColor="@drawable/selector_menu_color"
         app:menu="@menu/menu_icon" />
 
 </LinearLayout>

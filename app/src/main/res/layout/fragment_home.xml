@@ -5,7 +5,7 @@
     android:id="@+id/layout_homeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/plateactivity_shape_background"
+    android:background="@drawable/shape_plateactivity_background"
     android:orientation="vertical"
     tools:context=".HomeFragment">
 
@@ -13,7 +13,7 @@
         android:id="@+id/helloLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/homefragment_shape_hellolayout"
+        android:background="@drawable/shape_homefragment_hellolayout"
         android:elevation="20dp"
         android:paddingRight="25dp"
         android:paddingLeft="25dp"
@@ -32,8 +32,8 @@
                 android:layout_height="58dp"
                 android:scaleType="centerCrop"
                 android:padding="8dp"
-                android:background="@drawable/homefragment_shape_diarybackground"
-                android:src="@drawable/diary_icon" />
+                android:background="@drawable/shape_homefragment_diarybackground"
+                android:src="@drawable/icon_diary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +92,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/btn_changeNickName"
+                android:id="@+id/btn_createUpdateNickNameActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -138,7 +138,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:elevation="15dp"
-        android:background="@drawable/homefragment_shape_curplatelayout"
+        android:background="@drawable/shape_homefragment_curplatelayout"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -167,7 +167,7 @@
                     android:text="현재 반성"/>
 
                 <TextView
-                    android:id="@+id/plateNum"
+                    android:id="@+id/textView_allPlateNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="35dp"
@@ -200,7 +200,7 @@
                     android:text="현재 개선"/>
 
                 <TextView
-                    android:id="@+id/overcomeNum"
+                    android:id="@+id/textView_overcomePlateNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="35dp"
@@ -254,7 +254,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/homefragment_shape_curplatelayout"
+        android:background="@drawable/shape_homefragment_curplatelayout"
         android:elevation="15dp"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -268,7 +268,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView_firstMoti"
+                android:id="@+id/textView_motivationFirst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -276,7 +276,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/textView_secondMoti"
+                android:id="@+id/textView_motivationSecond"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -285,7 +285,7 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/textView_nickNameMoti"
+                android:id="@+id/textView_motivationNickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
@@ -314,7 +314,7 @@
                 android:text="나의 메세지 전달"/>
 
             <TextView
-                android:id="@+id/btn_refreshMoti"
+                android:id="@+id/btn_refreshMotivation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"

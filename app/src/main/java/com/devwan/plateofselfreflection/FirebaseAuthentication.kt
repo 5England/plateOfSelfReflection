@@ -1,19 +1,12 @@
 package com.devwan.plateofselfreflection
 
 import android.app.Activity
-import android.content.Context
-import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class FirebaseAuthentication (private val activity : AppCompatActivity){
 
@@ -33,7 +26,7 @@ class FirebaseAuthentication (private val activity : AppCompatActivity){
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .setLogo(R.drawable.authlogo_icon)
+            .setLogo(R.drawable.icon_authlogo)
             .setTheme(R.style.SignInTheme)
             .build()
         signInLauncher.launch(signInIntent)

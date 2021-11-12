@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/plateactivity_shape_background"
+    android:background="@drawable/shape_plateactivity_background"
     tools:context=".UploadFeedbackActivity">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/brown1"
-            app:srcCompat="@drawable/uploadactivity_icon_backbutton" />
+            app:srcCompat="@drawable/icon_uploadactivity_backbutton" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -8,13 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.MainThread
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
-import androidx.lifecycle.lifecycleScope
 import com.devwan.plateofselfreflection.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
@@ -25,8 +22,8 @@ class HomeFragment : Fragment() {
     private lateinit var onAuthServiceListener : OnAuthServiceListener
     private lateinit var mContext: Context
     private lateinit var getResult: ActivityResultLauncher<Intent>
-    private lateinit var motiList : QuerySnapshot
-    private var motiIndex : Int = 0
+    private lateinit var motivationList : QuerySnapshot
+    private var motivationIndex : Int = 0
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -46,38 +43,17 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.apply {
-            btnSignOut.setOnClickListener{
-                onAuthServiceListener.signOut()
-            }
+        getResult = getActivityResultLauncher()
 
-            btnChangeNickName.setOnClickListener {
-                val intent = Intent(mContext, UpdateNickNameActivity::class.java)
-                getResult.launch(intent)
-            }
+        initBtnSignOut()
 
-            btnRefreshMoti.setOnClickListener {
-                if(motiIndex == motiList.size() - 1){
-                    motiIndex = 0
-                }else{
-                    motiIndex++
-                }
-                setMoti()
-            }
+        initBtnCreateUpdateActivity()
 
-            btnNewMessage.setOnClickListener {
-                val intent = Intent(mContext, ReviewActivity::class.java)
-                startActivity(intent)
-            }
-        }
+        initBtnRefreshMotivation()
 
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == Activity.RESULT_OK){
-                homeViewModel.getMyPlateStateSnapshot()
-            }
-        }
+        initCreateReviewActivity()
 
-        initMotiList()
+        initMotivationList()
 
         return binding.root
     }
@@ -87,8 +63,8 @@ class HomeFragment : Fragment() {
         homeViewModel.stateSnapshot.observe(viewLifecycleOwner){
             binding.apply {
                 nickName.text = it["nickName"].toString()
-                plateNum.text = it["allPlateNum"].toString()
-                overcomeNum.text = it["overcomePlateNum"].toString()
+                textViewAllPlateNum.text = it["allPlateNum"].toString()
+                textViewOvercomePlateNum.text = it["overcomePlateNum"].toString()
                 setProgressBar(it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
             }
         }
@@ -99,38 +75,77 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun setProgressBar(plateNum : Long?, overcomeNum : Long?){
-        plateNum?.let {
+    private fun getActivityResultLauncher() : ActivityResultLauncher<Intent>{
+        return registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == Activity.RESULT_OK){
+                homeViewModel.getMyPlateStateSnapshot()
+            }
+        }
+    }
+
+    private fun initBtnSignOut(){
+        binding.btnSignOut.setOnClickListener{
+            onAuthServiceListener.signOut()
+        }
+    }
+
+    private fun initBtnCreateUpdateActivity(){
+        binding.btnCreateUpdateNickNameActivity.setOnClickListener {
+            val intent = Intent(mContext, UpdateNickNameActivity::class.java)
+            getResult.launch(intent)
+        }
+    }
+
+    private fun initBtnRefreshMotivation(){
+        binding.btnRefreshMotivation.setOnClickListener {
+            if(motivationIndex == motivationList.size() - 1){
+                motivationIndex = 0
+            }else{
+                motivationIndex++
+            }
+            setMotivation()
+        }
+    }
+
+    private fun initCreateReviewActivity(){
+        binding.btnNewMessage.setOnClickListener {
+            val intent = Intent(mContext, ReviewActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initMotivationList(){
+         CoroutineScope(Dispatchers.Main).launch {
+             val firebaseRepo : FirebaseRepo = FirebaseRepo()
+             var motivationQuerySnapshot : QuerySnapshot? = firebaseRepo.getMotivationListSnapshot()
+             motivationQuerySnapshot?.let {
+                motivationList = it
+                motivationIndex = (Math.random() * motivationList.size()).toInt()
+                setMotivation()
+            }
+        }
+    }
+
+    private fun setMotivation(){
+        var motivationSnapshot : DocumentSnapshot = motivationList.elementAt(motivationIndex)
+        binding.apply {
+            textViewMotivationFirst.text = motivationSnapshot["first"].toString()
+            textViewMotivationSecond.text = motivationSnapshot["second"].toString()
+            textViewMotivationNickName.text = motivationSnapshot["nickName"].toString()
+        }
+    }
+
+    private fun setProgressBar(allPlateNum : Long?, overcomePlateNum : Long?){
+        allPlateNum?.let {
             binding.apply {
-                if(plateNum.toInt() == 0){
+                if(allPlateNum.toInt() == 0){
                     cpbCirclebar.progress = 0
                 }else{
-                    overcomeNum?.let {
-                        cpbCirclebar.progress = ( overcomeNum.toDouble() / plateNum.toInt() * 100 ).toInt()
+                    overcomePlateNum?.let {
+                        cpbCirclebar.progress = ( overcomePlateNum.toDouble() / allPlateNum.toInt() * 100 ).toInt()
                     }
                 }
             }
-        }
-    }
-
-    private fun initMotiList(){
-         CoroutineScope(Dispatchers.Main).launch {
-            val firestoreRepo : FirestoreRepository = FirestoreRepository()
-            var motiQuerySnapshot : QuerySnapshot? = firestoreRepo.getMotiListSnapshot()
-            motiQuerySnapshot?.let {
-                motiList = it
-                motiIndex = (Math.random() * motiList.size()).toInt()
-                setMoti()
-            }
-        }
-    }
-
-    private fun setMoti(){
-        var motiSnapshot : DocumentSnapshot = motiList.elementAt(motiIndex)
-        binding.apply {
-            textViewFirstMoti.text = motiSnapshot["first"].toString()
-            textViewSecondMoti.text = motiSnapshot["second"].toString()
-            textViewNickNameMoti.text = motiSnapshot["nickName"].toString()
         }
     }
 }

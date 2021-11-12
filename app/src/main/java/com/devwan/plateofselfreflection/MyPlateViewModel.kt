@@ -8,21 +8,21 @@ import com.google.firebase.firestore.DocumentSnapshot
 
 class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    val firestoreRepo : FirestoreRepository = FirestoreRepository()
+    private val firebaseRepo : FirebaseRepo = FirebaseRepo()
     val userId : String? = savedStateHandle["uid"]
 
     private var _plate = MutableLiveData<List<DocumentSnapshot>>()
     val plate : LiveData<List<DocumentSnapshot>> = _plate
 
     init {
-        firestoreRepo.listenMyPlateList(_plate)
+        firebaseRepo.listenMyPlateList(_plate)
     }
 
     fun checkIsOvercome(plate : DocumentSnapshot){
-        firestoreRepo.checkIsOvercome(plate)
+        firebaseRepo.checkIsOvercome(plate)
     }
 
     fun deletePlate(plate : DocumentSnapshot){
-        firestoreRepo.deletePlate(plate)
+        firebaseRepo.deletePlate(plate)
     }
 }

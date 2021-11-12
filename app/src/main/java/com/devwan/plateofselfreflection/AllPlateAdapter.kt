@@ -1,6 +1,5 @@
 package com.devwan.plateofselfreflection
 
-import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 
-class AllPlateAdapter(private var mContext: Context, private var plateList: List<DocumentSnapshot>, private val getResult : ActivityResultLauncher<Intent>) :
+class AllPlateAdapter(private val mContext: Context, private var allPlateList: List<DocumentSnapshot>,
+                      private val getResult : ActivityResultLauncher<Intent>) :
     RecyclerView.Adapter<AllPlateAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -44,20 +43,10 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        bindData(viewHolder, plateList[position])
+        bindData(viewHolder, allPlateList[position])
     }
 
-    override fun getItemCount() = plateList.size
-
-    fun setData(newData: List<DocumentSnapshot>, newIsTimeListType: Boolean) {
-        plateList = if(newIsTimeListType){
-            newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
-        }else{
-            newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }.sortedByDescending { it["like"] as Long }
-        }
-
-        notifyDataSetChanged()
-    }
+    override fun getItemCount() = allPlateList.size
 
     private fun bindData(viewHolder: ViewHolder, plateDocumentSnapshot: DocumentSnapshot) {
         val title: String = plateDocumentSnapshot["title"].toString() ?: ""
@@ -66,16 +55,30 @@ class AllPlateAdapter(private var mContext: Context, private var plateList: List
         val uploadTime: String = Plate.getUploadTimeText((plateDocumentSnapshot["uploadTime"] as Timestamp).toDate())
         val isOvercome: Boolean = plateDocumentSnapshot["isOvercome"] as Boolean
 
-        viewHolder.title?.text = title
-        viewHolder.mainText?.text = mainText
-        viewHolder.like?.text = like
-        viewHolder.uploadTime?.text = uploadTime
-        if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
-        else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
-
-        viewHolder.cardView?.setOnClickListener{
-            val intent = Intent(mContext, PlateActivity::class.java)
-            getResult.launch(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
+        viewHolder.apply {
+            this.title?.text = title
+            this.mainText?.text = mainText
+            this.like?.text = like
+            this.uploadTime?.text = uploadTime
+            if (isOvercome){
+                this.isOvercome?.setImageResource(R.drawable.icon_cardplate_isovercome_true)
+            } else {
+                this.isOvercome?.setImageResource(R.drawable.icon_cardplate_isovercome_false)
+            }
+            this.cardView?.setOnClickListener{
+                val intent = Intent(mContext, PlateActivity::class.java)
+                getResult.launch(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
+            }
         }
+    }
+
+    fun setData(newData: List<DocumentSnapshot>, newIsTimeListType: Boolean) {
+        allPlateList = if(newIsTimeListType){
+            newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
+        }else{
+            newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }.sortedByDescending { it["like"] as Long }
+        }
+
+        notifyDataSetChanged()
     }
 }

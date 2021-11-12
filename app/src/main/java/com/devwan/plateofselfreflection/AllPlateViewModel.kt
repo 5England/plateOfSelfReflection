@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 
 class AllPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    val firestoreRepo : FirestoreRepository = FirestoreRepository()
+    private val firebaseRepo : FirebaseRepo = FirebaseRepo()
     val userId : String? = savedStateHandle["uid"]
 
     private var _plate = MutableLiveData<List<DocumentSnapshot>>()
@@ -18,7 +18,7 @@ class AllPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     fun getAllPlateList(){
         viewModelScope.launch {
-            _plate.value = firestoreRepo.getAllPlateList()
+            _plate.value = firebaseRepo.getAllPlateList()
         }
     }
 }

@@ -3,10 +3,8 @@ package com.devwan.plateofselfreflection
 import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -14,7 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
-class FirestoreRepository {
+class FirebaseRepo {
     private val db = Firebase.firestore
     private val uid = Firebase.auth.uid.toString()
 
@@ -23,33 +21,32 @@ class FirestoreRepository {
     }
 
     suspend fun uploadPlate(newPlate: Plate) {
-
         coroutineScope {
-        db.collection("profile").document(uid).get().addOnSuccessListener {
-            val nickName = it["nickName"].toString()
+            db.collection("profile").document(uid).get().addOnSuccessListener {
+                val nickName = it["nickName"].toString()
 
-            val newData = hashMapOf(
-                "uid" to uid,
-                "nickName" to nickName,
-                "title" to newPlate.title,
-                "mainText" to newPlate.mainText,
-                "isOvercome" to newPlate.isOvercome,
-                "feedBack" to newPlate.feedBack,
-                "uploadTime" to newPlate.uploadTimestamp,
-                "like" to newPlate.like,
-                "likeUidMap" to newPlate.LikeUidMap,
-                "commentList" to newPlate.commentList
-            )
+                val newData = hashMapOf(
+                    "uid" to uid,
+                    "nickName" to nickName,
+                    "title" to newPlate.title,
+                    "mainText" to newPlate.mainText,
+                    "isOvercome" to newPlate.isOvercome,
+                    "feedBack" to newPlate.feedBack,
+                    "uploadTime" to newPlate.uploadTimestamp,
+                    "like" to newPlate.like,
+                    "likeUidMap" to newPlate.LikeUidMap,
+                    "commentList" to newPlate.commentList
+                )
 
-            db.collection("plate")
-                .add(newData)
-                .addOnSuccessListener { documentReference ->
-                    plusAllPlateNum()
-                }
-                .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error adding document", e)
-                }
-        }.await()
+                db.collection("plate")
+                    .add(newData)
+                    .addOnSuccessListener { documentReference ->
+                        plusAllPlateNum()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(ContentValues.TAG, "Error adding document", e)
+                    }
+            }.await()
         }
     }
 
@@ -223,7 +220,7 @@ class FirestoreRepository {
         }.await()
     }
 
-    suspend fun getMyPlateStateSnapshot(_stateSnapshot: MutableLiveData<DocumentSnapshot>){
+    suspend fun getMyPlateStateSnapshot(_stateSnapshot: MutableLiveData<DocumentSnapshot>) {
         val docRef = db.collection("profile").document(uid)
 
         coroutineScope {
@@ -250,60 +247,52 @@ class FirestoreRepository {
         docRef.update("nickName", newNickName)
     }
 
-    suspend fun getMotiListSnapshot() : QuerySnapshot?{
-        var querySnapshot : QuerySnapshot? = null
+    suspend fun getMotivationListSnapshot(): QuerySnapshot? {
+        var querySnapshot: QuerySnapshot? = null
 
-            coroutineScope {
-                db.collection("moti")
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        querySnapshot = documents
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.w(ContentValues.TAG, "Error getting documents: ", exception)
-                    }
-            }.await()
+        coroutineScope {
+            db.collection("moti")
+                .get()
+                .addOnSuccessListener { documents ->
+                    querySnapshot = documents
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
+        }.await()
 
         return querySnapshot
     }
 
-    private fun plusAllPlateNum(){
-        val docRef = db.collection("profile").document(uid)
-            docRef.get().addOnSuccessListener {
-                val newAllPlateNum : Long = it["allPlateNum"] as Long + 1
-                docRef.update("allPlateNum", newAllPlateNum)
-            }
-    }
-
-    private fun minusAllPlateNum(){
+    private fun plusAllPlateNum() {
         val docRef = db.collection("profile").document(uid)
         docRef.get().addOnSuccessListener {
-            val newAllPlateNum : Long = it["allPlateNum"] as Long - 1
+            val newAllPlateNum: Long = it["allPlateNum"] as Long + 1
             docRef.update("allPlateNum", newAllPlateNum)
         }
     }
 
-    private fun plusOvercomePlateNum(){
+    private fun minusAllPlateNum() {
         val docRef = db.collection("profile").document(uid)
         docRef.get().addOnSuccessListener {
-            val newAllPlateNum : Long = it["overcomePlateNum"] as Long + 1
+            val newAllPlateNum: Long = it["allPlateNum"] as Long - 1
+            docRef.update("allPlateNum", newAllPlateNum)
+        }
+    }
+
+    private fun plusOvercomePlateNum() {
+        val docRef = db.collection("profile").document(uid)
+        docRef.get().addOnSuccessListener {
+            val newAllPlateNum: Long = it["overcomePlateNum"] as Long + 1
             docRef.update("overcomePlateNum", newAllPlateNum)
         }
     }
 
-    private fun minusOvercomePlateNum(){
+    private fun minusOvercomePlateNum() {
         val docRef = db.collection("profile").document(uid)
         docRef.get().addOnSuccessListener {
-            val newAllPlateNum : Long = it["overcomePlateNum"] as Long - 1
+            val newAllPlateNum: Long = it["overcomePlateNum"] as Long - 1
             docRef.update("overcomePlateNum", newAllPlateNum)
         }
     }
 }
-
-
-
-
-
-
-
-

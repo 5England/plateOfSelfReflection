@@ -1,8 +1,6 @@
 package com.devwan.plateofselfreflection
 
-import android.content.Intent
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
 
 data class Plate(val nickName : String = "익명",

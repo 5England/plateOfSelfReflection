@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/plateactivity_shape_background"
+    android:background="@drawable/shape_plateactivity_background"
     tools:context=".AllPlateFragment">
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:paddingTop="7dp"
             android:background="@color/brown1"
             android:layout_marginRight="15dp"
-            android:src="@drawable/allplatefragment_icon_gettimelist" />
+            android:src="@drawable/icon_allplatefragment_gettimelist" />
 
         <ImageButton
             android:id="@+id/btn_createUploadActivity"
@@ -44,7 +44,7 @@
             android:paddingTop="7dp"
             android:paddingRight="2dp"
             android:background="@color/brown1"
-            android:src="@drawable/allplatefragment_icon_writeplate" />
+            android:src="@drawable/icon_allplatefragment_writeplate" />
 
     </LinearLayout>
 

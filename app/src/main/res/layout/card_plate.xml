@@ -25,7 +25,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
-                app:srcCompat="@drawable/cardplate_icon_isovercome_false" />
+                app:srcCompat="@drawable/icon_cardplate_isovercome_false" />
 
             <LinearLayout
                 android:layout_width="match_parent"

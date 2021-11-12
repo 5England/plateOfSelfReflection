@@ -3,7 +3,6 @@ package com.devwan.plateofselfreflection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
 import com.devwan.plateofselfreflection.databinding.ActivityUpdateNickNameBinding
 
 class UpdateNickNameActivity : AppCompatActivity() {
@@ -15,25 +14,31 @@ class UpdateNickNameActivity : AppCompatActivity() {
         binding = ActivityUpdateNickNameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.apply {
-            btnFinishActivity.setOnClickListener {
-                finish()
-            }
+        initBtnFinishActivity()
 
-            btnUpdateNickName.setOnClickListener {
-                if(editTextNickName.text.isNotBlank()){
-                    updateNickName()
-                }else{
-                    Toast.makeText(baseContext, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
-                }
+        initBtnUpdateNickName()
+    }
+
+    private fun initBtnFinishActivity(){
+        binding.btnFinishActivity.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun initBtnUpdateNickName(){
+        binding.btnUpdateNickName.setOnClickListener {
+            if(binding.editTextNickName.text.isNotBlank()){
+                updateNickName()
+            }else{
+                Toast.makeText(baseContext, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun updateNickName(){
         val newNickName : String = binding.editTextNickName.text.toString().replace(" ", "")
-        val firestoreRepo : FirestoreRepository = FirestoreRepository()
-        firestoreRepo.setMyNickName(newNickName)
+        val firebaseRepo : FirebaseRepo = FirebaseRepo()
+        firebaseRepo.setMyNickName(newNickName)
         setResult(RESULT_OK, intent)
         finish()
     }

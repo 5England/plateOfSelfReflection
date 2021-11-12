@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/plateactivity_shape_background"
+    android:background="@drawable/shape_plateactivity_background"
     android:orientation="vertical"
     tools:context=".ReviewActivity">
 
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/brown1"
-            app:srcCompat="@drawable/uploadactivity_icon_backbutton" />
+            app:srcCompat="@drawable/icon_uploadactivity_backbutton" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="275dp"
-            app:srcCompat="@drawable/reviewactivity_image"
+            app:srcCompat="@drawable/image_reviewactivity"
             android:scaleType="fitCenter"/>
 
         <TextView
@@ -159,7 +159,7 @@
         android:gravity="center"
         android:padding="8dp"
         android:elevation="5dp"
-        android:background="@drawable/updatenicknameactivity_shape_updatebtnbackground"
+        android:background="@drawable/shape_updatenicknameactivity_updatebtnbackground"
         android:fontFamily="@font/spo_bold"
         android:textSize="16dp"
         android:textColor="@color/white"

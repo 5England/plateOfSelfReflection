@@ -2,11 +2,9 @@ package com.devwan.plateofselfreflection
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import com.devwan.plateofselfreflection.databinding.ActivityUploadPlateBinding
 import kotlinx.coroutines.*
-import java.sql.Timestamp
 
 class UploadPlateActivity : AppCompatActivity() {
 
@@ -19,9 +17,7 @@ class UploadPlateActivity : AppCompatActivity() {
 
         initBtnUploadPlateClickListener()
 
-        binding.btnFinishActivity.setOnClickListener {
-            finish()
-        }
+        initBtnFinishActivity()
     }
 
     private fun initBtnUploadPlateClickListener(){
@@ -34,9 +30,9 @@ class UploadPlateActivity : AppCompatActivity() {
                     uploadTimestamp = com.google.firebase.Timestamp.now()
                 )
 
-                val fireStoreRepo : FirestoreRepository = FirestoreRepository()
+                val firebaseRepo : FirebaseRepo = FirebaseRepo()
                 GlobalScope.launch(Dispatchers.Main) {
-                    fireStoreRepo.uploadPlate(newPlate)
+                    firebaseRepo.uploadPlate(newPlate)
                     setResult(RESULT_OK, intent)
                     finish()
                 }
@@ -47,4 +43,9 @@ class UploadPlateActivity : AppCompatActivity() {
         }
     }
 
+    private fun initBtnFinishActivity(){
+        binding.btnFinishActivity.setOnClickListener {
+            finish()
+        }
+    }
 }

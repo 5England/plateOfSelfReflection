@@ -2,12 +2,11 @@ package com.devwan.plateofselfreflection
 
 import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.launch
 
 class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    val firestoreRepo : FirestoreRepository = FirestoreRepository()
+    private val firebaseRepo : FirebaseRepo = FirebaseRepo()
     val userId : String? = savedStateHandle["uid"]
 
     private var _stateSnapshot = MutableLiveData<DocumentSnapshot>()
@@ -19,7 +18,7 @@ class HomeViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     fun getMyPlateStateSnapshot(){
         viewModelScope.launch {
-            firestoreRepo.getMyPlateStateSnapshot(_stateSnapshot)
+            firebaseRepo.getMyPlateStateSnapshot(_stateSnapshot)
         }
     }
 }

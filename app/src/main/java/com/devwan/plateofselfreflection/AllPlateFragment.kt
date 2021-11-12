@@ -39,24 +39,15 @@ class AllPlateFragment : Fragment(){
     ): View? {
         _binding = FragmentAllPlateBinding.inflate(inflater, container, false)
 
+        getResult = getActivityResultLauncher()
+
+        initRecyclerView()
+
         initSwipeLayout()
+
         initBtnSetListTypeClickListener()
 
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == Activity.RESULT_OK){
-                allPlateViewModel.getAllPlateList()
-            }
-        }
-
-        binding.recyclerViewAllPlate.apply {
-            layoutManager = LinearLayoutManager(activity?.application)
-            adapter = AllPlateAdapter(mContext, emptyList(), getResult)
-        }
-
-        binding.btnCreateUploadActivity.setOnClickListener {
-            val intent = Intent(mContext, UploadPlateActivity::class.java)
-            getResult.launch(intent)
-        }
+        initBtnLaunchUploadPlateActivity()
 
         return binding.root
     }
@@ -65,6 +56,26 @@ class AllPlateFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         allPlateViewModel.plate.observe(viewLifecycleOwner){
             (binding.recyclerViewAllPlate.adapter as AllPlateAdapter).setData(it, isTimeListType)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun getActivityResultLauncher() : ActivityResultLauncher<Intent>{
+        return registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode == Activity.RESULT_OK){
+                allPlateViewModel.getAllPlateList()
+            }
+        }
+    }
+
+    private fun initRecyclerView(){
+        binding.recyclerViewAllPlate.apply {
+            layoutManager = LinearLayoutManager(activity?.application)
+            adapter = AllPlateAdapter(mContext, emptyList() , getResult)
         }
     }
 
@@ -81,10 +92,10 @@ class AllPlateFragment : Fragment(){
     private fun initBtnSetListTypeClickListener(){
         binding.btnSetListType.setOnClickListener {
             if(isTimeListType) {
-                binding.btnSetListType.setImageResource(R.drawable.allplatefragment_icon_getlikelist)
+                binding.btnSetListType.setImageResource(R.drawable.icon_allplatefragment_getlikelist)
                 Toast.makeText(mContext, "통감 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
             }else{
-                binding.btnSetListType.setImageResource(R.drawable.allplatefragment_icon_gettimelist)
+                binding.btnSetListType.setImageResource(R.drawable.icon_allplatefragment_gettimelist)
                 Toast.makeText(mContext, "최근 순으로 피드를 확인해요.", Toast.LENGTH_SHORT).show()
             }
             isTimeListType = !isTimeListType
@@ -92,8 +103,10 @@ class AllPlateFragment : Fragment(){
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initBtnLaunchUploadPlateActivity(){
+        binding.btnCreateUploadActivity.setOnClickListener {
+            val intent = Intent(mContext, UploadPlateActivity::class.java)
+            getResult.launch(intent)
+        }
     }
 }

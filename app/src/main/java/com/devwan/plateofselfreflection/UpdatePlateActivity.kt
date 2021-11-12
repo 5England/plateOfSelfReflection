@@ -1,9 +1,6 @@
 package com.devwan.plateofselfreflection
 
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.devwan.plateofselfreflection.databinding.ActivityUploadPlateBinding
@@ -32,16 +29,18 @@ class UpdatePlateActivity : AppCompatActivity() {
     }
 
     private fun initBtnUploadPlateClickListener(){
-        binding.btnUploadPlate.setOnClickListener {
-            if( binding.editTextTitle.text.isNotBlank() && binding.editTextMainText.text.isNotBlank()) {
-                val fireStoreRepo : FirestoreRepository = FirestoreRepository()
-                fireStoreRepo.updatePlate(intent.getStringExtra("snapshotId").toString(),
-                    binding.editTextTitle.text.toString(),
-                    binding.editTextMainText.text.toString()
-                )
-                finish()
-            }else{
-                Toast.makeText(this, "제목, 내용을 모두 입력해주세요", Toast.LENGTH_SHORT).show()
+        binding.apply {
+            this.btnUploadPlate.setOnClickListener {
+                if( this.editTextTitle.text.isNotBlank() && binding.editTextMainText.text.isNotBlank()) {
+                    val fireStoreRepo : FirebaseRepo = FirebaseRepo()
+                    fireStoreRepo.updatePlate(intent.getStringExtra("snapshotId").toString(),
+                        this.editTextTitle.text.toString(),
+                        this.editTextMainText.text.toString()
+                    )
+                    finish()
+                }else{
+                    Toast.makeText(baseContext, "제목, 내용을 모두 입력해주세요", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

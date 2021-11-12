@@ -46,85 +46,98 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val plate = plateList[position]
         bindData(viewHolder, plateList[position])
     }
 
     override fun getItemCount() = plateList.size
 
-    fun setData(newData: List<DocumentSnapshot>) {
-        plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
-        notifyDataSetChanged()
-    }
+    private fun bindData(viewHolder: ViewHolder, plateSnapshot: DocumentSnapshot) {
+        val title: String = plateSnapshot["title"].toString() ?: ""
+        val mainText: String = plateSnapshot["mainText"].toString() ?: ""
+        val like: String = plateSnapshot["like"].toString() ?: ""
+        val uploadTime: String = Plate.getUploadTimeText((plateSnapshot["uploadTime"] as Timestamp).toDate())
+        val isOvercome: Boolean = plateSnapshot["isOvercome"] as Boolean
 
-    private fun bindData(viewHolder: ViewHolder, plateDocumentSnapshot: DocumentSnapshot) {
-        val title: String = plateDocumentSnapshot["title"].toString() ?: ""
-        val mainText: String = plateDocumentSnapshot["mainText"].toString() ?: ""
-        val like: String = plateDocumentSnapshot["like"].toString() ?: ""
-        val uploadTime: String = Plate.getUploadTimeText((plateDocumentSnapshot["uploadTime"] as Timestamp).toDate())
-        val isOvercome: Boolean = plateDocumentSnapshot["isOvercome"] as Boolean
+        viewHolder.apply {
+            this.title?.text = title
+            this.mainText?.text = mainText
+            this.like?.text = like
+            this.uploadTime?.text = uploadTime
 
-        viewHolder.title?.text = title
-        viewHolder.mainText?.text = mainText
-        viewHolder.like?.text = like
-        viewHolder.uploadTime?.text = uploadTime
-        if (isOvercome) viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_true)
-        else viewHolder.isOvercome?.setImageResource(R.drawable.cardplate_icon_isovercome_false)
+            if (isOvercome){
+                this.isOvercome?.setImageResource(R.drawable.icon_cardplate_isovercome_true)
+            } else {
+                this.isOvercome?.setImageResource(R.drawable.icon_cardplate_isovercome_false)
+            }
 
-        viewHolder.isOvercome?.setOnClickListener{
-            val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
-            if(plateDocumentSnapshot["isOvercome"] as Boolean){
-                dlg.apply {
-                    setTitle("반성이 부족하셨나요?")
-                    setMessage("원하면 반성을 취소할 수 있어요.                 ")
-                    setPositiveButton("아니요", DialogInterface.OnClickListener { dialog, which -> })
-                    setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
-                        onClickIsOvercome.invoke(plateDocumentSnapshot)
-                    })
-                    show()
-                }
-            }else{
-                onClickIsOvercome.invoke(plateDocumentSnapshot)
-                dlg.apply {
-                    setTitle("극복 후기 작성")
-                    setMessage("반성 극복에 대한 후기를 작성해 사람들에게 도움을 줄 수 있어요.")
-                    setPositiveButton("괜찮아요", DialogInterface.OnClickListener { dialog, which ->
-                        Toast.makeText(mContext, "나중에 다시 작성하실 수 있어요.", Toast.LENGTH_SHORT).show()
-                    })
-                    setNegativeButton("작성", DialogInterface.OnClickListener { dialog, which ->
-                        val intent = Intent(mContext, UploadFeedbackActivity::class.java)
-                        intent.putExtra("snapshotId", plateDocumentSnapshot.id)
-                        mContext.startActivity(intent)
-                    })
-                    show()
-                }
+            this.isOvercome?.setOnClickListener{
+                initIsOvercomeAlertDialog(plateSnapshot)
+            }
+
+            this.cardView?.setOnLongClickListener {
+                initUpdateAlertDialog(plateSnapshot)
+                true
+            }
+
+            this.cardView?.setOnClickListener{
+                val intent = Intent(mContext, PlateActivity::class.java)
+                mContext.startActivity(intent.putExtra("snapshotId", plateSnapshot.id))
             }
         }
+    }
 
-        viewHolder.cardView?.setOnLongClickListener {
-            val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
+    private fun initIsOvercomeAlertDialog(plateSnapshot : DocumentSnapshot){
+        val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
+        if(plateSnapshot["isOvercome"] as Boolean){
             dlg.apply {
-                setTitle("수정/삭제")
-                setMessage("수정/삭제 시 복구할 수 없어요.                         ")
-                setPositiveButton("삭제", DialogInterface.OnClickListener { dialog, which ->
-                    onClickDelete.invoke(plateDocumentSnapshot)
+                setTitle("반성이 부족하셨나요?")
+                setMessage("원하면 반성을 취소할 수 있어요.                 ")
+                setPositiveButton("아니요", DialogInterface.OnClickListener { dialog, which -> })
+                setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
+                    onClickIsOvercome.invoke(plateSnapshot)
                 })
-                setNegativeButton("수정", DialogInterface.OnClickListener { dialog, which ->
-                    val intent = Intent(mContext, UpdatePlateActivity::class.java).apply {
-                        putExtra("snapshotId", plateDocumentSnapshot.id)
-                        putExtra("snapshotTitle", plateDocumentSnapshot["title"].toString())
-                        putExtra("snapshotMainText", plateDocumentSnapshot["mainText"].toString())
-                    }
+                show()
+            }
+        }else{
+            onClickIsOvercome.invoke(plateSnapshot)
+            dlg.apply {
+                setTitle("극복 후기 작성")
+                setMessage("반성 극복에 대한 후기를 작성해 사람들에게 도움을 줄 수 있어요.")
+                setPositiveButton("괜찮아요", DialogInterface.OnClickListener { dialog, which ->
+                    Toast.makeText(mContext, "나중에 다시 작성하실 수 있어요.", Toast.LENGTH_SHORT).show()
+                })
+                setNegativeButton("작성", DialogInterface.OnClickListener { dialog, which ->
+                    val intent = Intent(mContext, UploadFeedbackActivity::class.java)
+                    intent.putExtra("snapshotId", plateSnapshot.id)
                     mContext.startActivity(intent)
                 })
                 show()
             }
-            true
         }
+    }
 
-        viewHolder.cardView?.setOnClickListener{
-            val intent = Intent(mContext, PlateActivity::class.java)
-            mContext.startActivity(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
+    private fun initUpdateAlertDialog(plateSnapshot : DocumentSnapshot){
+        val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
+        dlg.apply {
+            setTitle("수정/삭제")
+            setMessage("수정/삭제 시 복구할 수 없어요.                         ")
+            setPositiveButton("삭제", DialogInterface.OnClickListener { dialog, which ->
+                onClickDelete.invoke(plateSnapshot)
+            })
+            setNegativeButton("수정", DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(mContext, UpdatePlateActivity::class.java).apply {
+                    putExtra("snapshotId", plateSnapshot.id)
+                    putExtra("snapshotTitle", plateSnapshot["title"].toString())
+                    putExtra("snapshotMainText", plateSnapshot["mainText"].toString())
+                }
+                mContext.startActivity(intent)
+            })
+            show()
         }
+    }
+
+    fun setData(newData: List<DocumentSnapshot>) {
+        plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
+        notifyDataSetChanged()
     }
 }
