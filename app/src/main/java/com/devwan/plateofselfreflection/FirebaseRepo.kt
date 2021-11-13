@@ -83,6 +83,27 @@ class FirebaseRepo {
             }
     }
 
+    suspend fun getSearchPlateList(keyword : String): List<DocumentSnapshot> {
+        var snapshotList: MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
+
+        coroutineScope {
+            db.collection("plate")
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        if((document["title"].toString().contains(keyword))){
+                            snapshotList.add(document)
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
+        }.await()
+
+        return snapshotList
+    }
+
     fun checkIsOvercome(plate: DocumentSnapshot) {
         val isOvercome = plate["isOvercome"] as Boolean
 
