@@ -80,7 +80,7 @@ class AllPlateFragment : Fragment(){
                 allPlateViewModel.getAllPlateList()
                 binding.swipeLayout.isRefreshing = false
             }
-            setColorSchemeColors(resources.getColor(R.color.orange))
+            setColorSchemeColors(resources.getColor(R.color.green2))
         }
     }
 

@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:fontFamily="@font/spo_medium"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/green2"
                         android:paddingRight="4dp"
                         android:text="0" />
 

@@ -118,9 +118,9 @@
                         app:style="solid_line"
                         app:progress_stroke_width="5dp"
                         app:progress_stroke_cap="round"
-                        app:progress_start_color="#8BC34A"
-                        app:progress_end_color="@color/green"
-                        app:progress_text_color="@color/green"
+                        app:progress_start_color="@color/green1"
+                        app:progress_end_color="@color/green2"
+                        app:progress_text_color="@color/green2"
                         android:layout_gravity="center"/>
 
                     <LinearLayout
@@ -167,7 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
-                                android:textColor="@color/green"
+                                android:textColor="@color/green2"
                                 android:text="현재 개선"/>
 
                             <TextView
@@ -176,7 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="25dp"
                                 android:fontFamily="@font/spo_light"
-                                android:textColor="@color/green" />
+                                android:textColor="@color/green2" />
 
                         </LinearLayout>
 
@@ -192,7 +192,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
-                                android:textColor="@color/green"
+                                android:textColor="@color/green2"
                                 android:text="첫 반성"/>
 
                             <TextView
@@ -201,7 +201,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="25dp"
                                 android:fontFamily="@font/spo_light"
-                                android:textColor="@color/green" />
+                                android:textColor="@color/green2" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -331,7 +331,7 @@
                         android:textSize="12dp"
                         android:fontFamily="@font/spo_regular"
                         android:textColor="@color/brown3"
-                        android:layout_marginRight="35dp"
+                        android:layout_marginRight="25dp"
                         android:padding="5dp"
                         android:text="새로고침"/>
 

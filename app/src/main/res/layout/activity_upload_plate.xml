@@ -41,7 +41,7 @@
             android:layout_marginRight="10dp"
             android:fontFamily="@font/spo_regular"
             android:textSize="18dp"
-            android:textColor="@color/orange"
+            android:textColor="@color/green2"
             android:text="완료" />
 
     </LinearLayout>
@@ -72,7 +72,7 @@
                 android:ems="10"
                 android:hint="제목"
                 android:fontFamily="@font/spo_medium"
-                android:textCursorDrawable="@drawable/cursor_orange"
+                android:textCursorDrawable="@drawable/cursor_green"
                 android:inputType="textPersonName"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -88,7 +88,7 @@
                 android:layout_marginBottom="80dp"
                 android:background="@null"
                 android:fontFamily="@font/spo_regular"
-                android:textCursorDrawable="@drawable/cursor_orange"
+                android:textCursorDrawable="@drawable/cursor_green"
                 android:ems="10"
                 android:hint="나의 반성 내용을 입력하세요."
                 android:inputType="textMultiLine"
