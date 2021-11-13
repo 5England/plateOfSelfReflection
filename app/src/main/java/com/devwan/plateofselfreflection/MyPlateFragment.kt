@@ -49,6 +49,10 @@ class MyPlateFragment : Fragment() {
             binding.apply {
                 textViewMyAllPlateNum.text = it["allPlateNum"].toString()
                 textViewMyOvercomePlateNum.text = it["overcomePlateNum"].toString()
+                if((it["allPlateNum"] as Long).toInt() == 0){
+                    recyclerViewMyPlate.visibility = View.GONE
+                    textViewEmptyListComment.visibility = View.VISIBLE
+                }
             }
         }
     }

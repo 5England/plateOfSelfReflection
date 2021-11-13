@@ -53,7 +53,11 @@ class SearchPlateAdapter(private val mContext: Context, private var plateList: L
         val isOvercome: Boolean = plateSnapshot["isOvercome"] as Boolean
 
         viewHolder.apply {
-            this.title?.text = title
+            if(title.length >= 12){
+                this.title?.text = title.substring(0, 11) + ".."
+            }else{
+                this.title?.text = title
+            }
             this.mainText?.text = mainText
             this.like?.text = like
             this.uploadTime?.text = uploadTime

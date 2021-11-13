@@ -3,6 +3,7 @@ package com.devwan.plateofselfreflection
 import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
@@ -251,7 +252,7 @@ class FirebaseRepo {
                 .addOnSuccessListener {
                     if (it["nickName"] == null) {
                         val newData = hashMapOf(
-                            "nickName" to "익명", "overcomePlateNum" to 0, "allPlateNum" to 0
+                            "nickName" to "익명", "overcomePlateNum" to 0, "allPlateNum" to 0, "startTime" to Timestamp.now()
                         )
                         docRef.set(newData)
                     }

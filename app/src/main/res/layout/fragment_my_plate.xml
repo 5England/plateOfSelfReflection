@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="35dp"
                     android:fontFamily="@font/spo_light"
-                    android:textColor="#A3A3A3" />
+                    android:textColor="@color/brown3" />
 
             </LinearLayout>
 
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
                     android:fontFamily="@font/spo_regular"
-                    android:textColor="@color/brown3"
+                    android:textColor="#A3A3A3"
                     android:text="현재 개선"/>
 
                 <TextView
@@ -91,6 +91,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/textView_emptyListComment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:paddingBottom="300dp"
+        android:textColor="#838383"
+        android:fontFamily="@font/spo_regular"
+        android:visibility="gone"
+        android:text="아직 반성한 적이 없네요!"/>
 
     <View
         android:layout_width="wrap_content"

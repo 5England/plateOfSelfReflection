@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Info"
+            android:text="INFO"
             android:fontFamily="@font/spo_bold"
             android:textColor="@color/brown3"
             android:paddingLeft="5dp"
@@ -63,33 +63,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_signOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:elevation="1dp"
-            android:gravity="center"
-            android:background="@drawable/shape_infofragment_btnbackground"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/icon_infofragment_signout"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:gravity="center"
-                android:fontFamily="@font/spo_regular"
-                android:text="로그아웃"
-                android:textColor="@color/brown4"
-                android:textSize="15dp" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/btn_newMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,6 +85,33 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="메세지 전달"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_signOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_signout"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="로그아웃"
                 android:textColor="@color/brown4"
                 android:textSize="15dp" />
         </LinearLayout>

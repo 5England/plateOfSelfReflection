@@ -39,7 +39,23 @@ data class Plate(val nickName : String = "익명",
                     (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
                 }
             }else{
-                (uploadDate.year + 1).toString() + "/" + (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
+                (uploadDate.year + 1900).toString() + "/" + (uploadDate.month + 1).toString() + "/" + uploadDate.date.toString()
+            }
+        }
+
+        fun getStartTimeText(uploadDate : Date) : String {
+            return (uploadDate.year + 1900).toString() + "." + (uploadDate.month + 1).toString() + "." + uploadDate.date.toString()
+        }
+
+        fun getPlateComment(myAllPlateNum : Int) : String {
+            return if(myAllPlateNum == 0){
+                "가볍게 반성을 시작해보세요."
+            }else{
+                when(myAllPlateNum){
+                    in 1..2 -> "좋아요. 시작이 반이죠."
+                    in 3..5 -> "발전할 준비가 됐어요."
+                    else -> "더 나은 내일이 있겠네요."
+                }
             }
         }
     }

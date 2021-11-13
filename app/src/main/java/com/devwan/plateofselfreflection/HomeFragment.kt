@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import com.devwan.plateofselfreflection.databinding.FragmentHomeBinding
 import com.dinuscxj.progressbar.CircleProgressBar
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.*
@@ -56,6 +57,8 @@ class HomeFragment : Fragment() {
                 nickName.text = it["nickName"].toString()
                 textViewMyAllPlateNum.text = it["allPlateNum"].toString()
                 textViewMyOvercomePlateNum.text = it["overcomePlateNum"].toString()
+                textViewMyStartDate.text = Plate.getStartTimeText((it["startTime"] as Timestamp).toDate())
+                textViewPlateComment.text = Plate.getPlateComment((it["allPlateNum"] as Long).toInt())
                 setProgressBar(cpbMyCircleBar ,it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
             }
         }
