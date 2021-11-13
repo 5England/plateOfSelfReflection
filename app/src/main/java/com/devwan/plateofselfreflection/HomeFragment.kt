@@ -1,11 +1,14 @@
 package com.devwan.plateofselfreflection
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
 import com.devwan.plateofselfreflection.databinding.FragmentHomeBinding
@@ -16,6 +19,7 @@ import kotlinx.coroutines.*
 
 class HomeFragment : Fragment() {
 
+    private lateinit var mContext: Context
     private lateinit var motivationList : QuerySnapshot
     private var motivationIndex : Int = 0
     private var _binding : FragmentHomeBinding? = null
@@ -25,11 +29,18 @@ class HomeFragment : Fragment() {
         factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
     )
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        initBtnSearchPlate()
 
         initBtnRefreshMotivation()
 
@@ -53,6 +64,21 @@ class HomeFragment : Fragment() {
                 textViewAllPlateNum.text = it["allPlateNum"].toString()
                 textViewOvercomePlateNum.text = it["overcomePlateNum"].toString()
                 setProgressBar(cpbAllCircleBar, it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
+            }
+        }
+    }
+
+    private fun initBtnSearchPlate(){
+        binding.apply {
+            btnSearchPlate.setOnClickListener {
+                if(editTextSearchPlate.text.isNotBlank()){
+                    val intent = Intent(mContext, SearchPlateActivity::class.java)
+                        .putExtra("keyword", editTextSearchPlate.text.toString())
+                    editTextSearchPlate.text.clear()
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(mContext, "키워드를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

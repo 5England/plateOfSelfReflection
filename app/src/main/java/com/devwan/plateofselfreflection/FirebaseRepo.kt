@@ -88,11 +88,12 @@ class FirebaseRepo {
 
         coroutineScope {
             db.collection("plate")
-                .whereEqualTo("title", keyword)
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        snapshotList.add(document)
+                        if((document["title"].toString().contains(keyword))){
+                            snapshotList.add(document)
+                        }
                     }
                 }
                 .addOnFailureListener { exception ->
