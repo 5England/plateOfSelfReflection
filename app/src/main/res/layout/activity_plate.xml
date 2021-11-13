@@ -240,7 +240,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
-        app:cardCornerRadius="11dp"
+        app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true">
 
     <LinearLayout
