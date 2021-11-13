@@ -93,6 +93,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="25dp"
+                    android:background="#E4E4E4"/>
+
                 <LinearLayout
                     android:id="@+id/myStateLayout"
                     android:layout_width="match_parent"
@@ -113,8 +119,8 @@
                         app:progress_stroke_width="5dp"
                         app:progress_stroke_cap="round"
                         app:progress_start_color="#8BC34A"
-                        app:progress_end_color="#4CAF50"
-                        app:progress_text_color="#4CAF50"
+                        app:progress_end_color="@color/green"
+                        app:progress_text_color="@color/green"
                         android:layout_gravity="center"/>
 
                     <LinearLayout
@@ -161,7 +167,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
-                                android:textColor="#4CAF50"
+                                android:textColor="@color/green"
                                 android:text="현재 개선"/>
 
                             <TextView
@@ -170,7 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="25dp"
                                 android:fontFamily="@font/spo_light"
-                                android:textColor="#4CAF50" />
+                                android:textColor="@color/green" />
 
                         </LinearLayout>
 
@@ -186,7 +192,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
-                                android:textColor="#4CAF50"
+                                android:textColor="@color/green"
                                 android:text="첫 반성"/>
 
                             <TextView
@@ -195,7 +201,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="25dp"
                                 android:fontFamily="@font/spo_light"
-                                android:textColor="#4CAF50" />
+                                android:textColor="@color/green" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -222,7 +228,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/shape_homefragment_editsearchbackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -278,9 +284,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -315,7 +321,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom|right"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -324,7 +330,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:fontFamily="@font/spo_regular"
-                        android:textColor="#A8A8A8"
+                        android:textColor="@color/brown3"
                         android:layout_marginRight="35dp"
                         android:padding="5dp"
                         android:text="새로고침"/>
