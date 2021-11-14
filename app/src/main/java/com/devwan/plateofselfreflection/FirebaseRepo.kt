@@ -84,7 +84,7 @@ class FirebaseRepo {
             }
     }
 
-    suspend fun getSearchPlateList(keyword : String): List<DocumentSnapshot> {
+    suspend fun getSearchPlateList(keyword: String): List<DocumentSnapshot> {
         var snapshotList: MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
 
         coroutineScope {
@@ -92,7 +92,7 @@ class FirebaseRepo {
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        if((document["title"].toString().contains(keyword))){
+                        if ((document["title"].toString().contains(keyword))) {
                             snapshotList.add(document)
                         }
                     }
@@ -252,7 +252,10 @@ class FirebaseRepo {
                 .addOnSuccessListener {
                     if (it["nickName"] == null) {
                         val newData = hashMapOf(
-                            "nickName" to "익명", "overcomePlateNum" to 0, "allPlateNum" to 0, "startTime" to Timestamp.now()
+                            "nickName" to "익명",
+                            "overcomePlateNum" to 0,
+                            "allPlateNum" to 0,
+                            "startTime" to Timestamp.now()
                         )
                         docRef.set(newData)
                     }
@@ -265,7 +268,7 @@ class FirebaseRepo {
             }
     }
 
-    fun getAllPlateStateSnapshot(_allStateSnapshot: MutableLiveData<DocumentSnapshot>){
+    fun getAllPlateStateSnapshot(_allStateSnapshot: MutableLiveData<DocumentSnapshot>) {
         db.collection("profile").document(allNumId)
             .get().addOnSuccessListener {
                 _allStateSnapshot.value = it
@@ -350,7 +353,7 @@ class FirebaseRepo {
         }
     }
 
-    suspend fun updateNewUid(prevUid : String, newUid : String){
+    suspend fun updateNewUid(prevUid: String, newUid: String) {
         val plateCollection = db.collection("plate")
         val profileCollection = db.collection("profile")
 
@@ -359,7 +362,7 @@ class FirebaseRepo {
                 .whereEqualTo("uid", prevUid)
                 .get()
                 .addOnSuccessListener { documents ->
-                    for(document in documents){
+                    for (document in documents) {
                         plateCollection.document(document.id)
                             .update("uid", newUid)
                     }
@@ -379,21 +382,30 @@ class FirebaseRepo {
         }.await()
     }
 
-    suspend fun deleteMyAllData(){
+    suspend fun deleteMyAllData() {
+        val profileCollection = db.collection("profile")
         val plateCollection = db.collection("plate")
+
         coroutineScope {
-            plateCollection.whereEqualTo("uid", uid).get().addOnSuccessListener { documents ->
-                for(document in documents){
-                    deletePlate(document)
+            profileCollection.document(uid).get().addOnSuccessListener { myPlateState ->
+                profileCollection.document(allNumId).get().addOnSuccessListener { allPlateState ->
+                    profileCollection.document(allNumId).update(
+                        "allPlateNum",
+                        ((allPlateState["allPlateNum"] as Long) - (myPlateState["allPlateNum"] as Long))
+                    )
+                    profileCollection.document(allNumId).update(
+                        "overcomePlateNum",
+                        ((allPlateState["overcomePlateNum"] as Long) - (myPlateState["overcomePlateNum"] as Long))
+                    )
+                    profileCollection.document(uid).delete()
                 }
             }
-        }.await()
-    }
 
-    suspend fun deleteMyProfile(){
-        val profileCollection = db.collection("profile")
-        coroutineScope {
-            profileCollection.document(uid).delete()
+            plateCollection.whereEqualTo("uid", uid).get().addOnSuccessListener { documents ->
+                for (document in documents) {
+                    plateCollection.document(document.id).delete()
+                }
+            }
         }.await()
     }
 }

@@ -101,7 +101,7 @@ class InfoFragment : Fragment() {
                         show()
                     }
                 }else{
-                    Toast.makeText(mContext, "구글 계정 사용자는 이용하실 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, "이미 구글 계정을 사용 중이시네요.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

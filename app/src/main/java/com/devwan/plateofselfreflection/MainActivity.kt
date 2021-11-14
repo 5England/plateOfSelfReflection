@@ -58,8 +58,6 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
         GlobalScope.launch(Dispatchers.Main) {
             val firebaseRepo = FirebaseRepo()
             firebaseRepo.deleteMyAllData()
-            delay(1000L)
-            firebaseRepo.deleteMyProfile()
             firebaseAuthentication.resignAccount()
         }
     }

@@ -103,7 +103,7 @@
         android:textColor="#838383"
         android:fontFamily="@font/spo_regular"
         android:visibility="gone"
-        android:text="아직 반성한 적이 없네요!"/>
+        android:text="아직 작성한 반성문이 없어요."/>
 
     <View
         android:layout_width="wrap_content"
