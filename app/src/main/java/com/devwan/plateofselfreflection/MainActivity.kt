@@ -1,10 +1,18 @@
 package com.devwan.plateofselfreflection
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devwan.plateofselfreflection.databinding.ActivityMainBinding
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
@@ -30,6 +38,19 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
     override fun signOut() {
         firebaseAuthentication.signOut()
+    }
+
+    override fun linkGoogleAccount(){
+        firebaseAuthentication.linkGoogleAccount()
+    }
+
+    override fun updateNewUid(prevUid : String, newUid : String){
+        GlobalScope.launch(Dispatchers.Main) {
+            val firebaseRepo = FirebaseRepo()
+            firebaseRepo.updateNewUid(prevUid, newUid)
+            setContentView(binding.root)
+            initNavigationBar()
+        }
     }
 
     private fun initNavigationBar() {

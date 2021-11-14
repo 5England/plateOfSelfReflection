@@ -16,7 +16,7 @@ import java.util.*
 class FirebaseRepo {
     private val db = Firebase.firestore
     private val uid = Firebase.auth.uid.toString()
-    private val allNumId = "SgvaHO9PQAHZB8KbCuWt"
+    private val allNumId = "allPlateNumState"
 
     fun getUid(): String {
         return uid
@@ -348,5 +348,34 @@ class FirebaseRepo {
             val newAllPlateNum: Long = it["overcomePlateNum"] as Long - 1
             allDocRef.update("overcomePlateNum", newAllPlateNum)
         }
+    }
+
+    suspend fun updateNewUid(prevUid : String, newUid : String){
+        val plateCollection = db.collection("plate")
+        val profileCollection = db.collection("profile")
+
+        coroutineScope {
+            plateCollection
+                .whereEqualTo("uid", prevUid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for(document in documents){
+                        plateCollection.document(document.id)
+                            .update("uid", newUid)
+                    }
+                }
+
+            profileCollection.document(prevUid)
+                .get().addOnSuccessListener {
+                    val newData = hashMapOf(
+                        "nickName" to it["nickName"],
+                        "overcomePlateNum" to it["overcomePlateNum"],
+                        "allPlateNum" to it["allPlateNum"],
+                        "startTime" to it["startTime"]
+                    )
+                    profileCollection.document(newUid).set(newData)
+                    profileCollection.document(prevUid).delete()
+                }
+        }.await()
     }
 }
