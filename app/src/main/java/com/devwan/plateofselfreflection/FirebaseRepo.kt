@@ -378,4 +378,22 @@ class FirebaseRepo {
                 }
         }.await()
     }
+
+    suspend fun deleteMyAllData(){
+        val plateCollection = db.collection("plate")
+        coroutineScope {
+            plateCollection.whereEqualTo("uid", uid).get().addOnSuccessListener { documents ->
+                for(document in documents){
+                    deletePlate(document)
+                }
+            }
+        }.await()
+    }
+
+    suspend fun deleteMyProfile(){
+        val profileCollection = db.collection("profile")
+        coroutineScope {
+            profileCollection.document(uid).delete()
+        }.await()
+    }
 }

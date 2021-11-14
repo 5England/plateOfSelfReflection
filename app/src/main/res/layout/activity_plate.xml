@@ -199,7 +199,6 @@
                         android:id="@+id/btn_like"
                         android:layout_width="65dp"
                         android:layout_height="28dp"
-                        android:layout_marginLeft="5dp"
                         android:background="@color/white"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/icon_plateactivity_liked_false" />
@@ -256,7 +255,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint=" 댓글 작성하기"
+            android:hint=" 익명 댓글 작성"
             android:layout_weight="1"
             android:textCursorDrawable="@drawable/cursor_green"
             android:inputType="textMultiLine"

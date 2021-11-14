@@ -12,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), OnAuthServiceListener{
@@ -50,6 +51,16 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
             firebaseRepo.updateNewUid(prevUid, newUid)
             setContentView(binding.root)
             initNavigationBar()
+        }
+    }
+
+    override fun resignAccount() {
+        GlobalScope.launch(Dispatchers.Main) {
+            val firebaseRepo = FirebaseRepo()
+            firebaseRepo.deleteMyAllData()
+            delay(1000L)
+            firebaseRepo.deleteMyProfile()
+            firebaseAuthentication.resignAccount()
         }
     }
 

@@ -41,6 +41,8 @@ class InfoFragment : Fragment() {
 
         initBtnLinkGoogleAccount()
 
+        initBtnResign()
+
         return binding.root
     }
 
@@ -101,6 +103,23 @@ class InfoFragment : Fragment() {
                 }else{
                     Toast.makeText(mContext, "구글 계정 사용자는 이용하실 수 없습니다.", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+
+    private fun initBtnResign(){
+        binding.btnResign.setOnClickListener {
+            val dlg = AlertDialog.Builder(activity, R.style.AlertDialogStyle)
+            dlg.apply {
+                setTitle("회원 탈퇴")
+                setMessage("기존의 데이터가 모두 삭제됩니다. 그래도 탈퇴하시겠어요?")
+                setPositiveButton("취소", DialogInterface.OnClickListener { dialog, which ->
+
+                })
+                setNegativeButton("탈퇴", DialogInterface.OnClickListener { dialog, which ->
+                    onAuthServiceListener.resignAccount()
+                })
+                show()
             }
         }
     }

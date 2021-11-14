@@ -71,7 +71,7 @@
                 android:fontFamily="@font/spo_regular"
                 android:textCursorDrawable="@drawable/cursor_green"
                 android:ems="10"
-                android:hint="극복에 대한 후기를 남겨주세요."
+                android:hint="반성 개선에 대한 후기를 남겨주세요."
                 android:inputType="textMultiLine"
                 android:scrollHorizontally="false"
                 android:textSize="15dp" />

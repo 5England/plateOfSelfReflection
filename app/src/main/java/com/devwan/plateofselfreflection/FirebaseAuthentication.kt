@@ -81,6 +81,17 @@ class FirebaseAuthentication(private val activity: AppCompatActivity){
         signIn()
     }
 
+    fun resignAccount(){
+        val user = Firebase.auth.currentUser!!
+
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    signIn()
+                }
+            }
+    }
+
     private fun getSignInIntent(providers : ArrayList<AuthUI.IdpConfig>) : Intent {
         return AuthUI.getInstance()
             .createSignInIntentBuilder()

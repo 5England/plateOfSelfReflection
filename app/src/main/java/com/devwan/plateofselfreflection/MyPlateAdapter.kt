@@ -105,8 +105,8 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         }else{
             onClickIsOvercome.invoke(plateSnapshot)
             dlg.apply {
-                setTitle("극복 후기 작성")
-                setMessage("반성 극복에 대한 후기를 작성해 사람들에게 도움을 줄 수 있어요.")
+                setTitle("개선 후기 작성")
+                setMessage("반성 개선에 대한 후기를 작성해 사람들에게 도움을 줄 수 있어요.")
                 setPositiveButton("괜찮아요", DialogInterface.OnClickListener { dialog, which ->
                     Toast.makeText(mContext, "나중에 다시 작성하실 수 있어요.", Toast.LENGTH_SHORT).show()
                 })
@@ -124,7 +124,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         val dlg = AlertDialog.Builder(mContext, R.style.AlertDialogStyle)
         dlg.apply {
             setTitle("수정/삭제")
-            setMessage("수정/삭제 시 복구할 수 없어요.                         ")
+            setMessage("수정 및 삭제 시, 복구할 수 없어요.                         ")
             setPositiveButton("삭제", DialogInterface.OnClickListener { dialog, which ->
                 onClickDelete.invoke(plateSnapshot)
             })

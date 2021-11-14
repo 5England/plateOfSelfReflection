@@ -150,13 +150,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btn_resign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:elevation="1dp"
             android:gravity="center"
-            android:visibility="invisible"
             android:background="@drawable/shape_infofragment_btnbackground"
             android:orientation="vertical">
 
@@ -164,14 +164,14 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/icon_infofragment_authgoogle"/>
+                android:src="@drawable/icon_infofragment_resign"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
-                android:text="구글 계정 전환"
+                android:text="회원 탈퇴"
                 android:textColor="@color/brown4"
                 android:textSize="15dp" />
         </LinearLayout>
