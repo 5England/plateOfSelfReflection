@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brown1"
+    android:orientation="vertical"
+    tools:context=".InfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/brown1"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INFO"
+            android:fontFamily="@font/spo_bold"
+            android:textColor="@color/brown4"
+            android:paddingLeft="5dp"
+            android:textSize="24dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_createUpdateNickNameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_updatenickname"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="닉네임 변경"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_newMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_review"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="메세지 전달"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_signOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_signout"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="로그아웃"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_linkGoogleAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_authgoogle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="구글 계정 전환"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_resign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_resign"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="회원 탈퇴"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:background="@drawable/shape_infofragment_btnbackground"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/icon_infofragment_authgoogle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:fontFamily="@font/spo_regular"
+                android:text="구글 계정 전환"
+                android:textColor="@color/brown4"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

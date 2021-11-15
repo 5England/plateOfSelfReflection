@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/brown1"
+    tools:context=".AllPlateFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="모두의 반성"
+            android:fontFamily="@font/spo_bold"
+            android:paddingLeft="5dp"
+            android:textColor="@color/brown4"
+            android:textSize="24dp"/>
+
+        <ImageButton
+            android:id="@+id/btn_setListType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="7dp"
+            android:background="@color/brown1"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_allplatefragment_gettimelist" />
+
+        <ImageButton
+            android:id="@+id/btn_createUploadActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="7dp"
+            android:paddingRight="2dp"
+            android:background="@color/brown1"
+            android:src="@drawable/icon_allplatefragment_writeplate" />
+
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_allPlate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.6dp"
+        android:background="#E6E6E6" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="10dp"
+        android:layout_margin="2dp"
+        android:textColor="#B1B1B1"
+        android:text="피드를 아래로 당겨 새로고침할 수 있어요" />
+
+
+</LinearLayout>
