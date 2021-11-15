@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_cardView"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/shape_cardplate_background"
+    android:elevation="2dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/img_isOvercome"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="3dp"
+        app:srcCompat="@drawable/icon_cardplate_isovercome_false" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="7dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spo_medium"
+            android:maxLength="17"
+            android:text="제목"
+            android:textColor="@color/black"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/text_mainText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spo_regular"
+            android:maxLength="28"
+            android:singleLine="true"
+            android:text="내용"
+            android:textColor="#838383"
+            android:textSize="11dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_nickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spo_regular"
+                android:text=""
+                android:textColor="#A8A8A8"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spo_regular"
+                android:text=" | "
+                android:textColor="#A8A8A8"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/text_uploadTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/spo_regular"
+                android:text="업로드 시간"
+                android:textColor="#A8A8A8"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spo_regular"
+                android:text="통감해요 "
+                android:textColor="#A8A8A8"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/plate_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spo_medium"
+                android:paddingRight="4dp"
+                android:text="0"
+                android:textColor="@color/green2"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

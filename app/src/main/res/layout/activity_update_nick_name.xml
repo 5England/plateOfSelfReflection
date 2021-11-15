@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/shape_plateactivity_background"
+    tools:context=".UpdateNickNameActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_finishActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brown1"
+            app:srcCompat="@drawable/icon_btn_finishactivity" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/spo_regular"
+            android:textSize="19dp"
+            android:textColor="@color/black"
+            android:text="닉네임 변경" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText_nickName"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="8dp"
+                android:elevation="5dp"
+                android:gravity="center"
+                android:maxLength="6"
+                android:background="@drawable/shape_updatenicknameactivity_editbackground"
+                android:hint="닉네임"
+                android:fontFamily="@font/spo_regular"
+                android:textCursorDrawable="@drawable/cursor_green"
+                android:inputType="textPersonName"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:text="6자 이내의 닉네임을 설정할 수 있어요."
+                android:textColor="#BCBCBC"
+                android:textSize="11dp"/>
+
+            <TextView
+                android:id="@+id/btn_updateNickName"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:elevation="5dp"
+                android:background="@drawable/shape_updatenicknameactivity_updatebtnbackground"
+                android:fontFamily="@font/spo_bold"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:text="닉네임 변경" />
+        </LinearLayout>
+</LinearLayout>

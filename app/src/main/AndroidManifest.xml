@@ -4,12 +4,36 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_main"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateOfSelfReflection">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SearchPlateActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ReviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UpdateNickNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".UploadFeedbackActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UpdatePlateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UploadPlateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

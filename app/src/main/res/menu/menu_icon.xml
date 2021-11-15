@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/icon_home"
+        android:enabled="true"
+        android:icon="@drawable/icon_menu_home"
+        android:title="HOME" />
+    <item
+        android:id="@+id/icon_feed"
+        android:enabled="true"
+        android:icon="@drawable/icon_menu_allplate"
+        android:title="모두의 반성" />
+    <item
+        android:id="@+id/icon_myFeed"
+        android:enabled="true"
+        android:icon="@drawable/icon_menu_myplate"
+        android:title="나의 반성" />
+    <item
+        android:id="@+id/icon_info"
+        android:enabled="true"
+        android:icon="@drawable/icon_menu_info"
+        android:title="INFO" />
+</menu>
