@@ -16,7 +16,7 @@ class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     init {
         firebaseRepo.listenMyPlateList(_plate)
-        getMyPlateStateSnapshot()
+        firebaseRepo.listenMyPlateState(_myStateSnapshot)
     }
 
     fun checkIsOvercome(plate : DocumentSnapshot){
@@ -25,11 +25,5 @@ class MyPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
 
     fun deletePlate(plate : DocumentSnapshot){
         firebaseRepo.deletePlate(plate)
-    }
-
-    fun getMyPlateStateSnapshot(){
-        viewModelScope.launch {
-            firebaseRepo.getMyPlateStateSnapshot(_myStateSnapshot)
-        }
     }
 }

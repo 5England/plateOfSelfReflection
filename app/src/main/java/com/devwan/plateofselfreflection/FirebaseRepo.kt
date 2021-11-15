@@ -84,6 +84,19 @@ class FirebaseRepo {
             }
     }
 
+    fun listenMyPlateState(_myStateSnapshot : MutableLiveData<DocumentSnapshot>){
+        db.collection("profile")
+            .document(uid)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    _myStateSnapshot.value = snapshot
+                }
+            }
+    }
+
     suspend fun getSearchPlateList(keyword: String): List<DocumentSnapshot> {
         var snapshotList: MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
 
