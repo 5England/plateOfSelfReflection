@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/shape_plateactivity_background"
+    android:background="@color/brown1"
     tools:context=".MyPlateFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/brown1"
+        android:layout_height="65dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_gravity="center"
-        android:paddingTop="15dp"
+        android:paddingTop="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
@@ -23,7 +23,7 @@
             android:text="나의 반성"
             android:layout_weight="1"
             android:fontFamily="@font/spo_bold"
-            android:textColor="@color/brown3"
+            android:textColor="@color/brown4"
             android:paddingLeft="5dp"
             android:textSize="24dp"/>
 
@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:fontFamily="@font/spo_regular"
                     android:textColor="#A3A3A3"
                     android:text="현재 반성"/>
@@ -52,9 +52,9 @@
                     android:id="@+id/textView_myAllPlateNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="35dp"
-                    android:fontFamily="@font/spo_light"
-                    android:textColor="@color/brown3" />
+                    android:textSize="25dp"
+                    android:fontFamily="@font/spo_regular"
+                    android:textColor="@color/brown4" />
 
             </LinearLayout>
 
@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:fontFamily="@font/spo_regular"
                     android:textColor="#A3A3A3"
                     android:text="현재 개선"/>
@@ -77,13 +77,12 @@
                     android:id="@+id/textView_myOvercomePlateNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="35dp"
-                    android:fontFamily="@font/spo_light"
-                    android:textColor="@color/brown3" />
+                    android:textSize="25dp"
+                    android:fontFamily="@font/spo_regular"
+                    android:textColor="@color/brown4" />
 
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

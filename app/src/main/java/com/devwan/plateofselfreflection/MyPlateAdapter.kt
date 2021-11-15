@@ -27,6 +27,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         var uploadTime: TextView? = null
         var like: TextView? = null
         var cardView : LinearLayout? = null
+        var nickName : TextView? = null
 
         init {
             isOvercome = view.findViewById(R.id.img_isOvercome)
@@ -35,6 +36,7 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
             uploadTime = view.findViewById(R.id.text_uploadTime)
             like = view.findViewById(R.id.plate_like)
             cardView = view.findViewById(R.id.layout_cardView)
+            nickName = view.findViewById(R.id.text_nickName)
         }
     }
 
@@ -57,16 +59,18 @@ class MyPlateAdapter(private val mContext: Context, private var plateList: List<
         val like: String = plateSnapshot["like"].toString() ?: ""
         val uploadTime: String = Plate.getUploadTimeText((plateSnapshot["uploadTime"] as Timestamp).toDate())
         val isOvercome: Boolean = plateSnapshot["isOvercome"] as Boolean
+        val nickName : String = plateSnapshot["nickName"].toString()
 
         viewHolder.apply {
-            if(title.length >= 12){
-                this.title?.text = title.substring(0, 11) + ".."
+            if(title.length >= 16){
+                this.title?.text = title.substring(0, 15) + ".."
             }else{
                 this.title?.text = title
             }
             this.mainText?.text = mainText
             this.like?.text = like
             this.uploadTime?.text = uploadTime
+            this.nickName?.text = nickName
 
             if (isOvercome){
                 this.isOvercome?.setImageResource(R.drawable.icon_cardplate_isovercome_true)

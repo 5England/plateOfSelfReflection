@@ -1,16 +1,20 @@
 package com.devwan.plateofselfreflection
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.coroutines.*
+
 
 class PlateActivity : AppCompatActivity() {
 
@@ -74,7 +78,7 @@ class PlateActivity : AppCompatActivity() {
                     val commentList: ArrayList<String> = plate["commentList"] as ArrayList<String>
                     if (commentList.isNotEmpty()) {
                         textViewNoComment.visibility = View.GONE
-                        initListViewComment(listViewComment, commentList)
+                        initListViewComment(commentList)
                     }
                 }
                 setContentView(binding.root)
@@ -82,24 +86,15 @@ class PlateActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListViewComment(listViewComment: ListView, newCommentList: ArrayList<String>) {
-        listViewComment.adapter = PlateCommentAdapter(
-            newCommentList, LayoutInflater.from(this@PlateActivity)
-        )
-        refreshListViewHeight(listViewComment)
-    }
-
-    private fun refreshListViewHeight(listViewComment: ListView) {
-        var totalHeight = 0
-        for (i in 0 until listViewComment.adapter.count) {
-            val listItem: View = listViewComment.adapter.getView(i, null, listViewComment)
-            listItem.measure(0, 0)
-            totalHeight += listItem.measuredHeight
+    private fun initListViewComment(newCommentList: ArrayList<String>) {
+        val baseLayout : LinearLayout = binding.layoutCommentList
+        baseLayout.removeAllViews()
+        val inflater = baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        for (i in 0 until newCommentList.size) {
+            val commentLayout : View = inflater.inflate(R.layout.card_comment,null)
+            baseLayout.addView(commentLayout)
+            commentLayout.findViewById<TextView>(R.id.textView_commentText).text = newCommentList[i]
         }
-        val params: ViewGroup.LayoutParams = listViewComment.layoutParams
-        params.height =
-            totalHeight + listViewComment.dividerHeight * (listViewComment.adapter.count - 1)
-        listViewComment.layoutParams = params
     }
 
     private fun initBtnLike(snapshotId: String) {
@@ -129,29 +124,22 @@ class PlateActivity : AppCompatActivity() {
                         editTextComment.text.clear()
                         val curSnapshot: DocumentSnapshot? = firebaseRepo.getPlate(snapshotId)
 
-                        curSnapshot?.let {
+                        curSnapshot?.apply {
                             (curSnapshot["commentList"] as List<String>)?.apply {
-                                if (listViewComment.adapter == null) {
-                                    textViewNoComment.visibility = View.GONE
-                                    initListViewComment(listViewComment, ArrayList(this))
-                                } else {
-                                    (listViewComment.adapter as PlateCommentAdapter).setData(
-                                        ArrayList(this)
-                                    )
-                                    refreshListViewHeight(listViewComment)
-                                }
+                                textViewNoComment.visibility = View.GONE
+                                initListViewComment(ArrayList(this))
                             }
                         }
-
-                        val manager: InputMethodManager =
-                            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                        manager.hideSoftInputFromWindow(
-                            currentFocus!!.windowToken,
-                            InputMethodManager.HIDE_NOT_ALWAYS
-                        )
-
-                        scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                     }
+
+                    val manager: InputMethodManager =
+                        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    manager.hideSoftInputFromWindow(
+                        currentFocus!!.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                 } else {
                     Toast.makeText(baseContext, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }

@@ -43,7 +43,6 @@ class MyPlateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myPlateViewModel.plate.observe(viewLifecycleOwner){
             (binding.recyclerViewMyPlate.adapter as MyPlateAdapter).setData(it)
-            myPlateViewModel.getMyPlateStateSnapshot()
         }
         myPlateViewModel.myStateSnapshot.observe(viewLifecycleOwner){
             binding.apply {
