@@ -24,6 +24,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
         var uploadTime: TextView? = null
         var like: TextView? = null
         var cardView : LinearLayout? = null
+        var nickName : TextView? = null
 
         init {
             isOvercome = view.findViewById(R.id.img_isOvercome)
@@ -32,6 +33,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
             uploadTime = view.findViewById(R.id.text_uploadTime)
             like = view.findViewById(R.id.plate_like)
             cardView = view.findViewById(R.id.layout_cardView)
+            nickName = view.findViewById(R.id.text_nickName)
         }
     }
 
@@ -48,22 +50,24 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
 
     override fun getItemCount() = allPlateList.size
 
-    private fun bindData(viewHolder: ViewHolder, plateDocumentSnapshot: DocumentSnapshot) {
-        val title: String = plateDocumentSnapshot["title"].toString() ?: ""
-        val mainText: String = plateDocumentSnapshot["mainText"].toString() ?: ""
-        val like: String = plateDocumentSnapshot["like"].toString() ?: ""
-        val uploadTime: String = Plate.getUploadTimeText((plateDocumentSnapshot["uploadTime"] as Timestamp).toDate())
-        val isOvercome: Boolean = plateDocumentSnapshot["isOvercome"] as Boolean
+    private fun bindData(viewHolder: ViewHolder, plateSnapshot: DocumentSnapshot) {
+        val title: String = plateSnapshot["title"].toString()
+        val mainText: String = plateSnapshot["mainText"].toString()
+        val like: String = plateSnapshot["like"].toString()
+        val uploadTime: String = Plate.getUploadTimeText((plateSnapshot["uploadTime"] as Timestamp).toDate())
+        val isOvercome: Boolean = plateSnapshot["isOvercome"] as Boolean
+        val nickName : String = plateSnapshot["nickName"].toString()
 
         viewHolder.apply {
-            if(title.length >= 12){
-                this.title?.text = title.substring(0, 11) + ".."
+            if(title.length >= 16){
+                this.title?.text = title.substring(0, 15) + ".."
             }else{
                 this.title?.text = title
             }
             this.mainText?.text = mainText
             this.like?.text = like
             this.uploadTime?.text = uploadTime
+            this.nickName?.text = nickName
             if (isOvercome){
                 this.isOvercome?.setImageResource(R.drawable.icon_cardplate_isovercome_true)
             } else {
@@ -71,7 +75,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
             }
             this.cardView?.setOnClickListener{
                 val intent = Intent(mContext, PlateActivity::class.java)
-                getResult.launch(intent.putExtra("snapshotId", plateDocumentSnapshot.id))
+                getResult.launch(intent.putExtra("snapshotId", plateSnapshot.id))
             }
         }
     }
