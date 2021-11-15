@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_plateactivity_background"
+    android:background="@color/brown1"
     android:orientation="vertical"
     tools:context=".InfoFragment">
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="INFO"
             android:fontFamily="@font/spo_bold"
-            android:textColor="@color/brown3"
+            android:textColor="@color/brown4"
             android:paddingLeft="5dp"
             android:textSize="24dp"/>
 
