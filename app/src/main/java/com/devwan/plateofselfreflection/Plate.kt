@@ -53,8 +53,8 @@ data class Plate(val nickName : String = "익명",
             }else{
                 when(myAllPlateNum){
                     in 1..2 -> "좋아요. 시작이 반이죠."
-                    in 3..5 -> "발전할 준비가 됐어요."
-                    else -> "더 나은 내일이 있겠네요."
+                    in 3..4 -> "사실 시작이 반은 아니에요.\n우리 한 번, 더 열심히 해볼까요?"
+                    else -> "정말 잘 하고 있어요!\n우리, 계속 발전해요."
                 }
             }
         }

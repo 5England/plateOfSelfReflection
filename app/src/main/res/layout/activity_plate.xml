@@ -15,18 +15,13 @@
         android:layout_weight="1"
         android:background="@drawable/shape_plateactivity_background">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="9dp"
-            app:cardUseCompatPadding="true">
-
             <LinearLayout
                 android:id="@+id/layout_cardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:layout_margin="5dp"
+                android:elevation="1dp"
+                android:background="@drawable/shape_plateactivity_cardbackground"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -209,10 +204,13 @@
                     android:layout_height="0.6dp"
                     android:background="#E6E6E6" />
 
-                <ListView
-                    android:id="@+id/listView_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/layout_commentList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView_noComment"
@@ -224,7 +222,6 @@
                     android:hint="아직 댓글이 없어요."
                     android:textSize="12dp"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </ScrollView>
 
     <LinearLayout

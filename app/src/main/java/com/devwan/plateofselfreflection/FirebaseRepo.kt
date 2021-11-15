@@ -409,8 +409,7 @@ class FirebaseRepo {
                     profileCollection.document(allNumId).update(
                         "overcomePlateNum",
                         ((allPlateState["overcomePlateNum"] as Long) - (myPlateState["overcomePlateNum"] as Long))
-                    )
-                    profileCollection.document(uid).delete()
+                    ).addOnSuccessListener { profileCollection.document(uid).delete() }
                 }
             }
 

@@ -1,16 +1,20 @@
 package com.devwan.plateofselfreflection
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.coroutines.*
+
 
 class PlateActivity : AppCompatActivity() {
 
@@ -74,7 +78,7 @@ class PlateActivity : AppCompatActivity() {
                     val commentList: ArrayList<String> = plate["commentList"] as ArrayList<String>
                     if (commentList.isNotEmpty()) {
                         textViewNoComment.visibility = View.GONE
-                        initListViewComment(listViewComment, commentList)
+                        initListViewComment(commentList)
                     }
                 }
                 setContentView(binding.root)
@@ -82,44 +86,14 @@ class PlateActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListViewComment(listViewComment: ListView, newCommentList: ArrayList<String>) {
-        listViewComment.adapter = PlateCommentAdapter(
-            newCommentList, LayoutInflater.from(this@PlateActivity)
-        )
-        setListViewHeightBasedOnItems(listViewComment)
-    }
-
-    private fun setListViewHeightBasedOnItems(listView: ListView): Boolean {
-        val listAdapter = listView.adapter
-        return if (listAdapter != null) {
-            val numberOfItems = listAdapter.count
-
-            // Get total height of all items.
-            var totalItemsHeight = 0
-            for (itemPos in 0 until numberOfItems) {
-                val item = listAdapter.getView(itemPos, null, listView)
-                val px = 500 * listView.resources.displayMetrics.density
-                item.measure(
-                    View.MeasureSpec.makeMeasureSpec(px.toInt(), View.MeasureSpec.AT_MOST),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                )
-                totalItemsHeight += item.measuredHeight
-            }
-
-            // Get total height of all item dividers.
-            val totalDividersHeight = listView.dividerHeight * (numberOfItems)
-            // Get padding
-            val totalPadding = listView.paddingTop + listView.paddingBottom
-
-            // Set list height.
-            val params = listView.layoutParams
-            params.height = totalItemsHeight + totalDividersHeight + totalPadding
-            listView.layoutParams = params
-            listView.requestLayout()
-            //setDynamicHeight(listView);
-            true
-        } else {
-            false
+    private fun initListViewComment(newCommentList: ArrayList<String>) {
+        val baseLayout : LinearLayout = binding.layoutCommentList
+        baseLayout.removeAllViews()
+        val inflater = baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        for (i in 0 until newCommentList.size) {
+            val commentLayout : View = inflater.inflate(R.layout.card_comment,null)
+            baseLayout.addView(commentLayout)
+            commentLayout.findViewById<TextView>(R.id.textView_commentText).text = newCommentList[i]
         }
     }
 
@@ -150,26 +124,22 @@ class PlateActivity : AppCompatActivity() {
                         editTextComment.text.clear()
                         val curSnapshot: DocumentSnapshot? = firebaseRepo.getPlate(snapshotId)
 
-                        curSnapshot?.let {
+                        curSnapshot?.apply {
                             (curSnapshot["commentList"] as List<String>)?.apply {
-                                if (listViewComment.adapter == null) {
-                                    textViewNoComment.visibility = View.GONE
-                                    initListViewComment(listViewComment, ArrayList(this))
-                                } else {
-                                    initListViewComment(listViewComment, ArrayList(this))
-                                }
+                                textViewNoComment.visibility = View.GONE
+                                initListViewComment(ArrayList(this))
                             }
                         }
-
-                        val manager: InputMethodManager =
-                            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                        manager.hideSoftInputFromWindow(
-                            currentFocus!!.windowToken,
-                            InputMethodManager.HIDE_NOT_ALWAYS
-                        )
-
-                        scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                     }
+
+                    val manager: InputMethodManager =
+                        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    manager.hideSoftInputFromWindow(
+                        currentFocus!!.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
+
+                    scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                 } else {
                     Toast.makeText(baseContext, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
