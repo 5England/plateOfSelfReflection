@@ -86,20 +86,41 @@ class PlateActivity : AppCompatActivity() {
         listViewComment.adapter = PlateCommentAdapter(
             newCommentList, LayoutInflater.from(this@PlateActivity)
         )
-        refreshListViewHeight(listViewComment)
+        setListViewHeightBasedOnItems(listViewComment)
     }
 
-    private fun refreshListViewHeight(listViewComment: ListView) {
-        var totalHeight = 0
-        for (i in 0 until listViewComment.adapter.count) {
-            val listItem: View = listViewComment.adapter.getView(i, null, listViewComment)
-            listItem.measure(0, 0)
-            totalHeight += listItem.measuredHeight
+    private fun setListViewHeightBasedOnItems(listView: ListView): Boolean {
+        val listAdapter = listView.adapter
+        return if (listAdapter != null) {
+            val numberOfItems = listAdapter.count
+
+            // Get total height of all items.
+            var totalItemsHeight = 0
+            for (itemPos in 0 until numberOfItems) {
+                val item = listAdapter.getView(itemPos, null, listView)
+                val px = 500 * listView.resources.displayMetrics.density
+                item.measure(
+                    View.MeasureSpec.makeMeasureSpec(px.toInt(), View.MeasureSpec.AT_MOST),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                )
+                totalItemsHeight += item.measuredHeight
+            }
+
+            // Get total height of all item dividers.
+            val totalDividersHeight = listView.dividerHeight * (numberOfItems)
+            // Get padding
+            val totalPadding = listView.paddingTop + listView.paddingBottom
+
+            // Set list height.
+            val params = listView.layoutParams
+            params.height = totalItemsHeight + totalDividersHeight + totalPadding
+            listView.layoutParams = params
+            listView.requestLayout()
+            //setDynamicHeight(listView);
+            true
+        } else {
+            false
         }
-        val params: ViewGroup.LayoutParams = listViewComment.layoutParams
-        params.height =
-            totalHeight + listViewComment.dividerHeight * (listViewComment.adapter.count - 1)
-        listViewComment.layoutParams = params
     }
 
     private fun initBtnLike(snapshotId: String) {
@@ -135,10 +156,7 @@ class PlateActivity : AppCompatActivity() {
                                     textViewNoComment.visibility = View.GONE
                                     initListViewComment(listViewComment, ArrayList(this))
                                 } else {
-                                    (listViewComment.adapter as PlateCommentAdapter).setData(
-                                        ArrayList(this)
-                                    )
-                                    refreshListViewHeight(listViewComment)
+                                    initListViewComment(listViewComment, ArrayList(this))
                                 }
                             }
                         }
