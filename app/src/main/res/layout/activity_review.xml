@@ -164,7 +164,6 @@
         android:fontFamily="@font/spo_bold"
         android:textSize="16dp"
         android:textColor="@color/white"
-        android:visibility="invisible"
         android:text="App 피드백 남기기" />
 
 </LinearLayout>

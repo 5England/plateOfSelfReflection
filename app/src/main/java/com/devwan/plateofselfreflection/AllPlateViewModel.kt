@@ -4,10 +4,8 @@ import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.coroutines.launch
 
-class AllPlateViewModel ( savedStateHandle: SavedStateHandle) : ViewModel() {
-
+class AllPlateViewModel () : ViewModel() {
     private val firebaseRepo : FirebaseRepo = FirebaseRepo()
-    val userId : String? = savedStateHandle["uid"]
 
     private var _plate = MutableLiveData<List<DocumentSnapshot>>()
     val plate : LiveData<List<DocumentSnapshot>> = _plate
