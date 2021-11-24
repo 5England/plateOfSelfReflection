@@ -14,4 +14,4 @@
 
 [반성 식탁 - 플레이스토어 링크](https://play.google.com/store/apps/details?id=com.devwan.plateofselfreflection)
 
-[프로젝트를 진행한 후기 (with project 카테고리 참고)](https://velog.io/@dongwan999/LIST)
+[프로젝트 진행 후기 (개인 블로그)](https://velog.io/@dongwan999/series/%EB%B0%98%EC%84%B1-%EC%8B%9D%ED%83%81)
