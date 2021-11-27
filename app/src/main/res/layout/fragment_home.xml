@@ -42,7 +42,6 @@
                         android:layout_height="58dp"
                         android:scaleType="centerCrop"
                         android:padding="8dp"
-                        android:background="@drawable/shape_homefragment_diarybackground"
                         android:src="@drawable/icon_diary" />
 
                     <LinearLayout

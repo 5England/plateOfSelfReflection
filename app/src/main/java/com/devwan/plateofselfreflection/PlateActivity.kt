@@ -1,8 +1,11 @@
 package com.devwan.plateofselfreflection
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -12,7 +15,10 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import com.devwan.plateofselfreflection.databinding.ActivityPlateBinding
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.*
 
 
@@ -33,6 +39,8 @@ class PlateActivity : AppCompatActivity() {
 
         initBtnLike(snapshotId)
 
+        initBtnEnterKeyboard()
+
         initBtnUploadComment(snapshotId)
 
         initBtnFinishActivity()
@@ -44,6 +52,7 @@ class PlateActivity : AppCompatActivity() {
         binding.apply {
             GlobalScope.launch(Dispatchers.Main) {
                 val plate: DocumentSnapshot? = firebaseRepo.getPlate(snapshotId)
+                val commentList: List<DocumentSnapshot> = firebaseRepo.getCommentList(snapshotId)
                 plate?.apply {
                     textViewNickname.text = plate["nickName"] as String
                     if (textViewNickname.text.toString().length >= 4) {
@@ -72,13 +81,16 @@ class PlateActivity : AppCompatActivity() {
                     }
 
                     if (isLiked) {
-                        btnLike.setImageResource(R.drawable.icon_plateactivity_liked_true)
+                        btnLike.visibility = View.GONE
+                        btnUnlike.visibility = View.VISIBLE
+                    }else{
+                        btnLike.visibility = View.VISIBLE
+                        btnUnlike.visibility = View.GONE
                     }
 
-                    val commentList: ArrayList<String> = plate["commentList"] as ArrayList<String>
                     if (commentList.isNotEmpty()) {
                         textViewNoComment.visibility = View.GONE
-                        initListViewComment(commentList)
+                        initListViewComment(commentList, snapshotId)
                     }
                 }
                 setContentView(binding.root)
@@ -86,14 +98,51 @@ class PlateActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListViewComment(newCommentList: ArrayList<String>) {
-        val baseLayout : LinearLayout = binding.layoutCommentList
+    private fun initListViewComment(commentList: List<DocumentSnapshot>, snapshotId: String) {
+        val baseLayout: LinearLayout = binding.layoutCommentList
         baseLayout.removeAllViews()
-        val inflater = baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        for (i in 0 until newCommentList.size) {
-            val commentLayout : View = inflater.inflate(R.layout.card_comment,null)
+        val inflater =
+            baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val newCommentList: List<DocumentSnapshot> =
+            commentList.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
+
+        newCommentList.forEach { document ->
+            val commentLayout: View = inflater.inflate(R.layout.card_comment, null)
             baseLayout.addView(commentLayout)
-            commentLayout.findViewById<TextView>(R.id.textView_commentText).text = newCommentList[i]
+            commentLayout.findViewById<TextView>(R.id.textView_commentText).text =
+                document["comment"] as String
+            commentLayout.findViewById<TextView>(R.id.textView_commentNickname).text =
+                document["nickName"] as String
+            commentLayout.findViewById<TextView>(R.id.textView_commentUploadTime).text =
+                Plate.getUploadTimeText((document["uploadTime"] as Timestamp).toDate())
+            if (FirebaseAuth.getInstance().uid == document["uid"] as String){
+                initBtnDeleteMyComment(commentLayout, snapshotId, document)
+            }
+        }
+    }
+
+    private fun initBtnDeleteMyComment(commentLayout : View, snapshotId : String, document : DocumentSnapshot){
+            commentLayout.findViewById<TextView>(R.id.textView_deleteMyComment).let {
+                it.visibility = View.VISIBLE
+                it.setOnClickListener {
+                    val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+                    dlg.apply {
+                        setTitle("댓글 삭제")
+                        setMessage("삭제하시겠어요?                                     ")
+                        setPositiveButton(
+                            "아니요",
+                            DialogInterface.OnClickListener { dialog, which -> })
+                        setNegativeButton(
+                            "삭제",
+                            DialogInterface.OnClickListener { dialog, which ->
+                                GlobalScope.launch(Dispatchers.Main) {
+                                    firebaseRepo.deleteMyComment(snapshotId, document.id)
+                                    refreshPlate(snapshotId)
+                                }
+                            })
+                        show()
+                    }
+                }
         }
     }
 
@@ -103,15 +152,29 @@ class PlateActivity : AppCompatActivity() {
                 GlobalScope.launch(Dispatchers.IO) {
                     firebaseRepo.likePlate(snapshotId)
                 }
-                if (isLiked) {
-                    btnLike.setImageResource(R.drawable.icon_plateactivity_liked_false)
-                    textViewLike.text = (--like).toString()
-                } else {
-                    btnLike.setImageResource(R.drawable.icon_plateactivity_liked_true)
-                    textViewLike.text = (++like).toString()
-                }
+                btnLike.visibility = View.GONE
+                btnUnlike.visibility = View.VISIBLE
+                textViewLike.text = (++like).toString()
                 isLiked = !isLiked
             }
+
+            btnUnlike.setOnClickListener {
+                GlobalScope.launch(Dispatchers.IO) {
+                    firebaseRepo.likePlate(snapshotId)
+                }
+                btnLike.visibility = View.VISIBLE
+                btnUnlike.visibility = View.GONE
+                textViewLike.text = (--like).toString()
+                isLiked = !isLiked
+            }
+        }
+    }
+
+    private fun initBtnEnterKeyboard(){
+        binding.btnEnterkeyboard.setOnClickListener{
+            binding.editTextComment.requestFocus()
+	        val imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+	        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
     }
 
@@ -120,26 +183,26 @@ class PlateActivity : AppCompatActivity() {
             btnUploadComment.setOnClickListener {
                 if (editTextComment.text.isNotBlank()) {
                     GlobalScope.launch(Dispatchers.Main) {
-                        firebaseRepo.uploadComment(snapshotId, editTextComment.text.toString())
+                        firebaseRepo.uploadComment(
+                            snapshotId,
+                            editTextComment.text.toString(),
+                            Timestamp.now()
+                        )
+                        val commentList: List<DocumentSnapshot> =
+                            firebaseRepo.getCommentList(snapshotId)
+                        textViewNoComment.visibility = View.GONE
+                        initListViewComment(commentList, snapshotId)
+
                         editTextComment.text.clear()
-                        val curSnapshot: DocumentSnapshot? = firebaseRepo.getPlate(snapshotId)
+                        val manager: InputMethodManager =
+                            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        manager.hideSoftInputFromWindow(
+                            currentFocus!!.windowToken,
+                            InputMethodManager.HIDE_NOT_ALWAYS
+                        )
 
-                        curSnapshot?.apply {
-                            (curSnapshot["commentList"] as List<String>)?.apply {
-                                textViewNoComment.visibility = View.GONE
-                                initListViewComment(ArrayList(this))
-                            }
-                        }
+                        scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                     }
-
-                    val manager: InputMethodManager =
-                        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                    manager.hideSoftInputFromWindow(
-                        currentFocus!!.windowToken,
-                        InputMethodManager.HIDE_NOT_ALWAYS
-                    )
-
-                    scrollView.fullScroll(ScrollView.FOCUS_DOWN)
                 } else {
                     Toast.makeText(baseContext, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
