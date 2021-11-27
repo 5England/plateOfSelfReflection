@@ -190,13 +190,89 @@
 
                     </LinearLayout>
 
-                    <ImageButton
-                        android:id="@+id/btn_like"
-                        android:layout_width="65dp"
-                        android:layout_height="28dp"
-                        android:background="@color/white"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/icon_plateactivity_liked_false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="3dp">
+
+                        <LinearLayout
+                            android:id="@+id/btn_like"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center_vertical"
+                            android:padding="4dp"
+                            android:background="@drawable/shape_plateactivity_likebtnbackground_gray"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="2dp"
+                                android:src="@drawable/icon_plateactivity_unliked"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:layout_marginRight="2dp"
+                                android:textColor="#939393"
+                                android:text="통감하기"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btn_unlike"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center_vertical"
+                            android:padding="4dp"
+                            android:background="@drawable/shape_plateactivity_likebtnbackground_green"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="2dp"
+                                android:src="@drawable/icon_plateactivity_liked"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="2dp"
+                                android:textSize="13dp"
+                                android:textColor="@color/green2"
+                                android:text="통감하기"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btn_enterkeyboard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:padding="4dp"
+                            android:background="@drawable/shape_plateactivity_likebtnbackground_gray"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="2dp"
+                                android:src="@drawable/icon_plateactivity_enterkeyboard"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:layout_marginRight="2dp"
+                                android:textColor="#939393"
+                                android:text="댓글작성"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View

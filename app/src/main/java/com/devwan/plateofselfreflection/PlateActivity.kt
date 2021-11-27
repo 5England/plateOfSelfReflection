@@ -39,6 +39,8 @@ class PlateActivity : AppCompatActivity() {
 
         initBtnLike(snapshotId)
 
+        initBtnEnterKeyboard()
+
         initBtnUploadComment(snapshotId)
 
         initBtnFinishActivity()
@@ -79,7 +81,11 @@ class PlateActivity : AppCompatActivity() {
                     }
 
                     if (isLiked) {
-                        btnLike.setImageResource(R.drawable.icon_plateactivity_liked_true)
+                        btnLike.visibility = View.GONE
+                        btnUnlike.visibility = View.VISIBLE
+                    }else{
+                        btnLike.visibility = View.VISIBLE
+                        btnUnlike.visibility = View.GONE
                     }
 
                     if (commentList.isNotEmpty()) {
@@ -146,15 +152,29 @@ class PlateActivity : AppCompatActivity() {
                 GlobalScope.launch(Dispatchers.IO) {
                     firebaseRepo.likePlate(snapshotId)
                 }
-                if (isLiked) {
-                    btnLike.setImageResource(R.drawable.icon_plateactivity_liked_false)
-                    textViewLike.text = (--like).toString()
-                } else {
-                    btnLike.setImageResource(R.drawable.icon_plateactivity_liked_true)
-                    textViewLike.text = (++like).toString()
-                }
+                btnLike.visibility = View.GONE
+                btnUnlike.visibility = View.VISIBLE
+                textViewLike.text = (++like).toString()
                 isLiked = !isLiked
             }
+
+            btnUnlike.setOnClickListener {
+                GlobalScope.launch(Dispatchers.IO) {
+                    firebaseRepo.likePlate(snapshotId)
+                }
+                btnLike.visibility = View.VISIBLE
+                btnUnlike.visibility = View.GONE
+                textViewLike.text = (--like).toString()
+                isLiked = !isLiked
+            }
+        }
+    }
+
+    private fun initBtnEnterKeyboard(){
+        binding.btnEnterkeyboard.setOnClickListener{
+            binding.editTextComment.requestFocus()
+	        val imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+	        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
     }
 
