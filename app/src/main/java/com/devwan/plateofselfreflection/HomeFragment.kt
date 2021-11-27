@@ -71,6 +71,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initBtnSearchPlate(){
         binding.apply {
             btnSearchPlate.setOnClickListener {
