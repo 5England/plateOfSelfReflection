@@ -33,6 +33,17 @@
                             android:text="익명" />
 
                         <TextView
+                            android:id="@+id/textView_deleteMyComment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:textSize="12dp"
+                            android:textColor="#BCBCBC"
+                            android:paddingBottom="6dp"
+                            android:visibility="gone"
+                            android:text="삭제 | " />
+
+                        <TextView
                             android:id="@+id/textView_commentUploadTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -273,6 +273,12 @@ class FirebaseRepo {
         }.await()
     }
 
+    suspend fun deleteMyComment(plateId : String, commentId : String){
+        coroutineScope {
+            db.collection("plate").document(plateId).collection("comments").document(commentId).delete()
+        }
+    }
+
     suspend fun getMyPlateStateSnapshot(_myStateSnapshot: MutableLiveData<DocumentSnapshot>) {
         val docRef = db.collection("profile").document(uid)
 

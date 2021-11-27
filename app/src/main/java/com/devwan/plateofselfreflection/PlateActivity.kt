@@ -1,6 +1,8 @@
 package com.devwan.plateofselfreflection
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -48,7 +50,7 @@ class PlateActivity : AppCompatActivity() {
         binding.apply {
             GlobalScope.launch(Dispatchers.Main) {
                 val plate: DocumentSnapshot? = firebaseRepo.getPlate(snapshotId)
-                val commentList : List<DocumentSnapshot> = firebaseRepo.getCommentList(snapshotId)
+                val commentList: List<DocumentSnapshot> = firebaseRepo.getCommentList(snapshotId)
                 plate?.apply {
                     textViewNickname.text = plate["nickName"] as String
                     if (textViewNickname.text.toString().length >= 4) {
@@ -80,9 +82,9 @@ class PlateActivity : AppCompatActivity() {
                         btnLike.setImageResource(R.drawable.icon_plateactivity_liked_true)
                     }
 
-                    if(commentList.isNotEmpty()){
+                    if (commentList.isNotEmpty()) {
                         textViewNoComment.visibility = View.GONE
-                        initListViewComment(commentList)
+                        initListViewComment(commentList, snapshotId)
                     }
                 }
                 setContentView(binding.root)
@@ -90,18 +92,51 @@ class PlateActivity : AppCompatActivity() {
         }
     }
 
-    private fun initListViewComment(commentList: List<DocumentSnapshot>) {
-        val baseLayout : LinearLayout = binding.layoutCommentList
+    private fun initListViewComment(commentList: List<DocumentSnapshot>, snapshotId: String) {
+        val baseLayout: LinearLayout = binding.layoutCommentList
         baseLayout.removeAllViews()
-        val inflater = baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val newCommentList : List<DocumentSnapshot> = commentList.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
+        val inflater =
+            baseContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val newCommentList: List<DocumentSnapshot> =
+            commentList.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
 
         newCommentList.forEach { document ->
-            val commentLayout : View = inflater.inflate(R.layout.card_comment,null)
+            val commentLayout: View = inflater.inflate(R.layout.card_comment, null)
             baseLayout.addView(commentLayout)
-            commentLayout.findViewById<TextView>(R.id.textView_commentText).text = document["comment"] as String
-            commentLayout.findViewById<TextView>(R.id.textView_commentNickname).text = document["nickName"] as String
-            commentLayout.findViewById<TextView>(R.id.textView_commentUploadTime).text = Plate.getUploadTimeText((document["uploadTime"] as Timestamp).toDate())
+            commentLayout.findViewById<TextView>(R.id.textView_commentText).text =
+                document["comment"] as String
+            commentLayout.findViewById<TextView>(R.id.textView_commentNickname).text =
+                document["nickName"] as String
+            commentLayout.findViewById<TextView>(R.id.textView_commentUploadTime).text =
+                Plate.getUploadTimeText((document["uploadTime"] as Timestamp).toDate())
+            if (FirebaseAuth.getInstance().uid == document["uid"] as String){
+                initBtnDeleteMyComment(commentLayout, snapshotId, document)
+            }
+        }
+    }
+
+    private fun initBtnDeleteMyComment(commentLayout : View, snapshotId : String, document : DocumentSnapshot){
+            commentLayout.findViewById<TextView>(R.id.textView_deleteMyComment).let {
+                it.visibility = View.VISIBLE
+                it.setOnClickListener {
+                    val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+                    dlg.apply {
+                        setTitle("댓글 삭제")
+                        setMessage("삭제하시겠어요?                                     ")
+                        setPositiveButton(
+                            "아니요",
+                            DialogInterface.OnClickListener { dialog, which -> })
+                        setNegativeButton(
+                            "삭제",
+                            DialogInterface.OnClickListener { dialog, which ->
+                                GlobalScope.launch(Dispatchers.Main) {
+                                    firebaseRepo.deleteMyComment(snapshotId, document.id)
+                                    refreshPlate(snapshotId)
+                                }
+                            })
+                        show()
+                    }
+                }
         }
     }
 
@@ -128,10 +163,15 @@ class PlateActivity : AppCompatActivity() {
             btnUploadComment.setOnClickListener {
                 if (editTextComment.text.isNotBlank()) {
                     GlobalScope.launch(Dispatchers.Main) {
-                        firebaseRepo.uploadComment(snapshotId, editTextComment.text.toString(), Timestamp.now())
-                        val commentList : List<DocumentSnapshot> = firebaseRepo.getCommentList(snapshotId)
+                        firebaseRepo.uploadComment(
+                            snapshotId,
+                            editTextComment.text.toString(),
+                            Timestamp.now()
+                        )
+                        val commentList: List<DocumentSnapshot> =
+                            firebaseRepo.getCommentList(snapshotId)
                         textViewNoComment.visibility = View.GONE
-                        initListViewComment(commentList)
+                        initListViewComment(commentList, snapshotId)
 
                         editTextComment.text.clear()
                         val manager: InputMethodManager =
