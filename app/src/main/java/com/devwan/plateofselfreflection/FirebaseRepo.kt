@@ -11,6 +11,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
+import org.w3c.dom.Document
 import java.util.*
 
 class FirebaseRepo {
@@ -37,7 +38,6 @@ class FirebaseRepo {
                     "uploadTime" to newPlate.uploadTimestamp,
                     "like" to newPlate.like,
                     "likeUidMap" to newPlate.LikeUidMap,
-                    "commentList" to newPlate.commentList
                 )
 
                 db.collection("plate")
@@ -237,22 +237,39 @@ class FirebaseRepo {
         return plateSnapshot
     }
 
-    suspend fun uploadComment(snapshotId: String, comment: String) {
-        val plateDocument = db.collection("plate").document(snapshotId)
+    suspend fun getCommentList(snapshotId : String) : List<DocumentSnapshot>{
+        var commentList: MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
 
         coroutineScope {
-            plateDocument.get()
-                .addOnSuccessListener {
-                    var commentList: MutableList<String> = it["commentList"] as MutableList<String>
-                    commentList.apply {
-                        add(comment)
-                        commentList.toList()
-                        plateDocument.update("commentList", this)
+            db.collection("plate").document(snapshotId).collection("comments")
+                .get()
+                .addOnSuccessListener { documents ->
+                    documents.forEach { document ->
+                        commentList.add(document)
                     }
                 }
                 .addOnFailureListener { exception ->
                     Log.w(ContentValues.TAG, "Error getting documents: ", exception)
                 }
+        }.await()
+
+        return commentList.toList()
+    }
+
+    suspend fun uploadComment(snapshotId: String, comment: String, commentUploadTime : Timestamp) {
+        val plateDocument = db.collection("plate").document(snapshotId)
+
+        coroutineScope {
+            db.collection("profile").document(uid).get().addOnSuccessListener {
+                val newComment = hashMapOf(
+                    "uid" to uid,
+                    "nickName" to it["nickName"] as String,
+                    "comment" to comment,
+                    "uploadTime" to commentUploadTime
+                )
+
+                plateDocument.collection("comments").add(newComment)
+            }
         }.await()
     }
 

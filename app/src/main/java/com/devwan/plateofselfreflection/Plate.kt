@@ -10,8 +10,7 @@ data class Plate(val nickName : String = "익명",
                  val uploadTimestamp : Timestamp,
                  val isOvercome : Boolean = false,
                  val like : Long = 0,
-                 val LikeUidMap : Map<String, Boolean> = mapOf<String, Boolean>(),
-                 val commentList : List<String> = listOf<String>()){
+                 val LikeUidMap : Map<String, Boolean> = mapOf<String, Boolean>()){
 
     companion object {
         fun getUploadTimeText(uploadDate : Date) : String {
