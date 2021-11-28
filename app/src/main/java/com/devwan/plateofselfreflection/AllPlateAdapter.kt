@@ -25,6 +25,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
         var like: TextView? = null
         var cardView : LinearLayout? = null
         var nickName : TextView? = null
+        var category : TextView? = null
 
         init {
             isOvercome = view.findViewById(R.id.img_isOvercome)
@@ -34,6 +35,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
             like = view.findViewById(R.id.plate_like)
             cardView = view.findViewById(R.id.layout_cardView)
             nickName = view.findViewById(R.id.text_nickName)
+            category = view.findViewById(R.id.text_category)
         }
     }
 
@@ -56,6 +58,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
         val like: String = plateSnapshot["like"].toString()
         val uploadTime: String = Plate.getUploadTimeText((plateSnapshot["uploadTime"] as Timestamp).toDate())
         val isOvercome: Boolean = plateSnapshot["isOvercome"] as Boolean
+        val category : String = plateSnapshot["category"].toString()
         val nickName : String = plateSnapshot["nickName"].toString()
 
         viewHolder.apply {
@@ -76,6 +79,9 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
             this.cardView?.setOnClickListener{
                 val intent = Intent(mContext, PlateActivity::class.java)
                 getResult.launch(intent.putExtra("snapshotId", plateSnapshot.id))
+            }
+            if(category != "자유"){
+                this.category?.text = category
             }
         }
     }
