@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_plateactivity_background"
+    android:orientation="vertical"
+    tools:context=".SelectPlateCategoryActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/btn_finishActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brown1"
+            app:srcCompat="@drawable/icon_btn_finishactivity" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/spo_bold"
+            android:text="카테고리 선택"
+            android:textColor="@color/brown4"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_infofragment_btnbackground"
+        android:elevation="100dp"
+        android:layout_margin="90dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_free"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/brown3"
+            android:fontFamily="@font/spo_regular"
+            android:text="자유"
+            android:textSize="25dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/brown1"/>
+
+        <TextView
+            android:id="@+id/btn_work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/brown3"
+            android:fontFamily="@font/spo_light"
+            android:text="업무"
+            android:textSize="25dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/brown1"/>
+
+        <TextView
+            android:id="@+id/btn_life"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/brown3"
+            android:fontFamily="@font/spo_light"
+            android:text="라이프"
+            android:textSize="25dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/brown1"/>
+
+        <TextView
+            android:id="@+id/btn_personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/brown3"
+            android:fontFamily="@font/spo_light"
+            android:text="성격"
+            android:textSize="25dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/brown1"/>
+
+        <TextView
+            android:id="@+id/btn_health"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/brown3"
+            android:fontFamily="@font/spo_light"
+            android:text="건강"
+            android:textSize="25dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/brown1"/>
+
+        <TextView
+            android:id="@+id/btn_spend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/brown3"
+            android:fontFamily="@font/spo_light"
+            android:text="소비"
+            android:textSize="25dp"
+            android:elevation="5dp"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

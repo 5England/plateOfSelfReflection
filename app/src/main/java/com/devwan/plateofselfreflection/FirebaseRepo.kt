@@ -31,6 +31,7 @@ class FirebaseRepo {
                 val newData = hashMapOf(
                     "uid" to uid,
                     "nickName" to nickName,
+                    "category" to newPlate.category,
                     "title" to newPlate.title,
                     "mainText" to newPlate.mainText,
                     "isOvercome" to newPlate.isOvercome,
