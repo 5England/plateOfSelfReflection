@@ -15,17 +15,20 @@ class UploadPlateActivity : AppCompatActivity() {
         binding = ActivityUploadPlateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initBtnUploadPlateClickListener()
+        val category : String = intent.getStringExtra("category").toString()
+
+        initBtnUploadPlateClickListener(category)
 
         initBtnFinishActivity()
     }
 
-    private fun initBtnUploadPlateClickListener(){
+    private fun initBtnUploadPlateClickListener(category : String){
         binding.btnUploadPlate.setOnClickListener {
             if( binding.editTextTitle.text.isNotBlank() && binding.editTextMainText.text.isNotBlank()) {
 
                 val newPlate = Plate(
                     title = binding.editTextTitle.text.toString(),
+                    category = category,
                     mainText = binding.editTextMainText.text.toString(),
                     uploadTimestamp = com.google.firebase.Timestamp.now()
                 )

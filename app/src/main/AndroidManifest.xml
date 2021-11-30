@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlateOfSelfReflection">
+        <activity android:name=".SelectPlateCategoryActivity"></activity>
         <activity
             android:name=".SearchPlateActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ReviewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UpdateNickNameActivity"
             android:screenOrientation="portrait" />

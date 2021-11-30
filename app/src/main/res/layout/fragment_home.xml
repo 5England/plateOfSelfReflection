@@ -23,13 +23,14 @@
                 android:id="@+id/helloLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="25dp"
-                android:paddingLeft="25dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="20dp"
                 android:background="@drawable/shape_homefragment_hellolayout"
                 android:elevation="15dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="25dp"
+                android:paddingTop="20dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,8 +41,8 @@
                     <ImageView
                         android:layout_width="58dp"
                         android:layout_height="58dp"
-                        android:scaleType="centerCrop"
                         android:padding="8dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/icon_diary" />
 
                     <LinearLayout
@@ -96,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="25dp"
-                    android:background="#E4E4E4"/>
+                    android:background="#E4E4E4" />
 
                 <LinearLayout
                     android:id="@+id/myStateLayout"
@@ -112,16 +113,16 @@
                         android:id="@+id/cpb_myCircleBar"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
+                        android:layout_gravity="center"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
-                        app:progress_text_size="15dp"
-                        app:style="solid_line"
-                        app:progress_stroke_width="5dp"
-                        app:progress_stroke_cap="round"
-                        app:progress_start_color="@color/green1"
                         app:progress_end_color="@color/green2"
+                        app:progress_start_color="@color/green1"
+                        app:progress_stroke_cap="round"
+                        app:progress_stroke_width="5dp"
                         app:progress_text_color="@color/green2"
-                        android:layout_gravity="center"/>
+                        app:progress_text_size="15dp"
+                        app:style="solid_line" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -132,77 +133,80 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
                             android:layout_marginLeft="5dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
                             android:padding="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
+                                android:text="현재 반성"
                                 android:textColor="#A3A3A3"
-                                android:text="현재 반성"/>
+                                android:textSize="13dp" />
 
                             <TextView
                                 android:id="@+id/textView_myAllPlateNum"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="25dp"
                                 android:fontFamily="@font/spo_light"
-                                android:textColor="@color/green2" />
+                                android:textColor="@color/green2"
+                                android:textSize="25dp" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:gravity="center_horizontal"
+                            android:orientation="vertical"
                             android:padding="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
+                                android:text="현재 개선"
                                 android:textColor="#A3A3A3"
-                                android:text="현재 개선"/>
+                                android:textSize="13dp" />
 
                             <TextView
                                 android:id="@+id/textView_myOvercomePlateNum"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="25dp"
                                 android:fontFamily="@font/spo_light"
-                                android:textColor="@color/green2" />
+                                android:textColor="@color/green2"
+                                android:textSize="25dp" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
                             android:gravity="center_horizontal"
-                            android:padding="10dp">
+                            android:orientation="vertical"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:paddingRight="30dp">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textSize="13dp"
                                 android:fontFamily="@font/spo_regular"
+                                android:gravity="center"
+                                android:text="반성 시작일"
                                 android:textColor="#A3A3A3"
-                                android:text="반성 시작일"/>
+                                android:textSize="13dp" />
 
                             <TextView
                                 android:id="@+id/textView_myStartDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:textSize="15dp"
                                 android:fontFamily="@font/spo_regular"
-                                android:textColor="@color/green2" />
+                                android:gravity="center"
+                                android:textColor="@color/green2"
+                                android:textSize="15dp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -210,37 +214,295 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#E4E4E4"/>
+                    android:background="#E4E4E4" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="7dp"
-                    android:layout_marginLeft="2dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spo_medium"
-                        android:textSize="15dp"
-                        android:elevation="10dp"
                         android:layout_gravity="left"
+                        android:elevation="10dp"
+                        android:fontFamily="@font/spo_medium"
+                        android:text="반성 진단"
                         android:textColor="@color/green2"
-                        android:text="반성 진단"/>
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/textView_plateComment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="13dp"
-                        android:fontFamily="@font/spo_light"
-                        android:textSize="15dp"
                         android:elevation="10dp"
+                        android:fontFamily="@font/spo_light"
+                        android:text=""
                         android:textColor="#858585"
-                        android:text=""/>
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="30dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/shape_homefragment_categoryscrollbackground"
+                        android:gravity="center_vertical"
+                        android:elevation="2dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/green2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/spo_medium"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="10dp"
+                            android:text="카테고리"
+                            android:textColor="@color/green2"
+                            android:textSize="17dp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/icon_homefragment_categoryscroll"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_category_work"
+                        android:layout_width="170dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/green2"
+                        android:elevation="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:gravity="center"
+                            android:text="업무"
+                            android:textColor="@color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_light"
+                            android:gravity="center"
+                            android:text="선택과 집중, 그리고 나태\n"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_category_life"
+                        android:layout_width="170dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/green1"
+                        android:elevation="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:gravity="center"
+                            android:text="라이프"
+                            android:textColor="@color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_light"
+                            android:gravity="center"
+                            android:text="무심코 지나쳐버린\n일상 속 반성들"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_category_habit"
+                        android:layout_width="170dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/green2"
+                        android:elevation="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:gravity="center"
+                            android:text="습관"
+                            android:textColor="@color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_light"
+                            android:gravity="center"
+                            android:text="방치했던 습관들\n이제는 고치고 싶어요"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_category_health"
+                        android:layout_width="170dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/green1"
+                        android:elevation="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:gravity="center"
+                            android:text="건강"
+                            android:textColor="@color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_light"
+                            android:gravity="center"
+                            android:text="건강이 없으면\n아무것도 없어요"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_category_spend"
+                        android:layout_width="170dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/green2"
+                        android:elevation="2dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_medium"
+                            android:gravity="center"
+                            android:text="소비"
+                            android:textColor="@color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/spo_light"
+                            android:gravity="center"
+                            android:text="사고 싶다면\n모으기부터"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/shape_homefragment_curplatelayout"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btn_switchAllPlateFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_homefragment_menuallplate"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/spo_regular"
+                        android:text="모두의 반성"
+                        android:textColor="@color/brown3"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1.15dp"
+                    android:layout_height="match_parent"
+                    android:background="#D5D5D5"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_writePlate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_allplatefragment_writeplate"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/spo_regular"
+                        android:text="반성하기"
+                        android:textColor="@color/brown3"
+                        android:textSize="15dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -248,15 +510,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/spo_medium"
-                android:textSize="17dp"
-                android:elevation="10dp"
                 android:layout_gravity="left"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:elevation="10dp"
+                android:fontFamily="@font/spo_bold"
+                android:text="키워드 검색"
                 android:textColor="@color/brown3"
-                android:text="반성문 검색"/>
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -264,8 +525,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shape_homefragment_editsearchbackground"
+                android:background="@drawable/shape_homefragment_curplatelayout"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -273,84 +533,82 @@
                     android:id="@+id/editText_searchPlate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:hint=" 키워드 입력"
-                    android:layout_weight="1"
-                    android:textCursorDrawable="@drawable/cursor_brown"
                     android:layout_marginLeft="3dp"
-                    android:inputType="textMultiLine"
-                    android:scrollHorizontally="false"
+                    android:layout_weight="1"
+                    android:background="@null"
                     android:fontFamily="@font/spo_regular"
+                    android:hint=" 키워드 입력"
+                    android:inputType="textMultiLine"
                     android:padding="10dp"
+                    android:scrollHorizontally="false"
+                    android:textCursorDrawable="@drawable/cursor_brown"
                     android:textSize="15dp" />
 
                 <ImageButton
                     android:id="@+id/btn_searchPlate"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingRight="15dp"
-                    android:paddingLeft="15dp"
                     android:background="@null"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     app:srcCompat="@drawable/icon_homefragment_searchplate" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/spo_medium"
-                android:textSize="17dp"
-                android:elevation="10dp"
                 android:layout_gravity="left"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:elevation="10dp"
+                android:fontFamily="@font/spo_bold"
+                android:text="동기부여 메세지"
                 android:textColor="@color/brown3"
-                android:text="근사한, 동기부여 메세지"/>
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:id="@+id/motivationLayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shape_homefragment_curplatelayout"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/shape_homefragment_curplatelayout"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textView_motivationFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
                         android:fontFamily="@font/spo_light"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/textView_motivationSecond"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/spo_light"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/textView_motivationNickName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/spo_regular"
-                        android:textColor="#A8A8A8" />
+                        android:textColor="#A8A8A8"
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
@@ -358,19 +616,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom|right"
-                    android:paddingBottom="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
 
                     <TextView
                         android:id="@+id/btn_refreshMotivation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:fontFamily="@font/spo_regular"
-                        android:textColor="@color/brown3"
                         android:layout_marginRight="25dp"
+                        android:fontFamily="@font/spo_regular"
                         android:padding="5dp"
-                        android:text="새로고침"/>
+                        android:text="새로고침"
+                        android:textColor="@color/brown3"
+                        android:textSize="12dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -378,101 +636,123 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/spo_medium"
-                android:textSize="17dp"
-                android:elevation="10dp"
                 android:layout_gravity="left"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:elevation="10dp"
+                android:fontFamily="@font/spo_bold"
+                android:text="모두의 반성"
                 android:textColor="@color/brown3"
-                android:text="모두의 반성"/>
+                android:textSize="14dp" />
 
             <LinearLayout
-                android:id="@+id/allStateLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/shape_homefragment_curplatelayout"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.dinuscxj.progressbar.CircleProgressBar
-                    android:id="@+id/cpb_AllCircleBar"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    app:progress_text_size="20dp"
-                    app:style="solid_line"
-                    app:progress_stroke_width="10dp"
-                    app:progress_stroke_cap="round"
-                    app:progress_start_color="@color/brown2"
-                    app:progress_end_color="@color/brown3"
-                    app:progress_text_color="@color/brown3"
-                    android:layout_gravity="center"/>
-
                 <LinearLayout
+                    android:id="@+id/allStateLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:paddingRight="20dp"
+                    android:background="@drawable/shape_homefragment_curplatelayout"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:fontFamily="@font/spo_regular"
-                            android:textColor="#A3A3A3"
-                            android:text="현재 반성"/>
-
-                        <TextView
-                            android:id="@+id/textView_AllPlateNum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="30dp"
-                            android:fontFamily="@font/spo_light"
-                            android:textColor="@color/brown3" />
-
-                    </LinearLayout>
+                    <com.dinuscxj.progressbar.CircleProgressBar
+                        android:id="@+id/cpb_AllCircleBar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:progress_end_color="@color/brown4"
+                        app:progress_start_color="@color/brown3"
+                        app:progress_stroke_cap="round"
+                        app:progress_stroke_width="5dp"
+                        app:progress_text_color="@color/brown3"
+                        app:progress_text_size="15dp"
+                        app:style="solid_line" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="15dp"
                         android:gravity="center_horizontal"
-                        android:padding="10dp">
+                        android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:fontFamily="@font/spo_regular"
-                            android:textColor="#A3A3A3"
-                            android:text="현재 개선"/>
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="10dp">
 
-                        <TextView
-                            android:id="@+id/textView_OvercomePlateNum"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/spo_regular"
+                                android:text="현재 반성"
+                                android:textColor="#A3A3A3"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:id="@+id/textView_AllPlateNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/spo_light"
+                                android:textColor="@color/brown3"
+                                android:textSize="30dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="30dp"
-                            android:fontFamily="@font/spo_light"
-                            android:textColor="@color/brown3" />
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:padding="10dp">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/spo_regular"
+                                android:text="현재 개선"
+                                android:textColor="#A3A3A3"
+                                android:textSize="13dp" />
+
+                            <TextView
+                                android:id="@+id/textView_OvercomePlateNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/spo_light"
+                                android:textColor="@color/brown3"
+                                android:textSize="30dp" />
+
+                        </LinearLayout>
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/shape_homefragment_curplatelayout"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":)"
+                        android:textColor="@color/brown3"
+                        android:textSize="15dp" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

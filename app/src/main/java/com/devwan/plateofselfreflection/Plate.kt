@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 import java.util.*
 
 data class Plate(val nickName : String = "익명",
+                 val category : String,
                  val title : String,
                  val mainText : String,
                  val feedBack : String = "",

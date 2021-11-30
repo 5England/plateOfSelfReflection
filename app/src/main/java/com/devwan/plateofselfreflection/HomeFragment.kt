@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -43,9 +44,13 @@ class HomeFragment : Fragment() {
 
         initBtnSearchPlate()
 
+        initBtnAllCategoryPlate()
+
         initBtnRefreshMotivation()
 
         initMotivationList()
+
+        initBtnHomeNavigation()
 
         return binding.root
     }
@@ -76,6 +81,17 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    private fun initBtnHomeNavigation(){
+        binding.btnSwitchAllPlateFragment.setOnClickListener {
+            (activity as MainActivity).changeAllPlateFragment()
+        }
+
+        binding.btnWritePlate.setOnClickListener {
+            val intent = Intent(mContext, SelectPlateCategoryActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun initBtnSearchPlate(){
         binding.apply {
             btnSearchPlate.setOnClickListener {
@@ -88,6 +104,35 @@ class HomeFragment : Fragment() {
                     Toast.makeText(mContext, "키워드를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun initBtnAllCategoryPlate(){
+        binding.apply {
+            initBtnCategoryPlate(btnCategoryWork)
+            initBtnCategoryPlate(btnCategoryLife)
+            initBtnCategoryPlate(btnCategoryHabit)
+            initBtnCategoryPlate(btnCategoryHealth)
+            initBtnCategoryPlate(btnCategorySpend)
+        }
+    }
+
+    private fun initBtnCategoryPlate(btnCategory : LinearLayout){
+        var category : String = ""
+
+        when(btnCategory.id){
+            R.id.btn_category_work -> category = "업무"
+            R.id.btn_category_life -> category = "라이프"
+            R.id.btn_category_habit -> category = "습관"
+            R.id.btn_category_health -> category = "건강"
+            R.id.btn_category_spend -> category = "소비"
+        }
+
+        btnCategory.setOnClickListener{
+            val intent = Intent(mContext, SearchPlateActivity::class.java)
+                .putExtra("keyword", category)
+                .putExtra("isCategory", true)
+            startActivity(intent)
         }
     }
 

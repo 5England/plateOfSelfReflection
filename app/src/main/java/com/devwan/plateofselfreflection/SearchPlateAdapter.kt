@@ -23,6 +23,7 @@ class SearchPlateAdapter(private val mContext: Context, private var plateList: L
         var like: TextView? = null
         var cardView : LinearLayout? = null
         var nickName : TextView? = null
+        var category : TextView? = null
 
         init {
             isOvercome = view.findViewById(R.id.img_isOvercome)
@@ -32,6 +33,7 @@ class SearchPlateAdapter(private val mContext: Context, private var plateList: L
             like = view.findViewById(R.id.plate_like)
             cardView = view.findViewById(R.id.layout_cardView)
             nickName = view.findViewById(R.id.text_nickName)
+            category = view.findViewById(R.id.text_category)
         }
     }
 
@@ -54,6 +56,7 @@ class SearchPlateAdapter(private val mContext: Context, private var plateList: L
         val uploadTime: String = Plate.getUploadTimeText((plateSnapshot["uploadTime"] as Timestamp).toDate())
         val isOvercome: Boolean = plateSnapshot["isOvercome"] as Boolean
         val nickName : String = plateSnapshot["nickName"].toString()
+        val category : String = plateSnapshot["category"].toString()
 
         viewHolder.apply {
             if(title.length >= 16){
@@ -76,6 +79,8 @@ class SearchPlateAdapter(private val mContext: Context, private var plateList: L
                 val intent = Intent(mContext, PlateActivity::class.java).putExtra("snapshotId", plateSnapshot.id)
                 mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             }
+
+            this.category?.text = category
         }
     }
 

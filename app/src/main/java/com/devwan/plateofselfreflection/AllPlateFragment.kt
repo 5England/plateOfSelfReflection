@@ -105,7 +105,7 @@ class AllPlateFragment : Fragment(){
 
     private fun initBtnLaunchUploadPlateActivity(){
         binding.btnCreateUploadActivity.setOnClickListener {
-            val intent = Intent(mContext, UploadPlateActivity::class.java)
+            val intent = Intent(mContext, SelectPlateCategoryActivity::class.java)
             getResult.launch(intent)
         }
     }

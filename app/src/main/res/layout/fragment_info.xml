@@ -58,7 +58,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="닉네임 변경"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -85,7 +85,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="메세지 전달"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -112,7 +112,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="로그아웃"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
     </LinearLayout>
@@ -145,7 +145,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="구글 계정 전환"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -172,7 +172,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="회원 탈퇴"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 

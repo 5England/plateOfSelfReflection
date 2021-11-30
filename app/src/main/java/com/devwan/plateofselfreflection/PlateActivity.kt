@@ -92,6 +92,11 @@ class PlateActivity : AppCompatActivity() {
                         textViewNoComment.visibility = View.GONE
                         initListViewComment(commentList, snapshotId)
                     }
+
+                    if(plate["category"].toString().isNotBlank()){
+                        textViewCategory.text = plate["category"].toString()
+                        textViewCategory.visibility = View.VISIBLE
+                    }
                 }
                 setContentView(binding.root)
             }
