@@ -80,9 +80,7 @@ class AllPlateAdapter(private val mContext: Context, private var allPlateList: L
                 val intent = Intent(mContext, PlateActivity::class.java)
                 getResult.launch(intent.putExtra("snapshotId", plateSnapshot.id))
             }
-            if(category != "자유"){
-                this.category?.text = category
-            }
+            this.category?.text = category
         }
     }
 

@@ -80,9 +80,7 @@ class SearchPlateAdapter(private val mContext: Context, private var plateList: L
                 mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             }
 
-            if(category != "자유"){
-                this.category?.text = category
-            }
+            this.category?.text = category
         }
     }
 

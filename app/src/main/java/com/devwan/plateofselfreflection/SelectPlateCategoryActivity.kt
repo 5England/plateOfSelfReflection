@@ -55,7 +55,11 @@ class SelectPlateCategoryActivity : AppCompatActivity() {
     private fun initSetOnClickListener(categoryBtn : TextView){
         categoryBtn.setOnClickListener {
             val intent = Intent(this, UploadPlateActivity::class.java)
-            getResult.launch(intent.putExtra("category", categoryBtn.text.toString()))
+            if(categoryBtn.text == "자유"){
+                getResult.launch(intent.putExtra("category", ""))
+            }else{
+                getResult.launch(intent.putExtra("category", categoryBtn.text.toString()))
+            }
         }
     }
 }

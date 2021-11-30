@@ -79,9 +79,12 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
     private fun changeFragmentWithAnim(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(R.anim.enter_from_down, R.anim.exit_to_down)
             replace(R.id.container, fragment)
             commit()
         }
+    }
+
+    fun changeAllPlateFragment(){
+        binding.bottomNavigationView.selectedItemId = R.id.icon_feed
     }
 }
