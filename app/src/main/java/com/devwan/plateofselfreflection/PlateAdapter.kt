@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,26 +13,20 @@ import com.google.firebase.firestore.DocumentSnapshot
 open class PlateAdapter(val mContext: Context, var plateList: List<DocumentSnapshot>) :
     RecyclerView.Adapter<PlateAdapter.ViewHolder>() {
 
-    private lateinit var binding : CardPlateBinding
-
-    fun getBinding() : CardPlateBinding{
-        return binding
-    }
-
     inner class ViewHolder(val binding : CardPlateBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = CardPlateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CardPlateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        bindData(plateList[position])
+        bindData(viewHolder, plateList[position])
     }
 
     override fun getItemCount() = plateList.size
 
-    open fun bindData(plateSnapshot: DocumentSnapshot) {
+    open fun bindData(viewHolder: ViewHolder, plateSnapshot: DocumentSnapshot) {
         val title: String = plateSnapshot["title"].toString()
         val mainText: String = plateSnapshot["mainText"].toString()
         val like: String = plateSnapshot["like"].toString()
@@ -40,7 +35,7 @@ open class PlateAdapter(val mContext: Context, var plateList: List<DocumentSnaps
         val nickName : String = plateSnapshot["nickName"].toString()
         val category : String = plateSnapshot["category"].toString()
 
-        binding.apply {
+        viewHolder.binding.apply {
             textTitle.text = title
             if(title.length >= 16){
                 textTitle.text = title.substring(0, 15) + ".."
@@ -57,13 +52,8 @@ open class PlateAdapter(val mContext: Context, var plateList: List<DocumentSnaps
                     R.drawable.icon_cardplate_isovercome_false
                 })
             }
-            initCardViewClickListener(binding, plateSnapshot)
-            layoutCardView.apply {
-                setOnClickListener{
-                    val intent = Intent(mContext, PlateActivity::class.java)
-                    mContext.startActivity(intent.putExtra("snapshotId", plateSnapshot.id))
-                }
-            }
+            initCardViewClickListener(this, plateSnapshot)
+            initBtnUpdateMyPlate(this, plateSnapshot)
         }
     }
 
@@ -74,8 +64,10 @@ open class PlateAdapter(val mContext: Context, var plateList: List<DocumentSnaps
         }
     }
 
-    open fun setData(newData: List<DocumentSnapshot>) {
-        plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
-        notifyDataSetChanged()
+    open fun initBtnUpdateMyPlate(binding : CardPlateBinding, plateSnapshot: DocumentSnapshot){}
+
+    fun setData(newData: List<DocumentSnapshot>) {
+        this.plateList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
+        this.notifyDataSetChanged()
     }
 }

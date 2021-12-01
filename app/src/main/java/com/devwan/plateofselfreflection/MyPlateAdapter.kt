@@ -16,14 +16,12 @@ import com.google.firebase.firestore.DocumentSnapshot
 class MyPlateAdapter(mContext: Context, plateList: List<DocumentSnapshot>, private val myPlateViewModel : MyPlateViewModel
 ) : PlateAdapter(mContext, plateList){
 
-    override fun bindData(plateSnapshot: DocumentSnapshot) {
-        super.bindData(plateSnapshot)
+    override fun initBtnUpdateMyPlate(binding: CardPlateBinding, plateSnapshot: DocumentSnapshot) {
+        binding.imgIsOvercome.setOnClickListener{
+            initIsOvercomeAlertDialog(plateSnapshot)
+        }
 
-        getBinding().imgIsOvercome.setOnClickListener{
-                initIsOvercomeAlertDialog(plateSnapshot)
-            }
-
-        getBinding().layoutCardView.setOnLongClickListener {
+        binding.layoutCardView.setOnLongClickListener {
             initUpdateAlertDialog(plateSnapshot)
             true
         }
@@ -33,7 +31,6 @@ class MyPlateAdapter(mContext: Context, plateList: List<DocumentSnapshot>, priva
         binding: CardPlateBinding,
         plateSnapshot: DocumentSnapshot
     ) {
-        super.initCardViewClickListener(binding, plateSnapshot)
         binding.layoutCardView.setOnClickListener{
             val intent = Intent(mContext, PlateActivity::class.java)
             mContext.startActivity(intent.putExtra("snapshotId", plateSnapshot.id))

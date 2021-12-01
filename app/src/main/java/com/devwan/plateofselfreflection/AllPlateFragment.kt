@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class AllPlateFragment : Fragment(){
     }
 
     private val allPlateViewModel : AllPlateViewModel by viewModels(
-            factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
+        factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
     )
 
     override fun onCreateView(

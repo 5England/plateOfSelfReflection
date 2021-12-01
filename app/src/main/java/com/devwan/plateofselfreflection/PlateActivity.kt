@@ -91,6 +91,9 @@ class PlateActivity : AppCompatActivity() {
                     if (commentList.isNotEmpty()) {
                         textViewNoComment.visibility = View.GONE
                         initListViewComment(commentList, snapshotId)
+                    }else{
+                        textViewNoComment.visibility = View.VISIBLE
+                        layoutCommentList.visibility = View.GONE
                     }
 
                     if(plate["category"].toString().isNotBlank()){
@@ -124,6 +127,8 @@ class PlateActivity : AppCompatActivity() {
                 initBtnDeleteMyComment(commentLayout, snapshotId, document)
             }
         }
+
+        binding.layoutCommentList.visibility = View.VISIBLE
     }
 
     private fun initBtnDeleteMyComment(commentLayout : View, snapshotId : String, document : DocumentSnapshot){

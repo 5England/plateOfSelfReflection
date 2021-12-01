@@ -15,305 +15,310 @@
         android:layout_weight="1"
         android:background="@drawable/shape_plateactivity_background">
 
+        <LinearLayout
+            android:id="@+id/layout_cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/shape_plateactivity_cardbackground"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:id="@+id/layout_cardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:elevation="1dp"
-                android:background="@drawable/shape_plateactivity_cardbackground"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="4dp">
+
+                <ImageButton
+                    android:id="@+id/btnFinishActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/white"
+                    app:srcCompat="@drawable/icon_btn_finishactivity" />
+
+                <TextView
+                    android:id="@+id/textView_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spo_medium"
+                    android:paddingTop="1dp"
+                    android:text="익명"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/textView_dish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/spo_regular"
+                    android:paddingTop="1dp"
+                    android:text="님의 반성 :)"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="4dp">
-
-                    <ImageButton
-                        android:id="@+id/btnFinishActivity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginBottom="8dp"
-                        app:srcCompat="@drawable/icon_btn_finishactivity" />
+                    android:gravity="right"
+                    android:orientation="vertical"
+                    android:paddingRight="9dp">
 
                     <TextView
-                        android:id="@+id/textView_nickname"
+                        android:id="@+id/textView_uploadTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spo_medium"
-                        android:paddingTop="1dp"
-                        android:text="익명"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <TextView
-                        android:id="@+id/textView_dish"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_weight="1"
                         android:fontFamily="@font/spo_regular"
-                        android:paddingTop="1dp"
-                        android:text="님의 반성 :)"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textColor="@color/green1"
+                        android:textSize="12dp" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/textView_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:paddingRight="9dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView_uploadTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/spo_regular"
-                            android:textColor="@color/green1"
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:id="@+id/textView_category"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/spo_regular"
-                            android:textColor="@color/green1"
-                            android:visibility="gone"
-                            android:textSize="12dp" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/green1" />
+                        android:fontFamily="@font/spo_regular"
+                        android:textColor="@color/green1"
+                        android:textSize="12dp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:background="#E6E6E6" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="3dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:background="@color/green1" />
 
-                    <TextView
-                        android:id="@+id/textView_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:fontFamily="@font/spo_medium"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/textView_mainText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/spo_regular"
-                        android:textColor="@color/black"
-                        android:textSize="14dp" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="#E6E6E6" />
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/textView_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/spo_medium"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/textView_mainText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spo_regular"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/imageView_isOvercome"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:paddingLeft="-3dp"
-                            android:src="@drawable/icon_cardplate_isovercome_false" />
-
-                        <TextView
-                            android:id="@+id/textView_isOvercomeMessage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/spo_medium"
-                            android:hint="아직 개선하지 못했어요"
-                            android:paddingTop="1dp"
-                            android:textColor="@color/green1"
-                            android:textSize="17dp" />
-
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/imageView_isOvercome"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:paddingLeft="-3dp"
+                        android:src="@drawable/icon_cardplate_isovercome_false" />
 
                     <TextView
-                        android:id="@+id/textView_feedBack"
+                        android:id="@+id/textView_isOvercomeMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/spo_regular"
-                        android:hint="댓글을 통해 도움을 줄 수 있어요."
-                        android:textColor="@color/black"
-                        android:textSize="14dp" />
+                        android:fontFamily="@font/spo_medium"
+                        android:hint="아직 개선하지 못했어요"
+                        android:paddingTop="1dp"
+                        android:textColor="@color/green1"
+                        android:textSize="17dp" />
 
                 </LinearLayout>
 
-                <View
+                <TextView
+                    android:id="@+id/textView_feedBack"
                     android:layout_width="wrap_content"
-                    android:layout_height="0.6dp"
-                    android:background="#E6E6E6" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spo_regular"
+                    android:hint="댓글을 통해 도움을 줄 수 있어요."
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.6dp"
+                android:background="#E6E6E6" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="7dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/spo_medium"
+                        android:paddingRight="3dp"
+                        android:textColor="@color/green2"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/spo_regular"
+                        android:text="개의 통감해요 "
+                        android:textColor="#939393"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/btn_like"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginBottom="7dp"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/shape_plateactivity_likebtnbackground_gray"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="2dp"
+                            android:src="@drawable/icon_plateactivity_unliked" />
 
                         <TextView
-                            android:id="@+id/textView_like"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/spo_medium"
-                            android:paddingRight="3dp"
-                            android:textColor="@color/green2"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/spo_regular"
-                            android:text="개의 통감해요 "
+                            android:layout_marginRight="2dp"
+                            android:text="통감하기"
                             android:textColor="#939393"
                             android:textSize="13dp" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/btn_unlike"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/shape_plateactivity_likebtnbackground_green"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:layout_marginTop="3dp">
+                        android:padding="4dp">
 
-                        <LinearLayout
-                            android:id="@+id/btn_like"
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="2dp"
+                            android:src="@drawable/icon_plateactivity_liked" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:gravity="center_vertical"
-                            android:padding="4dp"
-                            android:background="@drawable/shape_plateactivity_likebtnbackground_gray"
-                            android:orientation="horizontal">
+                            android:layout_marginRight="2dp"
+                            android:text="통감하기"
+                            android:textColor="@color/green2"
+                            android:textSize="13dp" />
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginRight="2dp"
-                                android:src="@drawable/icon_plateactivity_unliked"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="13dp"
-                                android:layout_marginRight="2dp"
-                                android:textColor="#939393"
-                                android:text="통감하기"/>
+                    <LinearLayout
+                        android:id="@+id/btn_enterkeyboard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_plateactivity_likebtnbackground_gray"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
 
-                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="2dp"
+                            android:src="@drawable/icon_plateactivity_enterkeyboard" />
 
-                        <LinearLayout
-                            android:id="@+id/btn_unlike"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:gravity="center_vertical"
-                            android:padding="4dp"
-                            android:background="@drawable/shape_plateactivity_likebtnbackground_green"
-                            android:orientation="horizontal">
+                            android:layout_marginRight="2dp"
+                            android:text="댓글작성"
+                            android:textColor="#939393"
+                            android:textSize="13dp" />
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginRight="2dp"
-                                android:src="@drawable/icon_plateactivity_liked"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="2dp"
-                                android:textSize="13dp"
-                                android:textColor="@color/green2"
-                                android:text="통감하기"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/btn_enterkeyboard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:padding="4dp"
-                            android:background="@drawable/shape_plateactivity_likebtnbackground_gray"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginRight="2dp"
-                                android:src="@drawable/icon_plateactivity_enterkeyboard"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="13dp"
-                                android:layout_marginRight="2dp"
-                                android:textColor="#939393"
-                                android:text="댓글작성"/>
-
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="0.6dp"
-                    android:background="#E6E6E6" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.6dp"
+                android:background="#E6E6E6" />
 
             <LinearLayout
-                android:id="@+id/layout_commentList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_commentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
 
                 <TextView
                     android:id="@+id/textView_noComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:gravity="center"
                     android:background="@color/brown1"
+                    android:gravity="center"
                     android:hint="아직 댓글이 없어요."
-                    android:textSize="12dp"/>
+                    android:padding="30dp"
+                    android:textSize="12dp" />
+
             </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -323,46 +328,46 @@
         android:background="@drawable/shape_plateactivity_editcommentbackground"
         android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        app:cardCornerRadius="15dp"
-        app:cardUseCompatPadding="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center_vertical"
-        android:background="#F3F3F3"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editText_comment"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint=" 익명 댓글 작성"
-            android:layout_weight="1"
-            android:textCursorDrawable="@drawable/cursor_green"
-            android:inputType="textMultiLine"
-            android:scrollHorizontally="false"
-            android:fontFamily="@font/spo_regular"
-            android:padding="10dp"
-            android:textSize="15dp" />
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            app:cardCornerRadius="15dp"
+            app:cardUseCompatPadding="true">
 
-        <ImageButton
-            android:id="@+id/btn_uploadComment"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="15dp"
-            android:paddingLeft="15dp"
-            android:background="#F3F3F3"
-            app:srcCompat="@drawable/icon_plateactivity_uploadcomment" />
-    </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#F3F3F3"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editText_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:fontFamily="@font/spo_regular"
+                    android:hint=" 익명 댓글 작성"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:scrollHorizontally="false"
+                    android:textCursorDrawable="@drawable/cursor_green"
+                    android:textSize="15dp" />
+
+                <ImageButton
+                    android:id="@+id/btn_uploadComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#F3F3F3"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    app:srcCompat="@drawable/icon_plateactivity_uploadcomment" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

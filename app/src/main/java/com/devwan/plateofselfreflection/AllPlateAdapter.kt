@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 
 class AllPlateAdapter(mContext: Context, plateList: List<DocumentSnapshot>,
                            private val getResult : ActivityResultLauncher<Intent>) : PlateAdapter(mContext, plateList){
+
     override fun initCardViewClickListener(
         binding: CardPlateBinding,
         plateSnapshot: DocumentSnapshot
