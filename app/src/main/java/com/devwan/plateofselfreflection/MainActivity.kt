@@ -64,16 +64,17 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
     private fun initNavigationBar() {
         binding.bottomNavigationView.run {
+            selectedItemId = R.id.icon_home
+            changeFragmentWithAnim(HomeFragment())
             setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.icon_home -> changeFragmentWithAnim(HomeFragment())
-                    R.id.icon_feed -> changeFragmentWithAnim(AllPlateFragment())
-                    R.id.icon_myFeed -> changeFragmentWithAnim(MyPlateFragment())
-                    R.id.icon_info -> changeFragmentWithAnim(InfoFragment())
+                    R.id.icon_home -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(HomeFragment())
+                    R.id.icon_feed -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(AllPlateFragment())
+                    R.id.icon_myFeed -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(MyPlateFragment())
+                    R.id.icon_info -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(InfoFragment())
                 }
                 true
             }
-            selectedItemId = R.id.icon_home
         }
     }
 
