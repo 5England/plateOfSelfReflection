@@ -2,7 +2,6 @@ package com.devwan.plateofselfreflection
 
 import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentSnapshot
-import kotlinx.coroutines.launch
 
 class MyPlateViewModel () : ViewModel() {
 

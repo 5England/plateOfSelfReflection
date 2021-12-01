@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devwan.plateofselfreflection.databinding.FragmentMyPlateBinding
 import com.dinuscxj.progressbar.CircleProgressBar
+import com.google.firebase.firestore.DocumentSnapshot
 
-class MyPlateFragment : Fragment() {
+class MyPlateFragment : Fragment(){
 
     private lateinit var mContext : Context
     private var _binding : FragmentMyPlateBinding? = null
@@ -64,13 +65,7 @@ class MyPlateFragment : Fragment() {
     private fun initRecyclerView(){
         binding.recyclerViewMyPlate.apply {
             layoutManager = LinearLayoutManager(activity?.application)
-            adapter = MyPlateAdapter(mContext, emptyList(),
-                onClickIsOvercome = {
-                    myPlateViewModel.checkIsOvercome(it)
-                },
-                onClickDelete = {
-                    myPlateViewModel.deletePlate(it)
-                })
+            adapter = MyPlateAdapter(mContext, emptyList(), myPlateViewModel)
         }
     }
 }

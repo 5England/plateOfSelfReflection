@@ -38,8 +38,8 @@ class SearchPlateActivity : AppCompatActivity() {
             if(resultPlateList.isNotEmpty()){
                 binding.recyclerViewSearchPlate.apply {
                     layoutManager = LinearLayoutManager(baseContext)
-                    adapter = SearchPlateAdapter(baseContext, emptyList())
-                    (adapter as SearchPlateAdapter).setData(resultPlateList)
+                    adapter = PlateAdapter(baseContext, emptyList())
+                    (adapter as PlateAdapter).setData(resultPlateList)
                 }
             }else{
                 binding.apply {
