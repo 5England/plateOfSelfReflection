@@ -11,7 +11,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
-import org.w3c.dom.Document
 import java.util.*
 
 class FirebaseRepo {
@@ -36,7 +35,7 @@ class FirebaseRepo {
                     "mainText" to newPlate.mainText,
                     "isOvercome" to newPlate.isOvercome,
                     "feedBack" to newPlate.feedBack,
-                    "uploadTime" to newPlate.uploadTimestamp,
+                    "uploadTime" to newPlate.uploadTime,
                     "like" to newPlate.like,
                     "likeUidMap" to newPlate.LikeUidMap,
                 )

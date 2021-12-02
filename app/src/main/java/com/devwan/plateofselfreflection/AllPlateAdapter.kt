@@ -2,15 +2,7 @@ package com.devwan.plateofselfreflection
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.recyclerview.widget.RecyclerView
 import com.devwan.plateofselfreflection.databinding.CardPlateBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot

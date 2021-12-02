@@ -4,13 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.recyclerview.widget.RecyclerView
 import com.devwan.plateofselfreflection.databinding.CardPlateBinding
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 
 class MyPlateAdapter(mContext: Context, plateList: List<DocumentSnapshot>, private val myPlateViewModel : MyPlateViewModel

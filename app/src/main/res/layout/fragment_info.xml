@@ -10,17 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@color/brown1"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_gravity="center"
-        android:paddingTop="15dp"
+        android:paddingTop="10dp"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingBottom="10dp">
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_menu_info"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="INFO"
             android:fontFamily="@font/spo_bold"
             android:textColor="@color/brown4"

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.devwan.plateofselfreflection.databinding.ActivityReviewBinding
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.review.model.ReviewErrorCode
 
 class ReviewActivity : AppCompatActivity() {
 

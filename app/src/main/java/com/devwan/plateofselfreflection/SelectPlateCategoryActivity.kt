@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.devwan.plateofselfreflection.databinding.ActivityReviewBinding
 import com.devwan.plateofselfreflection.databinding.ActivitySelectPlateCategoryBinding
 
 class SelectPlateCategoryActivity : AppCompatActivity() {

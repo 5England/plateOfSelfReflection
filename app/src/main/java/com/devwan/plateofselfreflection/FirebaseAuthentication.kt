@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -14,8 +13,6 @@ import com.google.firebase.ktx.Firebase
 class FirebaseAuthentication(private val activity: AppCompatActivity){
 
     private lateinit var prevUid : String
-
-    //sign-in
 
     private val signInLauncher = activity.registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -33,7 +30,6 @@ class FirebaseAuthentication(private val activity: AppCompatActivity){
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult){
-        val response = result.idpResponse
         if (result.resultCode == Activity.RESULT_OK) {
             val onAuthServiceListener : OnAuthServiceListener = activity as OnAuthServiceListener
             onAuthServiceListener.onSignInComplete()
@@ -41,8 +37,6 @@ class FirebaseAuthentication(private val activity: AppCompatActivity){
             activity.finish()
         }
     }
-
-    //link-GoogleAccount
 
     private val linkGoogleLauncher = activity.registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -63,7 +57,6 @@ class FirebaseAuthentication(private val activity: AppCompatActivity){
     }
 
     private fun onLinkGoogleResult(result: FirebaseAuthUIAuthenticationResult){
-        val response = result.idpResponse
         if (result.resultCode == Activity.RESULT_OK) {
             val onAuthServiceListener : OnAuthServiceListener = activity as OnAuthServiceListener
             Firebase.auth.uid?.let {
@@ -73,8 +66,6 @@ class FirebaseAuthentication(private val activity: AppCompatActivity){
             activity.finish()
         }
     }
-
-    //sign-out
 
     fun signOut() {
         Firebase.auth.signOut()

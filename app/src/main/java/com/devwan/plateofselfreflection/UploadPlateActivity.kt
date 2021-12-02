@@ -30,7 +30,7 @@ class UploadPlateActivity : AppCompatActivity() {
                     title = binding.editTextTitle.text.toString(),
                     category = category,
                     mainText = binding.editTextMainText.text.toString(),
-                    uploadTimestamp = com.google.firebase.Timestamp.now()
+                    uploadTime = com.google.firebase.Timestamp.now()
                 )
 
                 val firebaseRepo : FirebaseRepo = FirebaseRepo()

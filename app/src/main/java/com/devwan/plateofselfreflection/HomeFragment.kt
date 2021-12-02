@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
@@ -24,8 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var mContext: Context
     private lateinit var motivationList : QuerySnapshot
     private var motivationIndex : Int = 0
-    private var _binding : FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding : FragmentHomeBinding
 
     private val homeViewModel : HomeViewModel by viewModels(
         factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
@@ -40,7 +38,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         initBtnSearchPlate()
 
@@ -58,27 +56,30 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.myStateSnapshot.observe(viewLifecycleOwner){
-            binding.apply {
-                nickName.text = it["nickName"].toString()
-                textViewMyAllPlateNum.text = it["allPlateNum"].toString()
-                textViewMyOvercomePlateNum.text = it["overcomePlateNum"].toString()
-                textViewMyStartDate.text = Plate.getStartTimeText((it["startTime"] as Timestamp).toDate())
-                textViewPlateComment.text = Plate.getPlateComment((it["allPlateNum"] as Long).toInt())
-                setProgressBar(cpbMyCircleBar ,it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
-            }
+            initMyStateView(it)
         }
         homeViewModel.allStateSnapshot.observe(viewLifecycleOwner){
-            binding.apply {
-                textViewAllPlateNum.text = it["allPlateNum"].toString()
-                textViewOvercomePlateNum.text = it["overcomePlateNum"].toString()
-                setProgressBar(cpbAllCircleBar, it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
-            }
+            initAllStateView(it)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initMyStateView(snapshot : DocumentSnapshot){
+        binding.apply {
+            nickName.text = snapshot["nickName"].toString()
+            textViewMyAllPlateNum.text = snapshot["allPlateNum"].toString()
+            textViewMyOvercomePlateNum.text = snapshot["overcomePlateNum"].toString()
+            textViewMyStartDate.text = Plate.getStartTimeText((snapshot["startTime"] as Timestamp).toDate())
+            textViewPlateComment.text = Plate.getHelloComment((snapshot["allPlateNum"] as Long).toInt())
+            setProgressBar(cpbMyCircleBar ,snapshot["allPlateNum"] as Long, snapshot["overcomePlateNum"] as Long)
+        }
+    }
+
+    private fun initAllStateView(snapshot : DocumentSnapshot){
+        binding.apply {
+            textViewAllPlateNum.text = snapshot["allPlateNum"].toString()
+            textViewOvercomePlateNum.text = snapshot["overcomePlateNum"].toString()
+            setProgressBar(cpbAllCircleBar, snapshot["allPlateNum"] as Long, snapshot["overcomePlateNum"] as Long)
+        }
     }
 
     private fun initBtnHomeNavigation(){
