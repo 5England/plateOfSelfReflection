@@ -47,6 +47,7 @@ class PlateActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             val snapshot: DocumentSnapshot? = firebaseRepo.getPlate(snapshotId)
             val commentList: List<DocumentSnapshot> = firebaseRepo.getCommentList(snapshotId)
+            firebaseRepo.updateCommentNotice(snapshotId)
             snapshot?.let {
                 setData(Plate.getPlate(it), commentList)
                 setContentView(binding.root)
