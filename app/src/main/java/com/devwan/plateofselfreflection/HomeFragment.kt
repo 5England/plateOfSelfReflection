@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
 
     private fun initMyStateView(snapshot : DocumentSnapshot){
         binding.apply {
-            nickName.text = snapshot["nickName"].toString()
+            nickName.text = "안녕하세요. " + snapshot["nickName"].toString() + "님!"
             textViewMyAllPlateNum.text = snapshot["allPlateNum"].toString()
             textViewMyOvercomePlateNum.text = snapshot["overcomePlateNum"].toString()
             textViewMyStartDate.text = Plate.getStartTimeText((snapshot["startTime"] as Timestamp).toDate())
@@ -85,6 +85,10 @@ class HomeFragment : Fragment() {
     private fun initBtnHomeNavigation(){
         binding.btnSwitchAllPlateFragment.setOnClickListener {
             (activity as MainActivity).changeAllPlateFragment()
+        }
+
+        binding.btnSwitchNotificationFragment.setOnClickListener {
+            (activity as MainActivity).changeNotificationFragment()
         }
 
         binding.btnWritePlate.setOnClickListener {

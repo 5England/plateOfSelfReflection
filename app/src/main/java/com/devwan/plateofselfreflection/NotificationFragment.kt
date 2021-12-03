@@ -54,7 +54,8 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         notificationViewModel.comment.observe(viewLifecycleOwner){
-            (binding.recyclerViewNotification.adapter as NotificationAdapter).setData(getSnapshotList(it))
+            (binding.recyclerViewNotification.adapter as NotificationAdapter).setData(it)
+            binding.textViewNewCommentNum.text = it.size.toString()
         }
     }
 
@@ -76,14 +77,6 @@ class NotificationFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity?.application)
             adapter = NotificationAdapter(mContext, emptyList() , getResult)
         }
-    }
-
-    private fun getSnapshotList(documents : QuerySnapshot) : List<DocumentSnapshot>{
-        var snapshotList = mutableListOf<DocumentSnapshot>()
-        documents.forEach { document ->
-            snapshotList.add(document)
-        }
-        return snapshotList.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
     }
 }
 
@@ -107,16 +100,21 @@ class NotificationAdapter(private val mContext: Context, private var commentList
         val comment = commentSnapshot["comment"] as String
         val nickName = commentSnapshot["nickName"] as String
         val uploadTime = Plate.getUploadTimeText((commentSnapshot["uploadTime"] as Timestamp).toDate())
+        val snapshotId = commentSnapshot["plateId"] as String
 
         viewHolder.binding.apply {
             textViewCommentText.text = comment
             textViewCommentNickname.text = nickName
             textViewCommentUploadTime.text = uploadTime
+            layoutCardView.setOnClickListener {
+                val intent = Intent(mContext, PlateActivity::class.java).putExtra("snapshotId", snapshotId)
+                resultLauncher.launch(intent)
+            }
         }
     }
 
-    fun setData(newData: List<DocumentSnapshot>) {
-        commentList = newData.sortedByDescending { (it["uploadTime"] as Timestamp).toDate() }
+    fun setData(documents : MutableList<DocumentSnapshot>) {
+        commentList = documents.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
         notifyDataSetChanged()
     }
 }

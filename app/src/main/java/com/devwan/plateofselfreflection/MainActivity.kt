@@ -83,4 +83,8 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
     fun changeAllPlateFragment(){
         binding.bottomNavigationView.selectedItemId = R.id.icon_feed
     }
+
+    fun changeNotificationFragment(){
+        binding.bottomNavigationView.selectedItemId = R.id.icon_notification
+    }
 }

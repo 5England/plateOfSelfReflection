@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/icon_menu_allplate"/>
+            android:src="@drawable/icon_menu_notification"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,6 +30,32 @@
             android:paddingLeft="5dp"
             android:textColor="@color/brown4"
             android:textSize="24dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/textView_newCommentNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:fontFamily="@font/spo_medium"
+            android:textColor="@color/brown4"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개의 새로운 알림이 있어요."
+            android:fontFamily="@font/spo_regular"
+            android:textColor="@color/brown4"
+            android:textSize="14dp"/>
 
     </LinearLayout>
 
