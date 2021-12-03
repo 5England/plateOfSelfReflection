@@ -11,6 +11,7 @@ data class Plate(val nickName : String = "익명",
                  val feedBack : String = "",
                  val uploadTime : Timestamp,
                  val isOvercome : Boolean = false,
+                 val notice : Boolean = false,
                  val like : Long = 0,
                  val LikeUidMap : Map<String, Boolean> = mapOf<String, Boolean>()){
 
@@ -53,6 +54,7 @@ data class Plate(val nickName : String = "익명",
                 feedBack = snapshot["feedBack"] as String,
                 uploadTime = snapshot["uploadTime"] as Timestamp,
                 isOvercome = snapshot["isOvercome"] as Boolean,
+                notice = snapshot["notice"] as Boolean,
                 like = snapshot["like"] as Long,
                 LikeUidMap = snapshot["likeUidMap"] as Map<String, Boolean>
             )

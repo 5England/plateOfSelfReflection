@@ -34,6 +34,7 @@ class FirebaseRepo {
                     "title" to newPlate.title,
                     "mainText" to newPlate.mainText,
                     "isOvercome" to newPlate.isOvercome,
+                    "notice" to newPlate.notice,
                     "feedBack" to newPlate.feedBack,
                     "uploadTime" to newPlate.uploadTime,
                     "like" to newPlate.like,
@@ -280,17 +281,31 @@ class FirebaseRepo {
         val plateDocument = db.collection("plate").document(snapshotId)
 
         coroutineScope {
-            db.collection("profile").document(uid).get().addOnSuccessListener {
+            db.collection("profile").document(uid).get().addOnSuccessListener { myProfileSnapshot ->
                 val newComment = hashMapOf(
                     "uid" to uid,
-                    "nickName" to it["nickName"] as String,
+                    "nickName" to myProfileSnapshot["nickName"] as String,
                     "comment" to comment,
                     "uploadTime" to commentUploadTime
                 )
-
                 plateDocument.collection("comments").add(newComment)
+
+                plateDocument.get().addOnSuccessListener {
+                    if(uid != it["uid"] as String){
+                        plateDocument.update("notice", true)
+                    }
+                }
             }
         }.await()
+    }
+
+    fun updateCommentNotice(snapshotId: String){
+        val plateDocument = db.collection("plate").document(snapshotId)
+        plateDocument.get().addOnSuccessListener {
+            if(uid == it["uid"] as String){
+                plateDocument.update("notice", false)
+            }
+        }
     }
 
     suspend fun deleteMyComment(plateId : String, commentId : String){
