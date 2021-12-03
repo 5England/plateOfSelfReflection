@@ -1,6 +1,5 @@
 package com.devwan.plateofselfreflection
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -60,20 +59,21 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
     private fun initNavigationBar() {
         binding.bottomNavigationView.run {
             selectedItemId = R.id.icon_home
-            changeFragmentWithAnim(HomeFragment())
+            changeFragment(HomeFragment())
             setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.icon_home -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(HomeFragment())
-                    R.id.icon_feed -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(AllPlateFragment())
-                    R.id.icon_myFeed -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(MyPlateFragment())
-                    R.id.icon_info -> if(it.itemId != this.selectedItemId) changeFragmentWithAnim(InfoFragment())
+                    R.id.icon_home -> if(it.itemId != this.selectedItemId) changeFragment(HomeFragment())
+                    R.id.icon_feed -> if(it.itemId != this.selectedItemId) changeFragment(AllPlateFragment())
+                    R.id.icon_myFeed -> if(it.itemId != this.selectedItemId) changeFragment(MyPlateFragment())
+                    R.id.icon_notification -> if(it.itemId != this.selectedItemId) changeFragment(NotificationFragment())
+                    R.id.icon_info -> if(it.itemId != this.selectedItemId) changeFragment(InfoFragment())
                 }
                 true
             }
         }
     }
 
-    private fun changeFragmentWithAnim(fragment: Fragment) {
+    private fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.container, fragment)
             commit()

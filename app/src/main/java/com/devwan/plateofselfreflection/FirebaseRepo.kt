@@ -9,7 +9,10 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -319,22 +322,18 @@ class FirebaseRepo {
         }
     }
 
-    suspend fun getNewCommentList() : List<DocumentSnapshot>{
-        var newCommentList : MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
-
-        coroutineScope {
-            db.collection("plate").whereEqualTo("uid", uid).whereEqualTo("notice", true).get().addOnSuccessListener { plates ->
-                plates.forEach { plate ->
-                    db.collection("plate").document(plate.id).collection("comments").whereEqualTo("notice", true).get().addOnSuccessListener { comments ->
-                        comments.forEach { comment ->
-                            newCommentList.add(comment)
+    suspend fun getNewCommentList(newCommentList : MutableLiveData<QuerySnapshot>) {
+        coroutineScope{
+            db.collection("plate").whereEqualTo("uid", uid).whereEqualTo("notice", true).get()
+                .addOnSuccessListener { plates ->
+                    plates.forEach { plate ->
+                        db.collection("plate").document(plate.id).collection("comments")
+                            .whereEqualTo("notice", true).get().addOnSuccessListener { comments ->
+                            newCommentList.value = comments
                         }
                     }
                 }
-            }
         }.await()
-
-        return newCommentList.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
     }
 
     suspend fun deleteMyComment(plateId : String, commentId : String){

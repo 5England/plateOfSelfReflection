@@ -16,6 +16,11 @@
         android:icon="@drawable/icon_menu_myplate"
         android:title="나의 반성" />
     <item
+        android:id="@+id/icon_notification"
+        android:enabled="true"
+        android:icon="@drawable/icon_menu_notification"
+        android:title="알림" />
+    <item
         android:id="@+id/icon_info"
         android:enabled="true"
         android:icon="@drawable/icon_menu_info"
