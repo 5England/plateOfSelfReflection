@@ -281,17 +281,23 @@ class FirebaseRepo {
         val plateDocument = db.collection("plate").document(snapshotId)
 
         coroutineScope {
-            db.collection("profile").document(uid).get().addOnSuccessListener { myProfileSnapshot ->
-                val newComment = hashMapOf(
-                    "uid" to uid,
-                    "nickName" to myProfileSnapshot["nickName"] as String,
-                    "comment" to comment,
-                    "uploadTime" to commentUploadTime
-                )
-                plateDocument.collection("comments").add(newComment)
+            plateDocument.get().addOnSuccessListener { it ->
+                 val isMyPlate : Boolean = when(it["uid"] as String){
+                    uid -> true
+                    else -> false
+                }
 
-                plateDocument.get().addOnSuccessListener {
-                    if(uid != it["uid"] as String){
+                db.collection("profile").document(uid).get().addOnSuccessListener { myProfileSnapshot ->
+                    val newComment = hashMapOf(
+                        "uid" to uid,
+                        "nickName" to myProfileSnapshot["nickName"] as String,
+                        "comment" to comment,
+                        "uploadTime" to commentUploadTime,
+                        "plateId" to snapshotId,
+                        "notice" to !isMyPlate
+                    )
+                    plateDocument.collection("comments").add(newComment)
+                    if(!isMyPlate){
                         plateDocument.update("notice", true)
                     }
                 }
@@ -304,8 +310,31 @@ class FirebaseRepo {
         plateDocument.get().addOnSuccessListener {
             if(uid == it["uid"] as String){
                 plateDocument.update("notice", false)
+                plateDocument.collection("comments").whereEqualTo("notice", true).get().addOnSuccessListener { documents ->
+                    documents.forEach { document ->
+                        plateDocument.collection("comments").document(document.id).update("notice", false)
+                    }
+                }
             }
         }
+    }
+
+    suspend fun getNewCommentList() : List<DocumentSnapshot>{
+        var newCommentList : MutableList<DocumentSnapshot> = mutableListOf<DocumentSnapshot>()
+
+        coroutineScope {
+            db.collection("plate").whereEqualTo("uid", uid).whereEqualTo("notice", true).get().addOnSuccessListener { plates ->
+                plates.forEach { plate ->
+                    db.collection("plate").document(plate.id).collection("comments").whereEqualTo("notice", true).get().addOnSuccessListener { comments ->
+                        comments.forEach { comment ->
+                            newCommentList.add(comment)
+                        }
+                    }
+                }
+            }
+        }.await()
+
+        return newCommentList.sortedBy { (it["uploadTime"] as Timestamp).toDate() }
     }
 
     suspend fun deleteMyComment(plateId : String, commentId : String){
