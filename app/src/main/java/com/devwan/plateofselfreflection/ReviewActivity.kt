@@ -2,6 +2,7 @@ package com.devwan.plateofselfreflection
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.devwan.plateofselfreflection.databinding.ActivityReviewBinding
 import com.google.android.play.core.review.ReviewManagerFactory
 
@@ -40,7 +41,7 @@ class ReviewActivity : AppCompatActivity() {
                         // matter the result, we continue our app flow.
                     }
                 } else {
-                    // There was some problem, log or handle the error code.
+                    Toast.makeText(this, "정상 처리되지 않았습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
