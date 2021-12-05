@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_plateactivity_background"
+    android:background="@color/brown1"
     android:orientation="vertical"
     tools:context=".ReviewActivity">
 
@@ -106,7 +106,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="300dp"
-            app:srcCompat="@drawable/image_reviewactivity"
+            app:srcCompat="@drawable/image_inappreview"
             android:scaleType="fitCenter"/>
 
         <TextView
