@@ -17,6 +17,11 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_menu_myplate"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

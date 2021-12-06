@@ -23,6 +23,7 @@
             app:srcCompat="@drawable/icon_btn_finishactivity" />
 
         <TextView
+            android:id="@+id/textView_searchTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"

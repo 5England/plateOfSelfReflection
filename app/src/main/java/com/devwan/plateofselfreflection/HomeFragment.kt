@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateViewModelFactory
@@ -23,8 +23,7 @@ class HomeFragment : Fragment() {
     private lateinit var mContext: Context
     private lateinit var motivationList : QuerySnapshot
     private var motivationIndex : Int = 0
-    private var _binding : FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding : FragmentHomeBinding
 
     private val homeViewModel : HomeViewModel by viewModels(
         factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
@@ -39,13 +38,17 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         initBtnSearchPlate()
+
+        initBtnAllCategoryPlate()
 
         initBtnRefreshMotivation()
 
         initMotivationList()
+
+        initBtnHomeNavigation()
 
         return binding.root
     }
@@ -53,21 +56,44 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.myStateSnapshot.observe(viewLifecycleOwner){
-            binding.apply {
-                nickName.text = it["nickName"].toString()
-                textViewMyAllPlateNum.text = it["allPlateNum"].toString()
-                textViewMyOvercomePlateNum.text = it["overcomePlateNum"].toString()
-                textViewMyStartDate.text = Plate.getStartTimeText((it["startTime"] as Timestamp).toDate())
-                textViewPlateComment.text = Plate.getPlateComment((it["allPlateNum"] as Long).toInt())
-                setProgressBar(cpbMyCircleBar ,it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
-            }
+            initMyStateView(it)
         }
         homeViewModel.allStateSnapshot.observe(viewLifecycleOwner){
-            binding.apply {
-                textViewAllPlateNum.text = it["allPlateNum"].toString()
-                textViewOvercomePlateNum.text = it["overcomePlateNum"].toString()
-                setProgressBar(cpbAllCircleBar, it["allPlateNum"] as Long, it["overcomePlateNum"] as Long)
-            }
+            initAllStateView(it)
+        }
+    }
+
+    private fun initMyStateView(snapshot : DocumentSnapshot){
+        binding.apply {
+            nickName.text = "안녕하세요. " + snapshot["nickName"].toString() + "님!"
+            textViewMyAllPlateNum.text = snapshot["allPlateNum"].toString()
+            textViewMyOvercomePlateNum.text = snapshot["overcomePlateNum"].toString()
+            textViewMyStartDate.text = Plate.getStartTimeText((snapshot["startTime"] as Timestamp).toDate())
+            textViewPlateComment.text = Plate.getHelloComment((snapshot["allPlateNum"] as Long).toInt())
+            setProgressBar(cpbMyCircleBar ,snapshot["allPlateNum"] as Long, snapshot["overcomePlateNum"] as Long)
+        }
+    }
+
+    private fun initAllStateView(snapshot : DocumentSnapshot){
+        binding.apply {
+            textViewAllPlateNum.text = snapshot["allPlateNum"].toString()
+            textViewOvercomePlateNum.text = snapshot["overcomePlateNum"].toString()
+            setProgressBar(cpbAllCircleBar, snapshot["allPlateNum"] as Long, snapshot["overcomePlateNum"] as Long)
+        }
+    }
+
+    private fun initBtnHomeNavigation(){
+        binding.btnSwitchAllPlateFragment.setOnClickListener {
+            (activity as MainActivity).changeAllPlateFragment()
+        }
+
+        binding.btnSwitchNotificationFragment.setOnClickListener {
+            (activity as MainActivity).changeNotificationFragment()
+        }
+
+        binding.btnWritePlate.setOnClickListener {
+            val intent = Intent(mContext, SelectPlateCategoryActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -83,6 +109,35 @@ class HomeFragment : Fragment() {
                     Toast.makeText(mContext, "키워드를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun initBtnAllCategoryPlate(){
+        binding.apply {
+            initBtnCategoryPlate(btnCategoryWork)
+            initBtnCategoryPlate(btnCategoryLife)
+            initBtnCategoryPlate(btnCategoryHabit)
+            initBtnCategoryPlate(btnCategoryHealth)
+            initBtnCategoryPlate(btnCategorySpend)
+        }
+    }
+
+    private fun initBtnCategoryPlate(btnCategory : LinearLayout){
+        var category : String = ""
+
+        when(btnCategory.id){
+            R.id.btn_category_work -> category = "업무"
+            R.id.btn_category_life -> category = "라이프"
+            R.id.btn_category_habit -> category = "습관"
+            R.id.btn_category_health -> category = "건강"
+            R.id.btn_category_spend -> category = "소비"
+        }
+
+        btnCategory.setOnClickListener{
+            val intent = Intent(mContext, SearchPlateActivity::class.java)
+                .putExtra("keyword", category)
+                .putExtra("isCategory", true)
+            startActivity(intent)
         }
     }
 

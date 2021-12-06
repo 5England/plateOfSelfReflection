@@ -30,7 +30,7 @@ class AllPlateFragment : Fragment(){
     }
 
     private val allPlateViewModel : AllPlateViewModel by viewModels(
-            factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
+        factoryProducer = { SavedStateViewModelFactory(activity?.application, this) }
     )
 
     override fun onCreateView(
@@ -57,6 +57,11 @@ class AllPlateFragment : Fragment(){
         allPlateViewModel.plate.observe(viewLifecycleOwner){
             (binding.recyclerViewAllPlate.adapter as AllPlateAdapter).setData(it, isTimeListType)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun getActivityResultLauncher() : ActivityResultLauncher<Intent>{
@@ -100,7 +105,7 @@ class AllPlateFragment : Fragment(){
 
     private fun initBtnLaunchUploadPlateActivity(){
         binding.btnCreateUploadActivity.setOnClickListener {
-            val intent = Intent(mContext, UploadPlateActivity::class.java)
+            val intent = Intent(mContext, SelectPlateCategoryActivity::class.java)
             getResult.launch(intent)
         }
     }

@@ -1,18 +1,12 @@
 package com.devwan.plateofselfreflection
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devwan.plateofselfreflection.databinding.ActivityMainBinding
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), OnAuthServiceListener{
@@ -64,24 +58,33 @@ class MainActivity : AppCompatActivity(), OnAuthServiceListener{
 
     private fun initNavigationBar() {
         binding.bottomNavigationView.run {
+            selectedItemId = R.id.icon_home
+            changeFragment(HomeFragment())
             setOnItemSelectedListener {
                 when (it.itemId) {
-                    R.id.icon_home -> changeFragmentWithAnim(HomeFragment())
-                    R.id.icon_feed -> changeFragmentWithAnim(AllPlateFragment())
-                    R.id.icon_myFeed -> changeFragmentWithAnim(MyPlateFragment())
-                    R.id.icon_info -> changeFragmentWithAnim(InfoFragment())
+                    R.id.icon_home -> if(it.itemId != this.selectedItemId) changeFragment(HomeFragment())
+                    R.id.icon_feed -> if(it.itemId != this.selectedItemId) changeFragment(AllPlateFragment())
+                    R.id.icon_myFeed -> if(it.itemId != this.selectedItemId) changeFragment(MyPlateFragment())
+                    R.id.icon_notification -> if(it.itemId != this.selectedItemId) changeFragment(NotificationFragment())
+                    R.id.icon_info -> if(it.itemId != this.selectedItemId) changeFragment(InfoFragment())
                 }
                 true
             }
-            selectedItemId = R.id.icon_home
         }
     }
 
-    private fun changeFragmentWithAnim(fragment: Fragment) {
+    private fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(R.anim.enter_from_down, R.anim.exit_to_down)
             replace(R.id.container, fragment)
             commit()
         }
+    }
+
+    fun changeAllPlateFragment(){
+        binding.bottomNavigationView.selectedItemId = R.id.icon_feed
+    }
+
+    fun changeNotificationFragment(){
+        binding.bottomNavigationView.selectedItemId = R.id.icon_notification
     }
 }

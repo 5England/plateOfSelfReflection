@@ -20,20 +20,26 @@ class SearchPlateActivity : AppCompatActivity() {
         binding = ActivitySearchPlateBinding.inflate(layoutInflater)
 
         val keyword: String = intent.getStringExtra("keyword").toString()
+        val isCategory: Boolean = intent.getBooleanExtra("isCategory", false)
 
-        initRecyclerView(keyword)
+        initRecyclerView(keyword, isCategory)
 
         initBtnFinishActivity()
     }
 
-    private fun initRecyclerView(keyword : String){
+    private fun initRecyclerView(keyword : String, isCategory : Boolean){
         GlobalScope.launch(Dispatchers.Main) {
-            var searchPlateList : List<DocumentSnapshot> = firebaseRepo.getSearchPlateList(keyword)
-            if(searchPlateList.isNotEmpty()){
+            val resultPlateList : List<DocumentSnapshot> = if(isCategory){
+                firebaseRepo.getCategoryPlateList(keyword)
+            }else{
+                firebaseRepo.getSearchPlateList(keyword)
+            }
+
+            if(resultPlateList.isNotEmpty()){
                 binding.recyclerViewSearchPlate.apply {
                     layoutManager = LinearLayoutManager(baseContext)
-                    adapter = SearchPlateAdapter(baseContext, emptyList())
-                    (adapter as SearchPlateAdapter).setData(searchPlateList)
+                    adapter = PlateAdapter(baseContext, emptyList())
+                    (adapter as PlateAdapter).setData(resultPlateList)
                 }
             }else{
                 binding.apply {

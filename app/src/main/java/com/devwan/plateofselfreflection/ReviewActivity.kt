@@ -1,8 +1,11 @@
 package com.devwan.plateofselfreflection
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.devwan.plateofselfreflection.databinding.ActivityReviewBinding
+
 
 class ReviewActivity : AppCompatActivity() {
 
@@ -15,7 +18,7 @@ class ReviewActivity : AppCompatActivity() {
 
         initBtnFinishActivity()
 
-        //initBtnReview()
+        initBtnReview()
     }
 
     private fun initBtnFinishActivity(){
@@ -26,7 +29,9 @@ class ReviewActivity : AppCompatActivity() {
 
     private fun initBtnReview(){
         binding.btnReview.setOnClickListener {
-            //다음 업데이트 버전에서 구현 (In-App Review)
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.devwan.plateofselfreflection")
+            startActivity(intent)
         }
     }
 }

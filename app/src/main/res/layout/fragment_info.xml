@@ -10,17 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@color/brown1"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_gravity="center"
-        android:paddingTop="15dp"
+        android:paddingTop="10dp"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingBottom="10dp">
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_menu_info"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="INFO"
             android:fontFamily="@font/spo_bold"
             android:textColor="@color/brown4"
@@ -58,7 +63,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="닉네임 변경"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -85,7 +90,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="메세지 전달"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -112,7 +117,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="로그아웃"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
     </LinearLayout>
@@ -145,7 +150,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="구글 계정 전환"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -172,7 +177,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/spo_regular"
                 android:text="회원 탈퇴"
-                android:textColor="@color/brown4"
+                android:textColor="#454545"
                 android:textSize="15dp" />
         </LinearLayout>
 

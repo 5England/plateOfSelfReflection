@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devwan.plateofselfreflection.databinding.FragmentMyPlateBinding
 import com.dinuscxj.progressbar.CircleProgressBar
+import com.google.firebase.firestore.DocumentSnapshot
+import org.w3c.dom.Document
 
-class MyPlateFragment : Fragment() {
+class MyPlateFragment : Fragment(){
 
     private lateinit var mContext : Context
     private var _binding : FragmentMyPlateBinding? = null
@@ -39,19 +41,28 @@ class MyPlateFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPlateViewModel.plate.observe(viewLifecycleOwner){
             (binding.recyclerViewMyPlate.adapter as MyPlateAdapter).setData(it)
         }
         myPlateViewModel.myStateSnapshot.observe(viewLifecycleOwner){
-            binding.apply {
-                textViewMyAllPlateNum.text = it["allPlateNum"].toString()
-                textViewMyOvercomePlateNum.text = it["overcomePlateNum"].toString()
-                if((it["allPlateNum"] as Long).toInt() == 0){
-                    recyclerViewMyPlate.visibility = View.GONE
-                    textViewEmptyListComment.visibility = View.VISIBLE
-                }
+            refreshMyStateView(it)
+        }
+    }
+
+    private fun refreshMyStateView(snapshot : DocumentSnapshot){
+        binding.apply {
+            textViewMyAllPlateNum.text = snapshot["allPlateNum"].toString()
+            textViewMyOvercomePlateNum.text = snapshot["overcomePlateNum"].toString()
+            if((snapshot["allPlateNum"] as Long).toInt() == 0){
+                recyclerViewMyPlate.visibility = View.GONE
+                textViewEmptyListComment.visibility = View.VISIBLE
             }
         }
     }
@@ -59,13 +70,7 @@ class MyPlateFragment : Fragment() {
     private fun initRecyclerView(){
         binding.recyclerViewMyPlate.apply {
             layoutManager = LinearLayoutManager(activity?.application)
-            adapter = MyPlateAdapter(mContext, emptyList(),
-                onClickIsOvercome = {
-                    myPlateViewModel.checkIsOvercome(it)
-                },
-                onClickDelete = {
-                    myPlateViewModel.deletePlate(it)
-                })
+            adapter = MyPlateAdapter(mContext, emptyList(), myPlateViewModel)
         }
     }
 }
