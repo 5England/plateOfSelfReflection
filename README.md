@@ -1,6 +1,6 @@
 ## 반성 식탁
 
-![](https://images.velog.io/images/dongwan999/post/7d6640f2-d2d8-4aa3-b389-173a440923bd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-11-18%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.53.41.png)
+![](https://images.velog.io/images/dongwan999/post/74a2b6f5-224a-431e-a001-5ecdef0ac08b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-12-05%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%205.10.19.png)
 
 평소 반성에 대한 개선을 미루고 계신가요?
 
@@ -13,5 +13,7 @@
 ---
 
 [반성 식탁 - 플레이스토어 링크](https://play.google.com/store/apps/details?id=com.devwan.plateofselfreflection)
+
+[노션 - 김동완 포트폴리오](https://splashy-practice-0c0.notion.site/4ff7b9bde36c457ca360cc7db94426b2)
 
 [프로젝트 진행 후기 (개인 블로그)](https://velog.io/@dongwan999/series/%EB%B0%98%EC%84%B1-%EC%8B%9D%ED%83%81)
