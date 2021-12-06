@@ -1,9 +1,11 @@
 package com.devwan.plateofselfreflection
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.devwan.plateofselfreflection.databinding.ActivityReviewBinding
-import com.google.android.play.core.review.ReviewManagerFactory
+
 
 class ReviewActivity : AppCompatActivity() {
 
@@ -27,22 +29,9 @@ class ReviewActivity : AppCompatActivity() {
 
     private fun initBtnReview(){
         binding.btnReview.setOnClickListener {
-            val manager = ReviewManagerFactory.create(this)
-            val request = manager.requestReviewFlow()
-            request.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // We got the ReviewInfo object
-                    val reviewInfo = task.result
-                    val flow = manager.launchReviewFlow(this, reviewInfo)
-                    flow.addOnCompleteListener { _ ->
-                        // The flow has finished. The API does not indicate whether the user
-                        // reviewed or not, or even whether the review dialog was shown. Thus, no
-                        // matter the result, we continue our app flow.
-                    }
-                } else {
-                    // There was some problem, log or handle the error code.
-                }
-            }
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.devwan.plateofselfreflection")
+            startActivity(intent)
         }
     }
 }
