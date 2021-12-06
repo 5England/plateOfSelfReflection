@@ -210,8 +210,7 @@ class PlateActivity : AppCompatActivity() {
                         val manager: InputMethodManager =
                             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                         manager.hideSoftInputFromWindow(
-                            currentFocus!!.windowToken,
-                            InputMethodManager.HIDE_NOT_ALWAYS
+                            editTextComment.windowToken, 0
                         )
 
                         scrollView.fullScroll(ScrollView.FOCUS_DOWN)
